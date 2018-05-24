@@ -1,0 +1,1 @@
+CREATE TABLE `Cycle`. ( `ride_id` INT NOT NULL , `latitude` INT NOT NULL , `longitude` INT NOT NULL , `source` INT NOT NULL , `destination` INT NOT NULL ) ENGINE = InnoDB;
