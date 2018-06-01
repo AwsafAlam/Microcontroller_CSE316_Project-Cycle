@@ -1,0 +1,618 @@
+
+GPS_UART.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         00000422  00000000  00000000  00000094  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000028  00800060  00000422  000004b6  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .bss          000000fd  00800088  00800088  000004de  2**0
+                  ALLOC
+  3 .comment      00000030  00000000  00000000  000004de  2**0
+                  CONTENTS, READONLY
+  4 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  00000510  2**2
+                  CONTENTS, READONLY
+  5 .debug_aranges 000000b8  00000000  00000000  0000054c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_info   00001050  00000000  00000000  00000604  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_abbrev 0000075d  00000000  00000000  00001654  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_line   00000794  00000000  00000000  00001db1  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_frame  0000023c  00000000  00000000  00002548  2**2
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_str    000005a4  00000000  00000000  00002784  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_loc    00000a2e  00000000  00000000  00002d28  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 12 .debug_ranges 000000a8  00000000  00000000  00003756  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 2a 00 	jmp	0x54	; 0x54 <__ctors_end>
+   4:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+   8:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+   c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  10:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  14:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  18:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  1c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  20:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  24:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  28:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  2c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  30:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  34:	0c 94 27 01 	jmp	0x24e	; 0x24e <__vector_13>
+  38:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  3c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  40:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  44:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  48:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  4c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  50:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+
+00000054 <__ctors_end>:
+  54:	11 24       	eor	r1, r1
+  56:	1f be       	out	0x3f, r1	; 63
+  58:	cf e5       	ldi	r28, 0x5F	; 95
+  5a:	d8 e0       	ldi	r29, 0x08	; 8
+  5c:	de bf       	out	0x3e, r29	; 62
+  5e:	cd bf       	out	0x3d, r28	; 61
+
+00000060 <__do_copy_data>:
+  60:	10 e0       	ldi	r17, 0x00	; 0
+  62:	a0 e6       	ldi	r26, 0x60	; 96
+  64:	b0 e0       	ldi	r27, 0x00	; 0
+  66:	e2 e2       	ldi	r30, 0x22	; 34
+  68:	f4 e0       	ldi	r31, 0x04	; 4
+  6a:	02 c0       	rjmp	.+4      	; 0x70 <__do_copy_data+0x10>
+  6c:	05 90       	lpm	r0, Z+
+  6e:	0d 92       	st	X+, r0
+  70:	a8 38       	cpi	r26, 0x88	; 136
+  72:	b1 07       	cpc	r27, r17
+  74:	d9 f7       	brne	.-10     	; 0x6c <__do_copy_data+0xc>
+
+00000076 <__do_clear_bss>:
+  76:	21 e0       	ldi	r18, 0x01	; 1
+  78:	a8 e8       	ldi	r26, 0x88	; 136
+  7a:	b0 e0       	ldi	r27, 0x00	; 0
+  7c:	01 c0       	rjmp	.+2      	; 0x80 <.do_clear_bss_start>
+
+0000007e <.do_clear_bss_loop>:
+  7e:	1d 92       	st	X+, r1
+
+00000080 <.do_clear_bss_start>:
+  80:	a5 38       	cpi	r26, 0x85	; 133
+  82:	b2 07       	cpc	r27, r18
+  84:	e1 f7       	brne	.-8      	; 0x7e <.do_clear_bss_loop>
+  86:	0e 94 e6 00 	call	0x1cc	; 0x1cc <main>
+  8a:	0c 94 0f 02 	jmp	0x41e	; 0x41e <_exit>
+
+0000008e <__bad_interrupt>:
+  8e:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+00000092 <Show>:
+	}
+	
+	Longitude_Buffer[long_index++] = GGA_Buffer[index++];
+	Longitude_Buffer[long_index]   = GGA_Buffer[index]; /* get direction */
+	convert_to_degrees(Longitude_Buffer);
+	sei();
+  92:	95 9a       	sbi	0x12, 5	; 18
+  94:	00 00       	nop
+  96:	00 00       	nop
+  98:	82 b3       	in	r24, 0x12	; 18
+  9a:	80 7c       	andi	r24, 0xC0	; 192
+  9c:	82 bb       	out	0x12, r24	; 18
+  9e:	08 95       	ret
+
+000000a0 <CheckBusy>:
+  a0:	17 ba       	out	0x17, r1	; 23
+  a2:	97 9a       	sbi	0x12, 7	; 18
+  a4:	82 b3       	in	r24, 0x12	; 18
+  a6:	88 7f       	andi	r24, 0xF8	; 248
+  a8:	82 bb       	out	0x12, r24	; 18
+  aa:	c7 9b       	sbis	0x18, 7	; 24
+  ac:	04 c0       	rjmp	.+8      	; 0xb6 <CheckBusy+0x16>
+  ae:	0e 94 49 00 	call	0x92	; 0x92 <Show>
+  b2:	c7 99       	sbic	0x18, 7	; 24
+  b4:	fc cf       	rjmp	.-8      	; 0xae <CheckBusy+0xe>
+  b6:	8f ef       	ldi	r24, 0xFF	; 255
+  b8:	87 bb       	out	0x17, r24	; 23
+  ba:	08 95       	ret
+
+000000bc <SendCommand>:
+  bc:	cf 93       	push	r28
+  be:	c8 2f       	mov	r28, r24
+  c0:	0e 94 50 00 	call	0xa0	; 0xa0 <CheckBusy>
+  c4:	c8 bb       	out	0x18, r28	; 24
+  c6:	82 b3       	in	r24, 0x12	; 18
+  c8:	8b 77       	andi	r24, 0x7B	; 123
+  ca:	82 bb       	out	0x12, r24	; 18
+  cc:	0e 94 49 00 	call	0x92	; 0x92 <Show>
+  d0:	18 ba       	out	0x18, r1	; 24
+  d2:	cf 91       	pop	r28
+  d4:	08 95       	ret
+
+000000d6 <LCD_init>:
+  d6:	81 b3       	in	r24, 0x11	; 17
+  d8:	84 6a       	ori	r24, 0xA4	; 164
+  da:	81 bb       	out	0x11, r24	; 17
+  dc:	8f e2       	ldi	r24, 0x2F	; 47
+  de:	95 e7       	ldi	r25, 0x75	; 117
+  e0:	01 97       	sbiw	r24, 0x01	; 1
+  e2:	f1 f7       	brne	.-4      	; 0xe0 <LCD_init+0xa>
+  e4:	00 c0       	rjmp	.+0      	; 0xe6 <LCD_init+0x10>
+  e6:	00 00       	nop
+  e8:	81 e0       	ldi	r24, 0x01	; 1
+  ea:	0e 94 5e 00 	call	0xbc	; 0xbc <SendCommand>
+  ee:	9f e7       	ldi	r25, 0x7F	; 127
+  f0:	28 e3       	ldi	r18, 0x38	; 56
+  f2:	81 e0       	ldi	r24, 0x01	; 1
+  f4:	91 50       	subi	r25, 0x01	; 1
+  f6:	20 40       	sbci	r18, 0x00	; 0
+  f8:	80 40       	sbci	r24, 0x00	; 0
+  fa:	e1 f7       	brne	.-8      	; 0xf4 <LCD_init+0x1e>
+  fc:	00 c0       	rjmp	.+0      	; 0xfe <LCD_init+0x28>
+  fe:	00 00       	nop
+ 100:	88 e3       	ldi	r24, 0x38	; 56
+ 102:	0e 94 5e 00 	call	0xbc	; 0xbc <SendCommand>
+ 106:	9f e7       	ldi	r25, 0x7F	; 127
+ 108:	28 e3       	ldi	r18, 0x38	; 56
+ 10a:	81 e0       	ldi	r24, 0x01	; 1
+ 10c:	91 50       	subi	r25, 0x01	; 1
+ 10e:	20 40       	sbci	r18, 0x00	; 0
+ 110:	80 40       	sbci	r24, 0x00	; 0
+ 112:	e1 f7       	brne	.-8      	; 0x10c <LCD_init+0x36>
+ 114:	00 c0       	rjmp	.+0      	; 0x116 <LCD_init+0x40>
+ 116:	00 00       	nop
+ 118:	8f e0       	ldi	r24, 0x0F	; 15
+ 11a:	0e 94 5e 00 	call	0xbc	; 0xbc <SendCommand>
+ 11e:	9f e7       	ldi	r25, 0x7F	; 127
+ 120:	28 e3       	ldi	r18, 0x38	; 56
+ 122:	81 e0       	ldi	r24, 0x01	; 1
+ 124:	91 50       	subi	r25, 0x01	; 1
+ 126:	20 40       	sbci	r18, 0x00	; 0
+ 128:	80 40       	sbci	r24, 0x00	; 0
+ 12a:	e1 f7       	brne	.-8      	; 0x124 <LCD_init+0x4e>
+ 12c:	00 c0       	rjmp	.+0      	; 0x12e <LCD_init+0x58>
+ 12e:	00 00       	nop
+ 130:	08 95       	ret
+
+00000132 <SendCharacter>:
+ 132:	cf 93       	push	r28
+ 134:	c8 2f       	mov	r28, r24
+ 136:	0e 94 50 00 	call	0xa0	; 0xa0 <CheckBusy>
+ 13a:	c8 bb       	out	0x18, r28	; 24
+ 13c:	97 98       	cbi	0x12, 7	; 18
+ 13e:	92 9a       	sbi	0x12, 2	; 18
+ 140:	0e 94 49 00 	call	0x92	; 0x92 <Show>
+ 144:	18 ba       	out	0x18, r1	; 24
+ 146:	cf 91       	pop	r28
+ 148:	08 95       	ret
+
+0000014a <SendString>:
+ 14a:	cf 93       	push	r28
+ 14c:	df 93       	push	r29
+ 14e:	ec 01       	movw	r28, r24
+ 150:	88 81       	ld	r24, Y
+ 152:	88 23       	and	r24, r24
+ 154:	31 f0       	breq	.+12     	; 0x162 <SendString+0x18>
+ 156:	21 96       	adiw	r28, 0x01	; 1
+ 158:	0e 94 99 00 	call	0x132	; 0x132 <SendCharacter>
+ 15c:	89 91       	ld	r24, Y+
+ 15e:	81 11       	cpse	r24, r1
+ 160:	fb cf       	rjmp	.-10     	; 0x158 <SendString+0xe>
+ 162:	df 91       	pop	r29
+ 164:	cf 91       	pop	r28
+ 166:	08 95       	ret
+
+00000168 <USART_Init>:
+ 168:	2a b1       	in	r18, 0x0a	; 10
+ 16a:	28 69       	ori	r18, 0x98	; 152
+ 16c:	2a b9       	out	0x0a, r18	; 10
+ 16e:	20 b5       	in	r18, 0x20	; 32
+ 170:	26 68       	ori	r18, 0x86	; 134
+ 172:	20 bd       	out	0x20, r18	; 32
+ 174:	dc 01       	movw	r26, r24
+ 176:	cb 01       	movw	r24, r22
+ 178:	88 0f       	add	r24, r24
+ 17a:	99 1f       	adc	r25, r25
+ 17c:	aa 1f       	adc	r26, r26
+ 17e:	bb 1f       	adc	r27, r27
+ 180:	88 0f       	add	r24, r24
+ 182:	99 1f       	adc	r25, r25
+ 184:	aa 1f       	adc	r26, r26
+ 186:	bb 1f       	adc	r27, r27
+ 188:	9c 01       	movw	r18, r24
+ 18a:	ad 01       	movw	r20, r26
+ 18c:	22 0f       	add	r18, r18
+ 18e:	33 1f       	adc	r19, r19
+ 190:	44 1f       	adc	r20, r20
+ 192:	55 1f       	adc	r21, r21
+ 194:	22 0f       	add	r18, r18
+ 196:	33 1f       	adc	r19, r19
+ 198:	44 1f       	adc	r20, r20
+ 19a:	55 1f       	adc	r21, r21
+ 19c:	60 e0       	ldi	r22, 0x00	; 0
+ 19e:	72 e1       	ldi	r23, 0x12	; 18
+ 1a0:	8a e7       	ldi	r24, 0x7A	; 122
+ 1a2:	90 e0       	ldi	r25, 0x00	; 0
+ 1a4:	0e 94 ed 01 	call	0x3da	; 0x3da <__udivmodsi4>
+ 1a8:	8f ef       	ldi	r24, 0xFF	; 255
+ 1aa:	82 0f       	add	r24, r18
+ 1ac:	89 b9       	out	0x09, r24	; 9
+ 1ae:	da 01       	movw	r26, r20
+ 1b0:	c9 01       	movw	r24, r18
+ 1b2:	01 97       	sbiw	r24, 0x01	; 1
+ 1b4:	a1 09       	sbc	r26, r1
+ 1b6:	b1 09       	sbc	r27, r1
+ 1b8:	89 2f       	mov	r24, r25
+ 1ba:	9a 2f       	mov	r25, r26
+ 1bc:	ab 2f       	mov	r26, r27
+ 1be:	bb 27       	eor	r27, r27
+ 1c0:	80 bd       	out	0x20, r24	; 32
+ 1c2:	08 95       	ret
+
+000001c4 <USART_RxChar>:
+ 1c4:	5f 9b       	sbis	0x0b, 7	; 11
+ 1c6:	fe cf       	rjmp	.-4      	; 0x1c4 <USART_RxChar>
+ 1c8:	8c b1       	in	r24, 0x0c	; 12
+ 1ca:	08 95       	ret
+
+000001cc <main>:
+	
+	dtostrf(position, 6, 4, degrees_buffer);       /* convert float value into string */	
+}
+
+int main() {
+    GGA_Index=0;
+ 1cc:	10 92 56 01 	sts	0x0156, r1	; 0x800156 <GGA_Index+0x1>
+ 1d0:	10 92 55 01 	sts	0x0155, r1	; 0x800155 <GGA_Index>
+	memset(GGA_Buffer, 0, Buffer_Size);
+ 1d4:	86 e9       	ldi	r24, 0x96	; 150
+ 1d6:	eb e8       	ldi	r30, 0x8B	; 139
+ 1d8:	f0 e0       	ldi	r31, 0x00	; 0
+ 1da:	df 01       	movw	r26, r30
+ 1dc:	1d 92       	st	X+, r1
+ 1de:	8a 95       	dec	r24
+ 1e0:	e9 f7       	brne	.-6      	; 0x1dc <main+0x10>
+	memset(degrees_buffer,0,degrees_buffer_size);
+ 1e2:	84 e1       	ldi	r24, 0x14	; 20
+ 1e4:	e1 e2       	ldi	r30, 0x21	; 33
+ 1e6:	f1 e0       	ldi	r31, 0x01	; 1
+ 1e8:	df 01       	movw	r26, r30
+ 1ea:	1d 92       	st	X+, r1
+ 1ec:	8a 95       	dec	r24
+ 1ee:	e9 f7       	brne	.-6      	; 0x1ea <main+0x1e>
+	
+    LCD_init();                      /* initialize LCD16x2 */
+ 1f0:	0e 94 6b 00 	call	0xd6	; 0xd6 <LCD_init>
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 1f4:	bf ef       	ldi	r27, 0xFF	; 255
+ 1f6:	2d e3       	ldi	r18, 0x3D	; 61
+ 1f8:	89 e4       	ldi	r24, 0x49	; 73
+ 1fa:	b1 50       	subi	r27, 0x01	; 1
+ 1fc:	20 40       	sbci	r18, 0x00	; 0
+ 1fe:	80 40       	sbci	r24, 0x00	; 0
+ 200:	e1 f7       	brne	.-8      	; 0x1fa <main+0x2e>
+ 202:	00 c0       	rjmp	.+0      	; 0x204 <main+0x38>
+ 204:	00 00       	nop
+    _delay_ms(3000);                 /* wait for GPS receiver to initialize */
+    USART_Init(9600);                /* initialize USART with 9600 baud rate */
+ 206:	60 e8       	ldi	r22, 0x80	; 128
+ 208:	75 e2       	ldi	r23, 0x25	; 37
+ 20a:	80 e0       	ldi	r24, 0x00	; 0
+ 20c:	90 e0       	ldi	r25, 0x00	; 0
+ 20e:	0e 94 b4 00 	call	0x168	; 0x168 <USART_Init>
+	sei();
+ 212:	78 94       	sei
+	SendCommand(CLEAR_SCREEN);
+ 214:	81 e0       	ldi	r24, 0x01	; 1
+ 216:	0e 94 5e 00 	call	0xbc	; 0xbc <SendCommand>
+	SendCommand(0x80);
+ 21a:	80 e8       	ldi	r24, 0x80	; 128
+ 21c:	0e 94 5e 00 	call	0xbc	; 0xbc <SendCommand>
+
+	SendCharacter('$');
+ 220:	84 e2       	ldi	r24, 0x24	; 36
+ 222:	0e 94 99 00 	call	0x132	; 0x132 <SendCharacter>
+ 226:	9f ef       	ldi	r25, 0xFF	; 255
+ 228:	a1 ee       	ldi	r26, 0xE1	; 225
+ 22a:	b4 e0       	ldi	r27, 0x04	; 4
+ 22c:	91 50       	subi	r25, 0x01	; 1
+ 22e:	a0 40       	sbci	r26, 0x00	; 0
+ 230:	b0 40       	sbci	r27, 0x00	; 0
+ 232:	e1 f7       	brne	.-8      	; 0x22c <main+0x60>
+ 234:	00 c0       	rjmp	.+0      	; 0x236 <main+0x6a>
+ 236:	00 00       	nop
+	_delay_ms(200);
+	SendCommand(CLEAR_SCREEN);
+ 238:	81 e0       	ldi	r24, 0x01	; 1
+ 23a:	0e 94 5e 00 	call	0xbc	; 0xbc <SendCommand>
+	SendCommand(0x80);
+ 23e:	80 e8       	ldi	r24, 0x80	; 128
+ 240:	0e 94 5e 00 	call	0xbc	; 0xbc <SendCommand>
+		//	get_gpstime();                         /* Extract Time in UTC */
+//			SendString(Time_Buffer);
+	//		SendString(" - ");
+			
+			//LCD_String_xy(2,0,"Lat: ");
+			SendString("Lat: ");
+ 244:	89 e6       	ldi	r24, 0x69	; 105
+ 246:	90 e0       	ldi	r25, 0x00	; 0
+ 248:	0e 94 a5 00 	call	0x14a	; 0x14a <SendString>
+ 24c:	fb cf       	rjmp	.-10     	; 0x244 <main+0x78>
+
+0000024e <__vector_13>:
+}
+
+
+	
+ISR (USART_RXC_vect)
+{
+ 24e:	1f 92       	push	r1
+ 250:	0f 92       	push	r0
+ 252:	0f b6       	in	r0, 0x3f	; 63
+ 254:	0f 92       	push	r0
+ 256:	11 24       	eor	r1, r1
+ 258:	2f 93       	push	r18
+ 25a:	3f 93       	push	r19
+ 25c:	4f 93       	push	r20
+ 25e:	5f 93       	push	r21
+ 260:	6f 93       	push	r22
+ 262:	7f 93       	push	r23
+ 264:	8f 93       	push	r24
+ 266:	9f 93       	push	r25
+ 268:	af 93       	push	r26
+ 26a:	bf 93       	push	r27
+ 26c:	cf 93       	push	r28
+ 26e:	df 93       	push	r29
+ 270:	ef 93       	push	r30
+ 272:	ff 93       	push	r31
+	uint8_t oldsrg = SREG;
+ 274:	df b7       	in	r29, 0x3f	; 63
+	cli();
+ 276:	f8 94       	cli
+	char received_char = USART_RxChar();
+ 278:	0e 94 e2 00 	call	0x1c4	; 0x1c4 <USART_RxChar>
+ 27c:	c8 2f       	mov	r28, r24
+	SendCommand(0x80 + LCD_pos);
+ 27e:	80 91 89 00 	lds	r24, 0x0089	; 0x800089 <LCD_pos>
+ 282:	80 58       	subi	r24, 0x80	; 128
+ 284:	0e 94 5e 00 	call	0xbc	; 0xbc <SendCommand>
+	SendCharacter(received_char);
+ 288:	8c 2f       	mov	r24, r28
+ 28a:	0e 94 99 00 	call	0x132	; 0x132 <SendCharacter>
+	LCD_pos ++;
+ 28e:	80 91 89 00 	lds	r24, 0x0089	; 0x800089 <LCD_pos>
+ 292:	90 91 8a 00 	lds	r25, 0x008A	; 0x80008a <LCD_pos+0x1>
+ 296:	01 96       	adiw	r24, 0x01	; 1
+	
+	if(LCD_pos == 15){
+ 298:	8f 30       	cpi	r24, 0x0F	; 15
+ 29a:	91 05       	cpc	r25, r1
+ 29c:	39 f4       	brne	.+14     	; 0x2ac <__vector_13+0x5e>
+		LCD_pos = 64;
+ 29e:	80 e4       	ldi	r24, 0x40	; 64
+ 2a0:	90 e0       	ldi	r25, 0x00	; 0
+ 2a2:	90 93 8a 00 	sts	0x008A, r25	; 0x80008a <LCD_pos+0x1>
+ 2a6:	80 93 89 00 	sts	0x0089, r24	; 0x800089 <LCD_pos>
+ 2aa:	12 c0       	rjmp	.+36     	; 0x2d0 <__vector_13+0x82>
+	//	_delay_ms(500);
+	}
+	else if(LCD_pos == 79){
+ 2ac:	8f 34       	cpi	r24, 0x4F	; 79
+ 2ae:	91 05       	cpc	r25, r1
+ 2b0:	29 f0       	breq	.+10     	; 0x2bc <__vector_13+0x6e>
+	uint8_t oldsrg = SREG;
+	cli();
+	char received_char = USART_RxChar();
+	SendCommand(0x80 + LCD_pos);
+	SendCharacter(received_char);
+	LCD_pos ++;
+ 2b2:	90 93 8a 00 	sts	0x008A, r25	; 0x80008a <LCD_pos+0x1>
+ 2b6:	80 93 89 00 	sts	0x0089, r24	; 0x800089 <LCD_pos>
+ 2ba:	0a c0       	rjmp	.+20     	; 0x2d0 <__vector_13+0x82>
+	if(LCD_pos == 15){
+		LCD_pos = 64;
+	//	_delay_ms(500);
+	}
+	else if(LCD_pos == 79){
+		LCD_pos = 0;
+ 2bc:	10 92 8a 00 	sts	0x008A, r1	; 0x80008a <LCD_pos+0x1>
+ 2c0:	10 92 89 00 	sts	0x0089, r1	; 0x800089 <LCD_pos>
+		//_delay_ms(1000);
+		SendCommand(CLEAR_SCREEN);
+ 2c4:	81 e0       	ldi	r24, 0x01	; 1
+ 2c6:	0e 94 5e 00 	call	0xbc	; 0xbc <SendCommand>
+		SendCommand(0x80);
+ 2ca:	80 e8       	ldi	r24, 0x80	; 128
+ 2cc:	0e 94 5e 00 	call	0xbc	; 0xbc <SendCommand>
+	}
+	
+	
+	if(received_char =='$'){
+ 2d0:	c4 32       	cpi	r28, 0x24	; 36
+ 2d2:	19 f5       	brne	.+70     	; 0x31a <__vector_13+0xcc>
+		SendCommand(0x80);
+ 2d4:	80 e8       	ldi	r24, 0x80	; 128
+ 2d6:	0e 94 5e 00 	call	0xbc	; 0xbc <SendCommand>
+		SendString("Got Dollar");  
+ 2da:	8f e6       	ldi	r24, 0x6F	; 111
+ 2dc:	90 e0       	ldi	r25, 0x00	; 0
+ 2de:	0e 94 a5 00 	call	0x14a	; 0x14a <SendString>
+		SendCommand(0x80 + LCD_pos);
+ 2e2:	80 91 89 00 	lds	r24, 0x0089	; 0x800089 <LCD_pos>
+ 2e6:	80 58       	subi	r24, 0x80	; 128
+ 2e8:	0e 94 5e 00 	call	0xbc	; 0xbc <SendCommand>
+		SendCharacter(received_char);
+ 2ec:	84 e2       	ldi	r24, 0x24	; 36
+ 2ee:	0e 94 99 00 	call	0x132	; 0x132 <SendCharacter>
+		LCD_pos ++;
+ 2f2:	80 91 89 00 	lds	r24, 0x0089	; 0x800089 <LCD_pos>
+ 2f6:	90 91 8a 00 	lds	r25, 0x008A	; 0x80008a <LCD_pos+0x1>
+ 2fa:	01 96       	adiw	r24, 0x01	; 1
+ 2fc:	90 93 8a 00 	sts	0x008A, r25	; 0x80008a <LCD_pos+0x1>
+ 300:	80 93 89 00 	sts	0x0089, r24	; 0x800089 <LCD_pos>
+		
+		GGA_Index = 0;
+ 304:	10 92 56 01 	sts	0x0156, r1	; 0x800156 <GGA_Index+0x1>
+ 308:	10 92 55 01 	sts	0x0155, r1	; 0x800155 <GGA_Index>
+		CommaCounter = 0;
+ 30c:	10 92 54 01 	sts	0x0154, r1	; 0x800154 <CommaCounter+0x1>
+ 310:	10 92 53 01 	sts	0x0153, r1	; 0x800153 <CommaCounter>
+		IsItGGAString = false;
+ 314:	10 92 88 00 	sts	0x0088, r1	; 0x800088 <__data_end>
+ 318:	4c c0       	rjmp	.+152    	; 0x3b2 <__vector_13+0x164>
+	}
+	else if(IsItGGAString == true){                                             /* if true save GGA info. into buffer */
+ 31a:	80 91 88 00 	lds	r24, 0x0088	; 0x800088 <__data_end>
+ 31e:	88 23       	and	r24, r24
+ 320:	29 f1       	breq	.+74     	; 0x36c <__vector_13+0x11e>
+		if(received_char == ',' ) GGA_Pointers[CommaCounter++] = GGA_Index;     /* store instances of ',' in buffer */
+ 322:	cc 32       	cpi	r28, 0x2C	; 44
+ 324:	99 f4       	brne	.+38     	; 0x34c <__vector_13+0xfe>
+ 326:	80 91 53 01 	lds	r24, 0x0153	; 0x800153 <CommaCounter>
+ 32a:	90 91 54 01 	lds	r25, 0x0154	; 0x800154 <CommaCounter+0x1>
+ 32e:	9c 01       	movw	r18, r24
+ 330:	2f 5f       	subi	r18, 0xFF	; 255
+ 332:	3f 4f       	sbci	r19, 0xFF	; 255
+ 334:	30 93 54 01 	sts	0x0154, r19	; 0x800154 <CommaCounter+0x1>
+ 338:	20 93 53 01 	sts	0x0153, r18	; 0x800153 <CommaCounter>
+ 33c:	20 91 55 01 	lds	r18, 0x0155	; 0x800155 <GGA_Index>
+ 340:	30 91 56 01 	lds	r19, 0x0156	; 0x800156 <GGA_Index+0x1>
+ 344:	fc 01       	movw	r30, r24
+ 346:	e7 59       	subi	r30, 0x97	; 151
+ 348:	fe 4f       	sbci	r31, 0xFE	; 254
+ 34a:	20 83       	st	Z, r18
+		GGA_Buffer[GGA_Index++] = received_char;
+ 34c:	80 91 55 01 	lds	r24, 0x0155	; 0x800155 <GGA_Index>
+ 350:	90 91 56 01 	lds	r25, 0x0156	; 0x800156 <GGA_Index+0x1>
+ 354:	9c 01       	movw	r18, r24
+ 356:	2f 5f       	subi	r18, 0xFF	; 255
+ 358:	3f 4f       	sbci	r19, 0xFF	; 255
+ 35a:	30 93 56 01 	sts	0x0156, r19	; 0x800156 <GGA_Index+0x1>
+ 35e:	20 93 55 01 	sts	0x0155, r18	; 0x800155 <GGA_Index>
+ 362:	fc 01       	movw	r30, r24
+ 364:	e5 57       	subi	r30, 0x75	; 117
+ 366:	ff 4f       	sbci	r31, 0xFF	; 255
+ 368:	c0 83       	st	Z, r28
+ 36a:	23 c0       	rjmp	.+70     	; 0x3b2 <__vector_13+0x164>
+	}
+	else if(GGA_CODE[0] == 'G' && GGA_CODE[1] == 'G' && GGA_CODE[2] == 'A'){    /* check for GGA string */
+ 36c:	80 91 57 01 	lds	r24, 0x0157	; 0x800157 <GGA_CODE>
+ 370:	87 34       	cpi	r24, 0x47	; 71
+ 372:	c1 f4       	brne	.+48     	; 0x3a4 <__vector_13+0x156>
+ 374:	80 91 58 01 	lds	r24, 0x0158	; 0x800158 <GGA_CODE+0x1>
+ 378:	87 34       	cpi	r24, 0x47	; 71
+ 37a:	a1 f4       	brne	.+40     	; 0x3a4 <__vector_13+0x156>
+ 37c:	80 91 59 01 	lds	r24, 0x0159	; 0x800159 <GGA_CODE+0x2>
+ 380:	81 34       	cpi	r24, 0x41	; 65
+ 382:	81 f4       	brne	.+32     	; 0x3a4 <__vector_13+0x156>
+		SendCommand(0x80);
+ 384:	80 e8       	ldi	r24, 0x80	; 128
+ 386:	0e 94 5e 00 	call	0xbc	; 0xbc <SendCommand>
+		SendString(" KISU HOISEE ");
+ 38a:	8a e7       	ldi	r24, 0x7A	; 122
+ 38c:	90 e0       	ldi	r25, 0x00	; 0
+ 38e:	0e 94 a5 00 	call	0x14a	; 0x14a <SendString>
+		
+		IsItGGAString = true;
+ 392:	81 e0       	ldi	r24, 0x01	; 1
+ 394:	80 93 88 00 	sts	0x0088, r24	; 0x800088 <__data_end>
+		GGA_CODE[0] = 0; GGA_CODE[1] = 0; GGA_CODE[2] = 0;
+ 398:	e7 e5       	ldi	r30, 0x57	; 87
+ 39a:	f1 e0       	ldi	r31, 0x01	; 1
+ 39c:	10 82       	st	Z, r1
+ 39e:	11 82       	std	Z+1, r1	; 0x01
+ 3a0:	12 82       	std	Z+2, r1	; 0x02
+ 3a2:	07 c0       	rjmp	.+14     	; 0x3b2 <__vector_13+0x164>
+	}
+	else{
+		GGA_CODE[0] = GGA_CODE[1];  GGA_CODE[1] = GGA_CODE[2]; GGA_CODE[2] = received_char; 
+ 3a4:	e7 e5       	ldi	r30, 0x57	; 87
+ 3a6:	f1 e0       	ldi	r31, 0x01	; 1
+ 3a8:	81 81       	ldd	r24, Z+1	; 0x01
+ 3aa:	80 83       	st	Z, r24
+ 3ac:	82 81       	ldd	r24, Z+2	; 0x02
+ 3ae:	81 83       	std	Z+1, r24	; 0x01
+ 3b0:	c2 83       	std	Z+2, r28	; 0x02
+	}
+	SREG = oldsrg;
+ 3b2:	df bf       	out	0x3f, r29	; 63
+}
+ 3b4:	ff 91       	pop	r31
+ 3b6:	ef 91       	pop	r30
+ 3b8:	df 91       	pop	r29
+ 3ba:	cf 91       	pop	r28
+ 3bc:	bf 91       	pop	r27
+ 3be:	af 91       	pop	r26
+ 3c0:	9f 91       	pop	r25
+ 3c2:	8f 91       	pop	r24
+ 3c4:	7f 91       	pop	r23
+ 3c6:	6f 91       	pop	r22
+ 3c8:	5f 91       	pop	r21
+ 3ca:	4f 91       	pop	r20
+ 3cc:	3f 91       	pop	r19
+ 3ce:	2f 91       	pop	r18
+ 3d0:	0f 90       	pop	r0
+ 3d2:	0f be       	out	0x3f, r0	; 63
+ 3d4:	0f 90       	pop	r0
+ 3d6:	1f 90       	pop	r1
+ 3d8:	18 95       	reti
+
+000003da <__udivmodsi4>:
+ 3da:	a1 e2       	ldi	r26, 0x21	; 33
+ 3dc:	1a 2e       	mov	r1, r26
+ 3de:	aa 1b       	sub	r26, r26
+ 3e0:	bb 1b       	sub	r27, r27
+ 3e2:	fd 01       	movw	r30, r26
+ 3e4:	0d c0       	rjmp	.+26     	; 0x400 <__udivmodsi4_ep>
+
+000003e6 <__udivmodsi4_loop>:
+ 3e6:	aa 1f       	adc	r26, r26
+ 3e8:	bb 1f       	adc	r27, r27
+ 3ea:	ee 1f       	adc	r30, r30
+ 3ec:	ff 1f       	adc	r31, r31
+ 3ee:	a2 17       	cp	r26, r18
+ 3f0:	b3 07       	cpc	r27, r19
+ 3f2:	e4 07       	cpc	r30, r20
+ 3f4:	f5 07       	cpc	r31, r21
+ 3f6:	20 f0       	brcs	.+8      	; 0x400 <__udivmodsi4_ep>
+ 3f8:	a2 1b       	sub	r26, r18
+ 3fa:	b3 0b       	sbc	r27, r19
+ 3fc:	e4 0b       	sbc	r30, r20
+ 3fe:	f5 0b       	sbc	r31, r21
+
+00000400 <__udivmodsi4_ep>:
+ 400:	66 1f       	adc	r22, r22
+ 402:	77 1f       	adc	r23, r23
+ 404:	88 1f       	adc	r24, r24
+ 406:	99 1f       	adc	r25, r25
+ 408:	1a 94       	dec	r1
+ 40a:	69 f7       	brne	.-38     	; 0x3e6 <__udivmodsi4_loop>
+ 40c:	60 95       	com	r22
+ 40e:	70 95       	com	r23
+ 410:	80 95       	com	r24
+ 412:	90 95       	com	r25
+ 414:	9b 01       	movw	r18, r22
+ 416:	ac 01       	movw	r20, r24
+ 418:	bd 01       	movw	r22, r26
+ 41a:	cf 01       	movw	r24, r30
+ 41c:	08 95       	ret
+
+0000041e <_exit>:
+ 41e:	f8 94       	cli
+
+00000420 <__stop_program>:
+ 420:	ff cf       	rjmp	.-2      	; 0x420 <__stop_program>
