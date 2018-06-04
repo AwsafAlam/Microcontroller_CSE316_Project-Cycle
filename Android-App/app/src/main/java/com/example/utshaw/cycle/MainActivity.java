@@ -52,10 +52,10 @@ public class MainActivity extends AppCompatActivity {
                                     .build(),
                             RC_SIGN_IN);
                 }
+
             }
         };
     }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
