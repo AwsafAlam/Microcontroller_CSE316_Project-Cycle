@@ -4,9 +4,11 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,10 +18,16 @@ import com.google.firebase.auth.FirebaseUser;
 
 import java.util.Arrays;
 
+
+
 public class MainActivity extends AppCompatActivity {
 
+
+
+
+
     public static final int RC_SIGN_IN = 1;
-    private TextView textView;
+
     private String userAuthPhoneNumber;
 
     private FirebaseAuth mFirebaseAuth;
@@ -30,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        textView = (TextView) findViewById(R.id.txt);
+
 
         mFirebaseAuth = FirebaseAuth.getInstance();
 
@@ -55,6 +63,10 @@ public class MainActivity extends AppCompatActivity {
 
             }
         };
+
+
+
+
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -106,7 +118,11 @@ public class MainActivity extends AppCompatActivity {
 
     private void onSignedInInitalize(){
         userAuthPhoneNumber = mFirebaseAuth.getCurrentUser().getPhoneNumber().toString();
-        textView.setText(userAuthPhoneNumber);
         Toast.makeText(this, "Hello " + userAuthPhoneNumber, Toast.LENGTH_SHORT).show();
+    }
+
+
+    public void goToMap(View view) {
+        startActivity(new Intent(MainActivity.this, MapActivity.class));
     }
 }
