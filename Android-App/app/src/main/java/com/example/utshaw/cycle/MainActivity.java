@@ -23,15 +23,12 @@ import java.util.Arrays;
 public class MainActivity extends AppCompatActivity {
 
 
-
-
-
-    public static final int RC_SIGN_IN = 1;
-
-    private String userAuthPhoneNumber;
-
-    private FirebaseAuth mFirebaseAuth;
-    private FirebaseAuth.AuthStateListener mAuthStateListener;
+//    public static final int RC_SIGN_IN = 1;
+//
+//    private String userAuthPhoneNumber;
+//
+//    private FirebaseAuth mFirebaseAuth;
+//    private FirebaseAuth.AuthStateListener mAuthStateListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,31 +36,31 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-
-        mFirebaseAuth = FirebaseAuth.getInstance();
-
-        mAuthStateListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = mFirebaseAuth.getCurrentUser();
-                if(user != null){
-                    // user is signed in
-                    onSignedInInitalize();
-                }else{
-                    // user is logged out
-                    startActivityForResult(
-                            AuthUI.getInstance()
-                                    .createSignInIntentBuilder()
-                                    .setAvailableProviders(
-                                            Arrays.asList(
-                                                    new AuthUI.IdpConfig.Builder(AuthUI.PHONE_VERIFICATION_PROVIDER).build()))
-                                    .build(),
-                            RC_SIGN_IN);
-                }
-
-            }
-        };
-
+//
+//        mFirebaseAuth = FirebaseAuth.getInstance();
+//
+//        mAuthStateListener = new FirebaseAuth.AuthStateListener() {
+//            @Override
+//            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+//                FirebaseUser user = mFirebaseAuth.getCurrentUser();
+//                if(user != null){
+//                    // user is signed in
+//                    onSignedInInitalize();
+//                }else{
+//                    // user is logged out
+//                    startActivityForResult(
+//                            AuthUI.getInstance()
+//                                    .createSignInIntentBuilder()
+//                                    .setAvailableProviders(
+//                                            Arrays.asList(
+//                                                    new AuthUI.IdpConfig.Builder(AuthUI.PHONE_VERIFICATION_PROVIDER).build()))
+//                                    .build(),
+//                            RC_SIGN_IN);
+//                }
+//
+//            }
+//        };
+//
 
 
 
@@ -90,36 +87,36 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        if(mAuthStateListener != null) {
-            mFirebaseAuth.removeAuthStateListener(mAuthStateListener);
-        }
+//        if(mAuthStateListener != null) {
+//            mFirebaseAuth.removeAuthStateListener(mAuthStateListener);
+//        }
 
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == RC_SIGN_IN){
-            if(resultCode == RESULT_OK){
-                onSignedInInitalize();
-            }else{
-                Toast.makeText(this, "Cancel signing in!", Toast.LENGTH_SHORT).show();
-                finish();
-            }
-        }
-    }
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        if(requestCode == RC_SIGN_IN){
+//            if(resultCode == RESULT_OK){
+//                onSignedInInitalize();
+//            }else{
+//                Toast.makeText(this, "Cancel signing in!", Toast.LENGTH_SHORT).show();
+//                finish();
+//            }
+//        }
+//    }
 
     @Override
     protected void onResume() {
         super.onResume();
 
-        mFirebaseAuth.addAuthStateListener(mAuthStateListener);
+//        mFirebaseAuth.addAuthStateListener(mAuthStateListener);
     }
 
-    private void onSignedInInitalize(){
-        userAuthPhoneNumber = mFirebaseAuth.getCurrentUser().getPhoneNumber().toString();
-        Toast.makeText(this, "Hello " + userAuthPhoneNumber, Toast.LENGTH_SHORT).show();
-    }
+//    private void onSignedInInitalize(){
+//        userAuthPhoneNumber = mFirebaseAuth.getCurrentUser().getPhoneNumber().toString();
+//        Toast.makeText(this, "Hello " + userAuthPhoneNumber, Toast.LENGTH_SHORT).show();
+//    }
 
 
     public void goToMap(View view) {
