@@ -86,9 +86,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         });
 
 
-//        layoutBottomSheet = findViewById(R.id.bottom_sheet);
-
-//        sheetBehavior = BottomSheetBehavior.from(layoutBottomSheet);
         sheetBehavior = BottomSheetBehavior.from(findViewById(R.id.bottom_sheet));
 
         sheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
@@ -162,6 +159,11 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     private void sendtoGSM(String barcode) {
 
+//        sendSMS(barcode);
+
+    }
+
+    private void sendSMS(String barcode) {
         String phoneNumber = "+8801556358935";
         String message = "Sending Test Message : "+barcode;
 
