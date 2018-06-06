@@ -1,4 +1,4 @@
-package com.example.utshaw.cycle;
+package com.example.utshaw.cycle.Activity;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -18,6 +18,11 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.utshaw.cycle.Model.LocationInfo;
+import com.example.utshaw.cycle.Model.Response;
+import com.example.utshaw.cycle.R;
+import com.example.utshaw.cycle.Rest.ApiClient;
+import com.example.utshaw.cycle.Rest.ApiInterface;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
@@ -27,6 +32,11 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.CameraPosition;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
 
 public class MapActivity extends AppCompatActivity implements OnMapReadyCallback,
         NavigationView.OnNavigationItemSelectedListener{
@@ -39,6 +49,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private Button btn;
     private TextView textView;
 
+    private static final String TAG = MainActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,8 +65,9 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             textView.setText("No Code");
         }
         else{
-            textView.setText(barcode);
             sendtoGSM(barcode);
+            textView.setText(barcode);
+
         }
 
         mToolbar = findViewById(R.id.nav_action);
@@ -160,6 +172,27 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private void sendtoGSM(String barcode) {
 
 //        sendSMS(barcode);
+        ApiInterface apiService =
+                ApiClient.getClient().create(ApiInterface.class);
+
+        Call<Response> call = apiService.getNearbyBikes(barcode);
+        call.enqueue(new Callback<Response>() {
+            @Override
+            public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
+                List<LocationInfo> LocationObj = response.body().getResults();
+                Log.d(TAG, "Returned: " + LocationObj.size());
+                textView.setText(textView.getText() +" ->"+ LocationObj.get(0).getOverview());
+
+            }
+
+            @Override
+            public void onFailure(Call<Response> call, Throwable t) {
+                Log.e(TAG, t.toString());
+
+            }
+
+
+        });
 
     }
 
