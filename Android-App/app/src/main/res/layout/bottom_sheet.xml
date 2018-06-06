@@ -24,10 +24,11 @@
 
     <TextView
         android:layout_width="0dp"
+        android:id="@+id/barcode"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/activity_margin"
         android:layout_weight="2"
-        android:text="Order Details"
+        android:text="Bike Details"
         android:textColor="#444"
         android:textSize="18dp"
         android:textStyle="bold" />
@@ -39,25 +40,25 @@
         android:layout_weight="1"
         android:textStyle="bold"
         android:textSize="15dp"
-        android:text="₹435.00"></TextView>
+        android:text="৳ 45.00"></TextView>
 </LinearLayout>
 
 
 <TextView
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:text="Chicken Fried Rice 1x1" />
+    android:text="Rides Completed : 20" />
 
 <TextView
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:text="Paneer Tikka 1x2" />
+    android:text="Awsaf Alam" />
 
 <TextView
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/activity_margin"
-    android:text="Delivery Address"
+    android:text="Destination"
     android:textColor="#444"
     android:textStyle="bold" />
 
@@ -70,9 +71,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="30dp"
+    android:id="@+id/unlock"
     android:background="#000"
     android:foreground="?attr/selectableItemBackground"
-    android:text="PROCEED PAYMENT"
+    android:text="Scan to Unlock"
     android:textColor="#fff" />
 
 </LinearLayout>
