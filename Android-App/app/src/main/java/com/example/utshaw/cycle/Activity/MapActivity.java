@@ -62,6 +62,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private static final String TAG = MainActivity.class.getSimpleName();
     private static final float DEFAUlT_ZOOM = 15f;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
