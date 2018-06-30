@@ -30,6 +30,12 @@
         </activity>
         <activity android:name=".Activity.MapActivity" />
         <activity android:name=".Activity.ScannerActivity"></activity>
+        <activity
+            android:name=".Activity.Signup_form_one"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.Signup_form_two"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

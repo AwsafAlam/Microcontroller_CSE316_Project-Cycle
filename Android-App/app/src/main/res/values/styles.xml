@@ -8,4 +8,18 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="loginAppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorIndigo</item>
+        <item name="colorPrimaryDark">@color/colorIndigo</item>
+        <item name="colorAccent">@color/colorIndigo</item>
+    </style>
+
+    <style name="signupAppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorGrey</item>
+        <item name="colorPrimaryDark">@color/colorGrey</item>
+        <item name="colorAccent">@color/colorGrey</item>
+    </style>
+
 </resources>
