@@ -39,6 +39,23 @@
         <activity
             android:name=".Activity.MapActivity2"
             android:label="@string/title_activity_map2"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".Activity.DiscountActivity"
+            android:label="@string/title_activity_discount"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".Activity.ProfileActivity"
+            android:label="@string/title_activity_profile"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".Activity.PaymentActivity"
+            android:label="@string/title_activity_payment"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".Activity.InfoActivity" />
+        <activity
+            android:name=".Activity.SettingActivity"
+            android:label="@string/title_activity_setting"
             android:theme="@style/AppTheme"></activity>
     </application>
 

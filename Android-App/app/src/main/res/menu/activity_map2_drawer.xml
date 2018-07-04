@@ -24,7 +24,7 @@
                 android:title="Payment" />
             <item android:id="@+id/promo"
                 android:icon="@drawable/ic_adb_black_24dp"
-                android:title="Promotions" />
+                android:title="Get Discount" />
         </menu>
     </item>
 
