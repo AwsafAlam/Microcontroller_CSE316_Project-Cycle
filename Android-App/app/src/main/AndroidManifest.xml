@@ -7,8 +7,8 @@
         android:required="true" />
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.SEND_SMS"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -29,13 +29,17 @@
             </intent-filter>
         </activity>
         <activity android:name=".Activity.MapActivity" />
-        <activity android:name=".Activity.ScannerActivity"></activity>
+        <activity android:name=".Activity.ScannerActivity" />
         <activity
             android:name=".Activity.Signup_form_one"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activity.Signup_form_two"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.MapActivity2"
+            android:label="@string/title_activity_map2"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

@@ -9,13 +9,16 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.NavigationView.OnNavigationItemSelectedListener;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -48,7 +51,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 
 public class MapActivity extends AppCompatActivity implements OnMapReadyCallback,
-        NavigationView.OnNavigationItemSelectedListener {
+        OnNavigationItemSelectedListener{
 
     private GoogleMap mMap;
     private DrawerLayout mDrawerLayout;
@@ -72,8 +75,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
         textView = findViewById(R.id.barcode);
         if (TextUtils.isEmpty(barcode)) {
-            //Toast.makeText(getApplicationContext(), "Barcode is empty!", Toast.LENGTH_LONG).show();
-            //finish();
+
             textView.setText("No Code");
         } else {
             sendtoGSM(barcode);
@@ -81,28 +83,12 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
         }
 
-        mToolbar = findViewById(R.id.nav_action);
-        setSupportActionBar(mToolbar);
-
-//        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
-//        actionBar.hide();
-//        actionBar.setDisplayHomeAsUpEnabled(true);
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-
-        mDrawerLayout = findViewById(R.id.drawerlayout);
-        mToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.Open_nav, R.string.Close_nav);
-
-        mDrawerLayout.addDrawerListener(mToggle);
-        mToggle.syncState();
 
         btn = findViewById(R.id.unlock);
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Toast.makeText(this , "Clicked acc" , Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(MapActivity.this, ScannerActivity.class));
 
             }
@@ -141,8 +127,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             }
         });
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
 
         MapFragment mapFragment = (MapFragment)
                 getFragmentManager().findFragmentById(R.id.map);
@@ -176,6 +161,16 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 Log.i("Utshaw", "An error occurred: " + status);
             }
         });
+
+//        mDrawerLayout = findViewById(R.id.drawerlayout);
+//        mToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.Open_nav, R.string.Close_nav);
+
+//        mDrawerLayout.addDrawerListener(mToggle);
+//        mToggle.syncState();
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawerlayout);
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
     }
 
     private void getDeviceLocation() {
@@ -234,48 +229,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     }
 
-    private void sendSMS(String barcode) {
-        String phoneNumber = "+8801556358935";
-        String message = "Sending Test Message : " + barcode;
-
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("sms:" + phoneNumber));
-        intent.putExtra("sms_body", message);
-        startActivity(intent);
-    }
-
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        if (mToggle.onOptionsItemSelected(item)) {
-            int id = item.getItemId();
-
-            if (id == R.id.user) {
-                Toast.makeText(this, "Clicked acc", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(MapActivity.this, ScannerActivity.class));
-                return true;
-
-            } else if (id == R.id.places) {
-                return true;
-            }
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        int id = item.getItemId();
-
-        if (id == R.id.timeline) {
-            Toast.makeText(this, "Clicked timeLine---", Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(MapActivity.this, ScannerActivity.class));
-            return true;
-        }
-        return false;
-    }
-
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
@@ -283,6 +236,42 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
             return;
         }
+        getDeviceLocation();
         mMap.setMyLocationEnabled(true);
+    }
+
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawerlayout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
+
+
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+
+        if (id == R.id.user) {
+
+            Toast.makeText(this, "Camera Clicked", Toast.LENGTH_SHORT).show();
+
+            // Handle the camera action
+        }
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawerlayout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
     }
 }

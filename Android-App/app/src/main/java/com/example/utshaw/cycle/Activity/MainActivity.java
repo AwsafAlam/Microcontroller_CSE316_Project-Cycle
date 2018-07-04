@@ -105,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
                                 Toast.makeText(getApplicationContext(), "Wrong Username or Mobile No", Toast.LENGTH_SHORT).show();
                             }
                         }
-                        startActivity(new Intent(MainActivity.this, MapActivity.class));
+                        startActivity(new Intent(MainActivity.this, MapActivity2.class));
 
                     }
                 }
