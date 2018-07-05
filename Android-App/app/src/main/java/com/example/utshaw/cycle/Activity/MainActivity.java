@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -23,94 +24,168 @@ import com.google.firebase.auth.FirebaseAuth;
 
 
 public class MainActivity extends AppCompatActivity {
-
+    private ViewPager viewPager;
+    private SlideAdapter myadapter;
+    private Button Next;
+    private Button prev;
+    int mCurrentPage = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
+        if( getIntent().getBooleanExtra("Exit me", false)){
+            finish();
+        }
 
         final SharedPreferences sharedPreferences = getSharedPreferences("signUpInfo", Context.MODE_PRIVATE);
+
         String loggedIn = sharedPreferences.getString("loggedIn", "false");
 
         if(loggedIn.equals("true")){
-            Intent main_activity = new Intent(getApplicationContext(),MainActivity.class);
+            Intent main_activity = new Intent(getApplicationContext(),MapActivity2.class);
             startActivity(main_activity);
             finish();
         }
 
+        viewPager = findViewById(R.id.viewpager);
+        Next = findViewById(R.id.next);
+        prev = findViewById(R.id.prev);
 
-        final TextView goto_signup_text = (TextView) findViewById(R.id.textView_login_signup_button);
+        myadapter = new SlideAdapter(this);
+        viewPager.setAdapter(myadapter);
 
-        goto_signup_text.setOnClickListener(new View.OnClickListener() {
+        Next.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Intent signup_page = new Intent(getApplicationContext(),Signup_form_one.class);
-                startActivity(signup_page);
-                finish();
-            }
-
-        });
-
-
-
-        final TextView goto_signup_text2 = (TextView) findViewById(R.id.textView);
-
-        goto_signup_text2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent signup_page = new Intent(getApplicationContext(),Signup_form_one.class);
-                startActivity(signup_page);
-                finish();
-
-            }
-
-        });
-
-
-
-        final Button login_button = (Button) findViewById(R.id.button_signin);
-
-        final EditText login_username = (EditText) findViewById(R.id.editText_login_name);
-        final EditText login_mobile = (EditText) findViewById(R.id.editText_login_mobile);
-
-
-
-        login_button.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-
-                        String rightusername = sharedPreferences.getString("userName", "");
-                        String rightmobile = sharedPreferences.getString("userMobile", "");
-                        String given_username = login_username.getText().toString();
-                        String given_mobile = login_mobile.getText().toString();
-
-                        if(rightmobile.equals("") || rightusername.equals("")){
-                            Toast.makeText(getApplicationContext(), "No user account available. Please signup.", Toast.LENGTH_SHORT).show();
-                        }
-                        else{
-                            if(given_mobile.equals(rightmobile) && given_username.equals(rightusername)){
-                                SharedPreferences.Editor editor = sharedPreferences.edit();
+            public void onClick(View v) {
+                if(mCurrentPage == 4){
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
                                 editor.putString("loggedIn", "true");
                                 editor.apply();
-                                Intent main_activity = new Intent(getApplicationContext(),MainActivity.class);
-                                startActivity(main_activity);
-                                finish();
-                            }
-                            else{
-                                Toast.makeText(getApplicationContext(), "Wrong Username or Mobile No", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                        startActivity(new Intent(MainActivity.this, MapActivity2.class));
 
-                    }
+                    startActivity(new Intent(MainActivity.this , MapActivity2.class));
                 }
-        );
+                viewPager.setCurrentItem(mCurrentPage+1);
+                mCurrentPage++;
+            }
+        });
 
+        prev.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(mCurrentPage != 0){
+                    viewPager.setCurrentItem(mCurrentPage-1);
+                    mCurrentPage--;
+                }
+
+            }
+        });
+
+        ViewPager.OnPageChangeListener listener = new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                Toast.makeText(MainActivity.this, "Page changed "+position, Toast.LENGTH_SHORT).show();
+                mCurrentPage = position;
+                if(position == 0){
+                    prev.setText("");
+
+                }
+                else if(position==3){
+                    Next.setText("Finish");
+                }
+                else {
+                    prev.setText("Back");
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        };
+
+        viewPager.addOnPageChangeListener(listener);
+//        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+//
+//
+//
+//
+//
+//        final TextView goto_signup_text = (TextView) findViewById(R.id.textView_login_signup_button);
+//
+//        goto_signup_text.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent signup_page = new Intent(getApplicationContext(),Signup_form_one.class);
+//                startActivity(signup_page);
+//                finish();
+//            }
+//
+//        });
+//
+//
+//
+//        final TextView goto_signup_text2 = (TextView) findViewById(R.id.textView);
+//
+//        goto_signup_text2.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent signup_page = new Intent(getApplicationContext(),Signup_form_one.class);
+//                startActivity(signup_page);
+//                finish();
+//
+//            }
+//
+//        });
+//
+//
+//
+//        final Button login_button = (Button) findViewById(R.id.button_signin);
+//
+//        final EditText login_username = (EditText) findViewById(R.id.editText_login_name);
+//        final EditText login_mobile = (EditText) findViewById(R.id.editText_login_mobile);
+//
+//
+//
+//        login_button.setOnClickListener(
+//                new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//
+//                        String rightusername = sharedPreferences.getString("userName", "");
+//                        String rightmobile = sharedPreferences.getString("userMobile", "");
+//                        String given_username = login_username.getText().toString();
+//                        String given_mobile = login_mobile.getText().toString();
+//
+//                        if(rightmobile.equals("") || rightusername.equals("")){
+//                            Toast.makeText(getApplicationContext(), "No user account available. Please signup.", Toast.LENGTH_SHORT).show();
+//                        }
+//                        else{
+//                            if(given_mobile.equals(rightmobile) && given_username.equals(rightusername)){
+//                                SharedPreferences.Editor editor = sharedPreferences.edit();
+//                                editor.putString("loggedIn", "true");
+//                                editor.apply();
+//                                Intent main_activity = new Intent(getApplicationContext(),MainActivity.class);
+//                                startActivity(main_activity);
+//                                finish();
+//                            }
+//                            else{
+//                                Toast.makeText(getApplicationContext(), "Wrong Username or Mobile No", Toast.LENGTH_SHORT).show();
+//                            }
+//                        }
+//                        startActivity(new Intent(MainActivity.this, MapActivity2.class));
+//
+//                    }
+//                }
+//        );
+//
 
     }
 
@@ -147,43 +222,43 @@ public class MainActivity extends AppCompatActivity {
 //                return super.onOptionsItemSelected(item);
 //        }
 //    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-//        if(mAuthStateListener != null) {
-//            mFirebaseAuth.removeAuthStateListener(mAuthStateListener);
-//        }
-
-    }
-
+//
 //    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        if(requestCode == RC_SIGN_IN){
-//            if(resultCode == RESULT_OK){
-//                onSignedInInitalize();
-//            }else{
-//                Toast.makeText(this, "Cancel signing in!", Toast.LENGTH_SHORT).show();
-//                finish();
-//            }
-//        }
+//    protected void onPause() {
+//        super.onPause();
+////        if(mAuthStateListener != null) {
+////            mFirebaseAuth.removeAuthStateListener(mAuthStateListener);
+////        }
+//
 //    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-//        mFirebaseAuth.addAuthStateListener(mAuthStateListener);
-    }
-
-//    private void onSignedInInitalize(){
-//        userAuthPhoneNumber = mFirebaseAuth.getCurrentUser().getPhoneNumber().toString();
-//        Toast.makeText(this, "Hello " + userAuthPhoneNumber, Toast.LENGTH_SHORT).show();
+//
+////    @Override
+////    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+////        super.onActivityResult(requestCode, resultCode, data);
+////        if(requestCode == RC_SIGN_IN){
+////            if(resultCode == RESULT_OK){
+////                onSignedInInitalize();
+////            }else{
+////                Toast.makeText(this, "Cancel signing in!", Toast.LENGTH_SHORT).show();
+////                finish();
+////            }
+////        }
+////    }
+//
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//
+////        mFirebaseAuth.addAuthStateListener(mAuthStateListener);
 //    }
-
-
-//    public void goToMap(View view) {
-//        startActivity(new Intent(MainActivity.this, MapActivity.class));
-//    }
+//
+////    private void onSignedInInitalize(){
+////        userAuthPhoneNumber = mFirebaseAuth.getCurrentUser().getPhoneNumber().toString();
+////        Toast.makeText(this, "Hello " + userAuthPhoneNumber, Toast.LENGTH_SHORT).show();
+////    }
+//
+//
+////    public void goToMap(View view) {
+////        startActivity(new Intent(MainActivity.this, MapActivity.class));
+////    }
 }

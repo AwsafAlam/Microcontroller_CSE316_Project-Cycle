@@ -1,6 +1,7 @@
 package com.example.utshaw.cycle.Activity;
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -10,6 +11,7 @@ import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -124,6 +126,31 @@ public class MapActivity2 extends AppCompatActivity
 
     }
 
+    @Override
+    public void onBackPressed() {
+        AlertDialog.Builder a_builder = new AlertDialog.Builder(MapActivity2.this);
+        a_builder.setMessage("Do you want to Exit?")
+                .setCancelable(false)
+                .setPositiveButton("Yes",new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = new Intent(MapActivity2.this, MainActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        intent.putExtra("Exit me", true);
+                        startActivity(intent);
+                        finish();
+                    }
+                })
+                .setNegativeButton("No",new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                }) ;
+        AlertDialog alert = a_builder.create();
+        alert.setTitle("Exit Confirmation");
+        alert.show();
+    }
 
     private void getDeviceLocation() {
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
@@ -136,7 +163,9 @@ public class MapActivity2 extends AppCompatActivity
                     if (task.isSuccessful()) {
                         Location currentLocation = (Location) task.getResult();
 
-                        moveCamera(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()), DEFAUlT_ZOOM);
+                        LatLng current = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
+
+                        moveCamera(current, DEFAUlT_ZOOM);
 
 
                     } else {
@@ -148,7 +177,6 @@ public class MapActivity2 extends AppCompatActivity
         } catch (SecurityException e) {
 
         }
-
     }
 
     private void moveCamera(LatLng latLng, float zoom) {
@@ -167,21 +195,27 @@ public class MapActivity2 extends AppCompatActivity
 
         LatLng home = new LatLng(23.775195, 90.353864);
 
+
+
+
         final Marker mymarker = mMap.addMarker(new MarkerOptions().position(home)
                 .title("Bike 1"));
 
         LatLng work = new LatLng(23.726174, 90.388636);
 
-        mMap.addMarker(new MarkerOptions().position(home)
+        mMap.addMarker(new MarkerOptions().position(work)
                 .title("Bike v"));
 
+        final float result[] = new float[10];
+
+        Location.distanceBetween(work.latitude , work.longitude , home.latitude , home.longitude , result);
 
         mMap.setMyLocationEnabled(true);
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker marker) {
                 if(marker.equals(mymarker)){
-                    Toast.makeText(MapActivity2.this, "Marker clicked", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MapActivity2.this, "Marker clicked "+result[0], Toast.LENGTH_SHORT).show();
                     return true;
                 }
                 return false;
