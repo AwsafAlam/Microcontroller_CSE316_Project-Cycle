@@ -1,15 +1,19 @@
 package com.example.utshaw.cycle.Activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.TextView;
 
 import com.example.utshaw.cycle.R;
 
 public class PaymentActivity extends AppCompatActivity {
+
+    private TextView Recharge , CreditCard;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +33,24 @@ public class PaymentActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+        Recharge = findViewById(R.id.recharge);
+        CreditCard = findViewById(R.id.credit);
+
+        Recharge.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               // startActivity(new Intent(PaymentActivity.this , CheckOutActivity.class));
+            }
+        });
+
+        CreditCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(PaymentActivity.this , CheckOutActivity.class));
+            }
+        });
+
     }
 
 }

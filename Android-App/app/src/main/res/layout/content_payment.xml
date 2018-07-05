@@ -26,14 +26,14 @@
         android:text="Cash"
         android:textColor="@color/colorPrimaryText"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/textView5"
+        app:layout_constraintBottom_toTopOf="@+id/credit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
 
     <TextView
-        android:id="@+id/textV"
+        android:id="@+id/recharge"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_centerHorizontal="true"
@@ -57,7 +57,7 @@
         app:layout_constraintVertical_bias="0.294" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/credit"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_centerHorizontal="true"

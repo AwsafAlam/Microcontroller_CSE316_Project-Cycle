@@ -41,6 +41,8 @@ import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
@@ -50,7 +52,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 
 public class MapActivity2 extends AppCompatActivity
-        implements OnMapReadyCallback, NavigationView.OnNavigationItemSelectedListener {
+        implements OnMapReadyCallback, NavigationView.OnNavigationItemSelectedListener{
 
     private GoogleMap mMap;
     private FusedLocationProviderClient mFusedLocationProviderClient;
@@ -67,14 +69,16 @@ public class MapActivity2 extends AppCompatActivity
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Scan to unlock Bike", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+                startActivity(new Intent(MapActivity2.this, ScannerActivity.class));
+
+            }
+        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -134,6 +138,7 @@ public class MapActivity2 extends AppCompatActivity
 
                         moveCamera(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()), DEFAUlT_ZOOM);
 
+
                     } else {
                         Toast.makeText(MapActivity2.this, "Unable to get current location", Toast.LENGTH_SHORT).show();
                     }
@@ -159,8 +164,34 @@ public class MapActivity2 extends AppCompatActivity
             return;
         }
         getDeviceLocation();
+
+        LatLng home = new LatLng(23.775195, 90.353864);
+
+        final Marker mymarker = mMap.addMarker(new MarkerOptions().position(home)
+                .title("Bike 1"));
+
+        LatLng work = new LatLng(23.726174, 90.388636);
+
+        mMap.addMarker(new MarkerOptions().position(home)
+                .title("Bike v"));
+
+
         mMap.setMyLocationEnabled(true);
+        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                if(marker.equals(mymarker)){
+                    Toast.makeText(MapActivity2.this, "Marker clicked", Toast.LENGTH_SHORT).show();
+                    return true;
+                }
+                return false;
+
+            }
+
+
+        });
     }
+
 
 
 
@@ -214,4 +245,6 @@ public class MapActivity2 extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
 }
