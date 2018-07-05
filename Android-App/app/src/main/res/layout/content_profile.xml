@@ -4,7 +4,7 @@ xmlns:app="http://schemas.android.com/apk/res-auto"
 xmlns:tools="http://schemas.android.com/tools"
 android:layout_width="match_parent"
 android:layout_height="match_parent"
-android:background="@color/colorPrimary"
+android:background="@drawable/gradientbackground"
 android:orientation="vertical"
 tools:context=".Activity.ProfileActivity"
 tools:showIn="@layout/activity_profile">
@@ -13,22 +13,26 @@ tools:showIn="@layout/activity_profile">
     android:layout_width="match_parent"
     android:layout_height="405dp">
     <LinearLayout
-        android:background="@drawable/gradientbackground"
         android:layout_width="match_parent"
         android:layout_height="350dp"
         android:orientation="vertical">
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/profile_image"
             android:layout_marginTop="45dp"
             android:layout_gravity="center_horizontal"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:src="@drawable/logo"/>
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:src="@drawable/avatar"
+            app:civ_border_width="1dp"
+            app:civ_border_color="#FF000000"/>
+
         <TextView
             android:layout_marginTop="10dp"
             android:layout_gravity="center_horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Wiliam Snoe"
+            android:text="Awsaf Alam"
             android:textColor="#fff"
             android:textStyle="bold"
             android:textSize="21sp"/>
@@ -52,13 +56,13 @@ tools:showIn="@layout/activity_profile">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Photos"
+                    android:text="Trips"
                     android:textSize="20sp"
                     />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="125"
+                    android:text="25"
                     android:textStyle="bold"
                     android:textSize="20sp"
                     android:paddingTop="10dp"
@@ -74,7 +78,7 @@ tools:showIn="@layout/activity_profile">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Followers"
+                    android:text="Reward Points"
                     android:textSize="20sp"
                     />
                 <TextView
@@ -96,13 +100,13 @@ tools:showIn="@layout/activity_profile">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Following"
+                    android:text="Balance"
                     android:textSize="20sp"
                     />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="360"
+                    android:text="$ 360"
                     android:textStyle="bold"
                     android:textSize="20sp"
                     android:paddingTop="10dp"
@@ -135,7 +139,7 @@ tools:showIn="@layout/activity_profile">
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingLeft="20dp"
-            android:text="Wiliam@gmail.com"/>
+            android:text="awsafalam@gmail.com"/>
     </LinearLayout>
     <LinearLayout
         android:layout_marginTop="25dp"
@@ -154,7 +158,7 @@ tools:showIn="@layout/activity_profile">
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingLeft="20dp"
-            android:text="+266 225 225"/>
+            android:text="+8801630246627"/>
     </LinearLayout>
     <LinearLayout
         android:layout_marginTop="25dp"
@@ -165,7 +169,7 @@ tools:showIn="@layout/activity_profile">
         <ImageView
             android:layout_width="36dp"
             android:layout_height="36dp"
-            app:srcCompat="@drawable/ic_add_a_photo_black_24dp"/>
+            app:srcCompat="@drawable/ic_action_password"/>
         <TextView
             android:textStyle="bold"
 
@@ -173,7 +177,7 @@ tools:showIn="@layout/activity_profile">
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingLeft="20dp"
-            android:text="Add to group"/>
+            android:text="Change Password"/>
     </LinearLayout>
     <LinearLayout
         android:layout_marginTop="25dp"
@@ -192,7 +196,7 @@ tools:showIn="@layout/activity_profile">
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingLeft="20dp"
-            android:text="Show all comments"/>
+            android:text="Show all trips"/>
     </LinearLayout>
 </LinearLayout>
 

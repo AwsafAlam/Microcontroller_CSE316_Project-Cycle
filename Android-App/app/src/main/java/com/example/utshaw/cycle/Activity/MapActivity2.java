@@ -271,7 +271,7 @@ public class MapActivity2 extends AppCompatActivity
         else if (id == R.id.log_out) {
             // Handle the camera action
             Toast.makeText(this, "Logging Out", Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(MapActivity2.this, MainActivity.class));
+            startActivity(new Intent(MapActivity2.this, Signup_form_one.class));
 
         }
 
