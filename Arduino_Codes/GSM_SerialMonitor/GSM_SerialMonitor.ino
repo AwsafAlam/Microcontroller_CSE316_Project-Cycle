@@ -23,7 +23,7 @@ void loop() {
   count = 0;
 
   if(Serial.available()){
-    Serial.println("Got data...");
+    //Serial.println("Got data...");
    byte b = Serial.read();
    if( b == '*')
       GPRS.write(0x1a);

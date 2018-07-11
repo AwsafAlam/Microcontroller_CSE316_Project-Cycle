@@ -4,7 +4,7 @@
 
 SoftwareSerial GPRS(7,8); //Rx , Tx
 
-unsigned char buffer[64];
+unsigned char buffer[127];
 unsigned char bufferReader[64];
 int count = 0;
 int bufferReaderCounter = 0;
@@ -23,7 +23,7 @@ void setup() {
    GPRS.write("AT+HTTPPARA=\"CID\",1\r\n");
    delay(500);
 
-   char * writeQuery = "AT+HTTPPARA=\"URL\",\"http://198.211.96.87/Awsaf/index.php?Lng=296&Lat=100\"\r\n";
+   char * writeQuery = "AT+HTTPPARA=\"URL\",\"http://198.211.96.87/Awsaf/GSM_conn.php?Lng=296&Lat=100\"\r\n";
    GPRS.write(writeQuery);
    delay(500);
    
@@ -46,7 +46,7 @@ void setup() {
     while(GPRS.available())
     {
       buffer[count++] = GPRS.read();
-      if(count == 64) break;
+      if(count == 127) break;
     }
     //Serial.println(buffer);
     Serial.write(buffer , count);
@@ -87,7 +87,6 @@ void loop() {
   bufferReaderCounter = 0;
   while(GPRS.available())
   {
-    Serial.println("Available --> ");
     //buffer[count++] = GPRS.read();
     //Serial.println(buffer[count-1]);
     if(GPRS.read() == '+'){
@@ -100,7 +99,7 @@ void loop() {
     else{
       continue;
     }
-    if(count == 64) break;
+    if(count == 127) break;
   }
   
   //Serial.println("Wrinting from buffer ..........................");
@@ -147,8 +146,8 @@ void loop() {
   count = 0;
 
   if(Serial.available()){
-   Serial.println("Got data...");
    byte b = Serial.read();
+   Serial.println(b);
    if( b == '*')
       GPRS.write(0x1a);
    else
