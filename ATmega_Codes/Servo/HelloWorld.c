@@ -19,9 +19,9 @@ int main(void)
 	
 
 	while(1){
-		OCR1A = ICR1 - 800;
+		OCR1A = ICR1 - 500; // CLockwise control
 		_delay_ms(100);
-		OCR1A = ICR1 - 2200;
+		OCR1A = ICR1 - 2200; // Anti-clockwise control
 		_delay_ms(100);
 	}
 	
