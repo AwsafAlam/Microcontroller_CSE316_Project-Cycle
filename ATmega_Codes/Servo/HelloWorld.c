@@ -6,23 +6,64 @@
 #include <avr/io.h>
 #include <util/delay.h>
 
+unsigned char TCCR1AVal ;
+unsigned char TCCR1BVal ;
+unsigned char ICR1Val;
 
 
+void moveClockWise(){
+	OCR1A = ICR1 - 500; // CLockwise control
+}
 
-int main(void)
-{
-	DDRD = 0XFF;
+
+void moveAntiClockWise(){
+	OCR1A = ICR1 - 2200; // Anti-clockwise control
+}
+
+void _resetServo(){
+	TCCR1A = TCCR1AVal;
+	TCCR1B = TCCR1BVal;
+	 ICR1 = ICR1Val;
+}
+
+void _setServo(){
 	TCCR1A |= 1 << WGM11 | 1 << COM1A1 | 1 << COM1A0;
 	TCCR1B |= 1<<WGM12 | 1<<WGM13 | 1<<CS10;
 	ICR1 = 19999;
+}
+
+int main(void)
+{
+
 
 	
+	DDRA |= (1<<PA0);
+	DDRD = 0XFF;
+
+	TCCR1AVal = TCCR1A;
+	TCCR1BVal = TCCR1B;
+	ICR1Val = ICR1;
+
+	
+
+
 
 	while(1){
-		OCR1A = ICR1 - 500; // CLockwise control
-		_delay_ms(100);
-		OCR1A = ICR1 - 2200; // Anti-clockwise control
-		_delay_ms(100);
+		if(PINA & 0x00){
+			_setServo();
+			moveClockWise();
+		}else{
+			_setServo();
+			moveAntiClockWise();
+		}
+		_delay_ms(250);
+		_resetServo();
+		_delay_ms(20000);
+	
+		
 	}
+
+
 	
 }
+
