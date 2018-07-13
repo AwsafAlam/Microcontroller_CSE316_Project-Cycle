@@ -12,12 +12,12 @@ unsigned char ICR1Val;
 
 
 void moveClockWise(){
-	OCR1A = ICR1 - 500; // CLockwise control
+	OCR1A = ICR1 - 1400; // CLockwise control
 }
 
 
 void moveAntiClockWise(){
-	OCR1A = ICR1 - 2200; // Anti-clockwise control
+	OCR1A = ICR1 - 4400; // Anti-clockwise control
 }
 
 void _resetServo(){
@@ -32,6 +32,22 @@ void _setServo(){
 	ICR1 = 19999;
 }
 
+
+void debugClockWise(){
+	_setServo();
+	moveClockWise();
+	_delay_ms(250);
+	_resetServo();
+}
+
+
+void debugAntiClockWise(){
+	_setServo();
+	moveAntiClockWise();
+	_delay_ms(250);
+	_resetServo();
+}
+
 int main(void)
 {
 
@@ -44,26 +60,27 @@ int main(void)
 	TCCR1BVal = TCCR1B;
 	ICR1Val = ICR1;
 
-	
+	// debugAntiClockWise();
+	debugClockWise();
 
 
 
-	while(1){
-		if(PINA & 0x00){
-			_setServo();
-			moveClockWise();
-		}else{
-			_setServo();
-			moveAntiClockWise();
-		}
-		_delay_ms(250);
-		_resetServo();
-		_delay_ms(20000);
+
+	// while(1){
+	// 	if(PINA & 0x00){
+	// 		_setServo();
+	// 		moveClockWise();
+	// 	}else{
+	// 		_setServo();
+	// 		moveAntiClockWise();
+	// 	}
+	// 	_delay_ms(250);
+	// 	_resetServo();
+	// 	_delay_ms(20000);
 	
 		
-	}
+	// }
 
 
 	
 }
-
