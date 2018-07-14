@@ -57,6 +57,9 @@ $app->post('/updateloc', function() use ($app)  {
 
   $conn = new mysqli("localhost", "root", "aquarium201", "cycle_demo");
 
+  // Queries for update etc.
+  // Send the state
+  
       $strings="SELECT * FROM bicycle where bicycle_id=". "'".$Bike_No."'"."";;
       $result = $conn->prepare($strings);
 
