@@ -89,7 +89,29 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MapActivity.this, ScannerActivity.class));
+                ApiInterface apiService =
+                        ApiClient.getClient().create(ApiInterface.class);
+
+                Call<Response> call = apiService.endRide("1"); //Sending Bike code to API
+                call.enqueue(new Callback<Response>() {
+                    @Override
+                    public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
+                        List<LocationInfo> LocationObj = response.body().getResults();
+                        Log.d(TAG, "Returned: " + LocationObj.size());
+                        textView.setText(textView.getText() + " ->" + LocationObj.get(0).getOverview());
+                        startActivity(new Intent(MapActivity.this, EndActivity.class));
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<Response> call, Throwable t) {
+                        Log.e(TAG, t.toString());
+
+                    }
+
+
+                });
+
 
             }
         });
@@ -204,11 +226,10 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     private void sendtoGSM(String barcode) {
 
-//        sendSMS(barcode);
         ApiInterface apiService =
                 ApiClient.getClient().create(ApiInterface.class);
 
-        Call<Response> call = apiService.getNearbyBikes(barcode);
+        Call<Response> call = apiService.getNearbyBikes(barcode); //Sending Bike code to API
         call.enqueue(new Callback<Response>() {
             @Override
             public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {

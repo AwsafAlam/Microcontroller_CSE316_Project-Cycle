@@ -133,5 +133,8 @@
     <string name="card_number">Card Number</string>
     <string name="card_validity">Expires</string>
     <string name="card_cvv">CVV/CVC Number</string>
+    <string name="title_activity_end">EndActivity</string>
+    <string name="timer_stop_button">Stop Timer</string>
+    <string name="timer_start_button">Start Timer</string>
 
 </resources>

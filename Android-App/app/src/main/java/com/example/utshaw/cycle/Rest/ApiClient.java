@@ -6,7 +6,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClient {
 
-    public static final String BASE_URL = "http://192.168.1.112/Cycle/";
+    public static final String BASE_URL = "https://onlinesohopathi.com/v1/index_Cycle.php/";
     //Using local ip here
 
     private static Retrofit retrofit = null;

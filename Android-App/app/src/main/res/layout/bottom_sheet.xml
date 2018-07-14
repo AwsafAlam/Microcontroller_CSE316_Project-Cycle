@@ -74,7 +74,7 @@
     android:id="@+id/unlock"
     android:background="#000"
     android:foreground="?attr/selectableItemBackground"
-    android:text="Scan to Unlock"
+    android:text="End Ride"
     android:textColor="#fff" />
 
 </LinearLayout>

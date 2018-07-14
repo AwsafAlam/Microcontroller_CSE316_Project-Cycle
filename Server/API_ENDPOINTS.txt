@@ -1,0 +1,5 @@
+1. https://onlinesohopathi.com/v1/index_Cycle.php/updateloc?lat=29.64&lng=11.33&bk=1
+
+2. https://onlinesohopathi.com/v1/index_Cycle.php/startRide?id=1
+
+3. https://onlinesohopathi.com/v1/index_Cycle.php/endRide?id=1

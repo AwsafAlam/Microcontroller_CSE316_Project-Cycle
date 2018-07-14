@@ -55,7 +55,7 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.0.2'
 
     //Card Validation
-    implementation ('commons-validator:commons-validator:1.6')
+    implementation('commons-validator:commons-validator:1.6')
             { exclude group: 'commons-logging', module: 'commons-logging' }
 
     //Butter Knife

@@ -8,12 +8,15 @@ import retrofit2.http.Query;
 
 
 public interface ApiInterface {
-    @GET("index.php")
+    @GET("startRide")
     Call<Response> getNearbyBikes(@Query("id") String apiKey);
+
+    @GET("endRide")
+    Call<Response> endRide(@Query("id") String apiKey);
 
     // This will generate the URL
     //  @GET("movie/toprated")
-    // http://api.themoviedb.org/3/movie/top_rated?api_key=1234567891011121
+    // http://onlinesohopathi.com/movie/top_rated?api_key=1234567891011121
 
     @GET("movie/{id}")
     Call<Response> getBikeDetails(@Path("id") int id, @Query("api_key") String apiKey);

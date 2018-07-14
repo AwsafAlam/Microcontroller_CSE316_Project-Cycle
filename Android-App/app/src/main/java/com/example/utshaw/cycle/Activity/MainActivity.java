@@ -61,11 +61,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(mCurrentPage == 4){
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                                editor.putString("loggedIn", "true");
-                                editor.apply();
+//                    SharedPreferences.Editor editor = sharedPreferences.edit();
+//                                editor.putString("loggedIn", "true");
+//                                editor.apply();
 
-                    startActivity(new Intent(MainActivity.this , MapActivity2.class));
+                    startActivity(new Intent(MainActivity.this , Signup_form_one.class));
                 }
                 viewPager.setCurrentItem(mCurrentPage+1);
                 mCurrentPage++;

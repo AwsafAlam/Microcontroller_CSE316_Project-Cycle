@@ -147,7 +147,7 @@ public class Signup_form_two extends AppCompatActivity {
                             editor.putString("userGender", given_gender);
                             editor.putString("userBloodGroup", given_bloodgrp);
                             editor.putString("userAddress", given_address);
-                            editor.putString("loggedIn", "false");
+                            editor.putString("loggedIn", "true");
                             editor.apply();
 
                         }
@@ -176,7 +176,7 @@ public class Signup_form_two extends AppCompatActivity {
 
                             }
                         };
-                        Intent loginPage = new Intent(getApplicationContext(),MainActivity.class);
+                        Intent loginPage = new Intent(getApplicationContext(),MapActivity2.class);
 
                         startActivity(loginPage);
                         finish();

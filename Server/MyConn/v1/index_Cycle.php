@@ -9,69 +9,23 @@ require_once __DIR__.'/src/Facebook/autoload.php';
 
 $app = new \Slim\Slim();
 
-
-$user_id = NULL;
-// echo "lock";
-
-function authenticate(\Slim\Route $route)
-{
-    // Getting request headers
-    $headers = apache_request_headers();
-    $response = array();
-    $app = \Slim\Slim::getInstance();
-
-    // Verifying Authorization Header
-    if (isset($headers['Authorization'])) {
-        $db = new DbHandler();
-
-        // get the api key
-        $api_key = $headers['Authorization'];
-        // validating api key
-        if (!$db->isValidApiKey($api_key)) {
-            // api key is not present in users table
-            $response["error"] = true;
-            $response["message"] = "Access Denied. Invalid Api key";
-            echoRespnse(401, $response);
-            $app->stop();
-        } else {
-            global $user_id;
-            // get user primary key id
-            $user_id = $db->getUserId($api_key);
-        }
-    } else {
-        // api key is missing in header
-        $response["error"] = true;
-        $response["message"] = "Api key is misssing";
-        echoRespnse(400, $response);
-        $app->stop();
-    }
-}
-
-
-$app->get('/updateloc', function() use ($app)  {
+$app->get('/getBikeData', function() use ($app)  {
 
 	$Latitude = $_GET['lat'];
   $Longitude = $_GET['lng'];
   $Bike_No = $_GET['bk'];
-
-
   $conn = new mysqli("localhost", "root", "aquarium201", "cycle_demo");
-
-  // Queries for update etc.
-  // Send the state
 
       $strings="SELECT * FROM bicycle where bicycle_id=". "'".$Bike_No."'"."";;
       $result = $conn->prepare($strings);
-
 
   $result->execute();
   $result->bind_result($id,$phone,$ridecount,$lat,$lng,$state);
   $posts = array();
 
   while($result->fetch()) {
-
-           $tmp = array();
-           $item = 20.8;
+         $tmp = array();
+         $item = 20.8;
 
           $tmp["id"] = $id;
           $tmp["phone"] = $phone;
@@ -80,14 +34,212 @@ $app->get('/updateloc', function() use ($app)  {
           $tmp["lng"] = $lng;
           $tmp["state"] = $state;
 
+          array_push($posts, $tmp);
+       }
+	   $result->close();
+    echoRespnse(201,$posts);
+
+});
+
+$app->get('/updateloc', function() use ($app)  {
+
+	$Latitude = $_GET['lat'];
+  $Longitude = $_GET['lng'];
+  $Bike_No = $_GET['bk'];
+  $conn = new mysqli("localhost", "root", "aquarium201", "cycle_demo");
+
+      $strings="SELECT * FROM bicycle where bicycle_id=". "'".$Bike_No."'"."";;
+      $result = $conn->prepare($strings);
+
+  $result->execute();
+  $result->bind_result($id,$phone,$ridecount,$lat,$lng,$state);
+  $posts = array();
+
+  while($result->fetch()) {
+         $tmp = array();
+         $item = 20.8;
+
+          $tmp["id"] = $id;
+          $tmp["phone"] = $phone;
+          $tmp["$ridecount"] = $ridecount;
+          $tmp["lat"] = $lat;
+          $tmp["lng"] = $lng;
+          $tmp["state"] = $state;
 
           array_push($posts, $tmp);
        }
 	   $result->close();
+     echo $state;
+
+    //echoRespnse(201,$posts);
+
+});
+
+$app->get('/startRide', function() use ($app)  {
+
+	//$Latitude = $_GET['lat'];
+  //$Longitude = $_GET['lng'];
+  $Bike_No = $_GET['id'];
+
+
+  $conn = new mysqli("localhost", "root", "aquarium201", "cycle_demo");
+
+  $strings="UPDATE bicycle SET state = 'unlock' WHERE bicycle_id=". "'".$Bike_No."'"."";
+
+  $result = $conn->prepare($strings);
+
+  $result->execute();
+  // $result->bind_result($id,$phone,$ridecount,$lat,$lng,$state);
+  // $posts = array();
+  //
+  // while($result->fetch()) {
+  //
+  //          $tmp = array();
+  //          $item = 20.8;
+  //
+  //         $tmp["id"] = $id;
+  //         $tmp["phone"] = $phone;
+  //         $tmp["$ridecount"] = $ridecount;
+  //         $tmp["lat"] = $lat;
+  //         $tmp["lng"] = $lng;
+  //         $tmp["state"] = $state;
+  //
+  //
+  //         array_push($posts, $tmp);
+  //      }
+	//    $result->close();
+
+
+   $main = array();
+   $main["nearby"] = 1;
+
+   $posts = array();
+
+
+   for ($j = 0; $j <2 ; $j++) {
+      $tmp = array();
+      for ($i = 0; $i <= 6; $i++) {
+
+          if ($i==0) {
+  	    $locationProperties = array();
+  	   $item = 46.74;
+  	   array_push($locationProperties, $item);
+  	   array_push($locationProperties, $item);
+  	   array_push($tmp, $locationProperties);
+
+          } else if($i==1) {
+      		$tmp["occupied"] = 1;
+          } else if($i==2){
+  		$item = "Overview of the bicycle";
+  		$tmp["overview"] = $item;
+          } else if($i==3){
+  		$item = "06 July 2018";
+                  $tmp["release_date"] = $item;
+  	} else if($i==4) {
+      		$tmp["bike_id"] = 44;
+          } else if($i==5) {
+      		$tmp["rating"] = $item;
+          }
+      }
+
+         array_push($posts, $tmp);
+
+         }
+     array_push($main, $posts);
+
+    $main["totalResults"] = 2;
+    $main["total_bikes"] = 20;
 
 
 
-  echoRespnse(201,$posts);
+  //   $main->close();
+    // echo json_encode($main);
+
+
+  echoRespnse(201,$main);
+
+
+});
+
+$app->get('/endRide', function() use ($app)  {
+
+	//$Latitude = $_GET['lat'];
+  //$Longitude = $_GET['lng'];
+  $Bike_No = $_GET['id'];
+
+
+  $conn = new mysqli("localhost", "root", "aquarium201", "cycle_demo");
+
+  $strings="UPDATE bicycle SET state = 'lock' WHERE bicycle_id=". "'".$Bike_No."'"."";
+
+  $result = $conn->prepare($strings);
+
+  $result->execute();
+  // $result->bind_result($id,$phone,$ridecount,$lat,$lng,$state);
+  // $posts = array();
+  //
+  // while($result->fetch()) {
+  //
+  //          $tmp = array();
+  //          $item = 20.8;
+  //
+  //         $tmp["id"] = $id;
+  //         $tmp["phone"] = $phone;
+  //         $tmp["$ridecount"] = $ridecount;
+  //         $tmp["lat"] = $lat;
+  //         $tmp["lng"] = $lng;
+  //         $tmp["state"] = $state;
+  //
+  //
+  //         array_push($posts, $tmp);
+  //      }
+	//    $result->close();
+
+
+   $main = array();
+   $main["nearby"] = 1;
+
+   $posts = array();
+
+
+   for ($j = 0; $j <2 ; $j++) {
+      $tmp = array();
+      for ($i = 0; $i <= 6; $i++) {
+
+          if ($i==0) {
+  	    $locationProperties = array();
+  	   $item = 46.74;
+  	   array_push($locationProperties, $item);
+  	   array_push($locationProperties, $item);
+  	   array_push($tmp, $locationProperties);
+
+          } else if($i==1) {
+      		$tmp["occupied"] = 1;
+          } else if($i==2){
+  		$item = "Overview of the bicycle";
+  		$tmp["overview"] = $item;
+          } else if($i==3){
+  		$item = "06 July 2018";
+                  $tmp["release_date"] = $item;
+  	} else if($i==4) {
+      		$tmp["bike_id"] = 44;
+          } else if($i==5) {
+      		$tmp["rating"] = $item;
+          }
+      }
+
+         array_push($posts, $tmp);
+
+         }
+     array_push($main, $posts);
+
+    $main["totalResults"] = 2;
+    $main["total_bikes"] = 20;
+
+    //$main->close();
+    // echo json_encode($main);
+
+  echoRespnse(201,$main);
 
 
 });
