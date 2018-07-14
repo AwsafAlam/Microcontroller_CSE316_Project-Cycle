@@ -1,1 +1,0 @@
-# developers.onlinesohopathi.com
