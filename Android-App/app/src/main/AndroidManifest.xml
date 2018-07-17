@@ -66,9 +66,6 @@
             android:theme="@style/AppTheme"></activity>
     </application>
 
-    <service
-        android:name=".MainActivity$TimerService"
-        android:exported="false"
-        tools:ignore="WrongManifestParent" />
+    
 
 </manifest>

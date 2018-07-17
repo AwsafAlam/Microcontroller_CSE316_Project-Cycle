@@ -9,6 +9,7 @@
     tools:showIn="@layout/activity_end">
 
     <Button
+        android:onClick="runButtonClick"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/timer_button"

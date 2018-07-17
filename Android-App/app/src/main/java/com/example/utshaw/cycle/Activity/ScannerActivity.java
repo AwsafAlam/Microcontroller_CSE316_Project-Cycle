@@ -97,9 +97,13 @@ public class ScannerActivity extends AppCompatActivity implements BarcodeReader.
                     public void onClick(DialogInterface dialog, int whichButton) {
                         String value = String.valueOf(input.getText());
                         // Do something with value!
-                        Toast.makeText(ScannerActivity.this, " Bike Code Received ", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(ScannerActivity.this , MapActivity2.class));
-                    }
+                        Toast.makeText(ScannerActivity.this, "Starting Ride Now", Toast.LENGTH_SHORT).show();
+
+                        Intent intent = new Intent(ScannerActivity.this, MapActivity.class);
+                        intent.putExtra("code", value);
+                        startActivity(intent);
+
+                        }
                 });
 
                 alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
