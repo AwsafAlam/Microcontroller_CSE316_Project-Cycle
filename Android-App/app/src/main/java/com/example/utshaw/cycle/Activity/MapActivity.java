@@ -99,7 +99,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                         List<LocationInfo> LocationObj = response.body().getResults();
                         Log.d(TAG, "Returned: " + LocationObj.size());
                         textView.setText(textView.getText() + " ->" + LocationObj.get(0).getOverview());
-                        startActivity(new Intent(MapActivity.this, EndActivity.class));
+                        startActivity(new Intent(MapActivity.this, MapActivity2.class));
 
                     }
 

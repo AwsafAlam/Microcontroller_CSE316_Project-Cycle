@@ -1,63 +1,32 @@
 package com.example.utshaw.cycle.Activity;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.content.SharedPreferences;
-import android.os.Bundle;
-import android.os.Handler;
 
-import android.preference.PreferenceManager;
+import android.Manifest;
+import android.bluetooth.BluetoothDevice;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.utshaw.cycle.R;
-import com.example.utshaw.cycle.Utils.TimerService;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.MultiplePermissionsReport;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import java.util.List;
 
-
-/**
- * Example activity to manage a long-running timer, which survives the destruction of the activity
- * by using a foreground service and notification
- *
- * Add the following to the manifest:
- * <service android:name=".MainActivity$TimerService" android:exported="false" />
- */
+import me.aflak.bluetooth.Bluetooth;
+import me.aflak.bluetooth.BluetoothCallback;
+import me.aflak.bluetooth.DeviceCallback;
+import me.aflak.bluetooth.DiscoveryCallback;
 
 public class EndActivity extends AppCompatActivity {
 
-    private static final String TAG = EndActivity.class.getSimpleName();
-
-    private TimerService timerService;
-    private boolean serviceBound;
-
-    private Button btn_start;
-    private TextView tv_timer;
-
-    // Handler to update the UI every second when the timer is running
-    private final Handler mUpdateTimeHandler = new UIUpdateHandler(this);
-
-    // Message type for the handler
-    private final static int MSG_UPDATE_TIME = 0;
-
-    //Second Activity
-
-    private Button  btn_cancel;
-    String date_time;
-    Calendar calendar;
-    SimpleDateFormat simpleDateFormat;
-    EditText et_hours;
-
-    SharedPreferences mpref;
-    SharedPreferences.Editor mEditor;
+    Bluetooth bluetooth;
+    boolean mPermission;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,136 +35,101 @@ public class EndActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        btn_start = (Button)findViewById(R.id.timer_button);
-        tv_timer = (TextView)findViewById(R.id.timer_text_view);
+        askPermissions();
+//        bluetooth = new Bluetooth(this);
+        //List<BluetoothDevice> devices = bluetooth.getPairedDevices();
+        //bluetooth.startScanning();
 
+        //bluetooth.connectToName("HC-05");
 
-        init();
-        listener();
-
-    }
-
-    private void init() {
-
-        et_hours = (EditText) findViewById(R.id.et_hours);
-
-
-
-        mpref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        mEditor = mpref.edit();
-
-        try {
-            String str_value = mpref.getString("data", "");
-            if (str_value.matches("")) {
-                et_hours.setEnabled(true);
-                btn_start.setEnabled(true);
-                tv_timer.setText("");
-
-            } else {
-
-                if (mpref.getBoolean("finish", false)) {
-                    et_hours.setEnabled(true);
-                    btn_start.setEnabled(true);
-                    tv_timer.setText("");
-                } else {
-
-                    et_hours.setEnabled(false);
-                    btn_start.setEnabled(false);
-                    tv_timer.setText(str_value);
-                }
-            }
-        } catch (Exception e) {
-
-        }
-
-
-
-    }
-
-    private void listener() {
-        btn_start.setOnClickListener(this);
-        btn_cancel.setOnClickListener(this);
+//        bluetooth.setBluetoothCallback(new BluetoothCallback() {
+//            @Override
+//            public void onBluetoothTurningOn() {showToast("Bluetooth Turning On");}
+//
+//            @Override
+//            public void onBluetoothOn() {showToast("Bluetooth Turning On");}
+//
+//            @Override
+//            public void onBluetoothTurningOff() {showToast("Bluetooth Turning OFF");}
+//
+//            @Override
+//            public void onBluetoothOff() {showToast("Bluetooth Turning On");}
+//
+//            @Override
+//            public void onUserDeniedActivation() {
+//                // when using bluetooth.showEnableDialog()
+//                // you will also have to call bluetooth.onActivityResult()
+//            }
+//        });
+//
+//
+//        bluetooth.setDiscoveryCallback(new DiscoveryCallback() {
+//            @Override public void onDiscoveryStarted() {showToast("Bluetooth Turning On");}
+//            @Override public void onDiscoveryFinished() {showToast("Bluetooth Turning On");}
+//            @Override public void onDeviceFound(BluetoothDevice device) {bluetooth.pair(device);}
+//            @Override public void onDevicePaired(BluetoothDevice device) {showToast("Bluetooth Paired On");}
+//            @Override public void onDeviceUnpaired(BluetoothDevice device) {}
+//            @Override public void onError(String message) {}
+//        });
+//
+//
+//
+//
+//        bluetooth.setDeviceCallback(new DeviceCallback() {
+//            @Override public void onDeviceConnected(BluetoothDevice device) {showToast("Bluetooth Connected On");}
+//            @Override public void onDeviceDisconnected(BluetoothDevice device, String message) {}
+//            @Override public void onMessage(String message) {}
+//            @Override public void onError(String message) {}
+//            @Override public void onConnectError(BluetoothDevice device, String message) {}
+//        });
 
     }
 
-    @Override
-    public void onClick(View v) {
-
-        switch (v.getId()) {
-            case R.id.btn_timer:
-
-
-                if (et_hours.getText().toString().length() > 0) {
-
-                    int int_hours = 2;
-
-                    if (int_hours<=24) {
-
-
-                        et_hours.setEnabled(false);
-                        btn_start.setEnabled(false);
-
-
-                        calendar = Calendar.getInstance();
-                        simpleDateFormat = new SimpleDateFormat("HH:mm:ss");
-                        date_time = simpleDateFormat.format(calendar.getTime());
-
-                        mEditor.putString("data", date_time).commit();
-                        mEditor.putString("hours", et_hours.getText().toString()).commit();
-
-
-                        Intent intent_service = new Intent(getApplicationContext(), Timer_Service.class);
-                        startService(intent_service);
-                    }else {
-                        Toast.makeText(getApplicationContext(),"Please select the value below 24 hours",Toast.LENGTH_SHORT).show();
+    void askPermissions(){
+        Dexter.withActivity(this).withPermissions(
+                Manifest.permission.BLUETOOTH,
+                Manifest.permission.BLUETOOTH_ADMIN,
+                Manifest.permission.ACCESS_COARSE_LOCATION)
+                .withListener(new MultiplePermissionsListener() {
+                    @Override
+                    public void onPermissionsChecked(MultiplePermissionsReport report) {
+                        if(report.areAllPermissionsGranted()){
+                            //Intent intent = new Intent(EndActivity.this, ScanActivity.class);
+                            //startActivity(intent);
+                            //finish();
+                            Toast.makeText(EndActivity.this, "Premission enabled", Toast.LENGTH_SHORT).show();
+                            mPermission = true;
+                        }
+                        else{
+                            Toast.makeText(EndActivity.this, "We need these permissions...", Toast.LENGTH_SHORT).show();
+                            mPermission = false;
+                            askPermissions();
+                        }
                     }
-/*
-                    mTimer = new Timer();
-                    mTimer.scheduleAtFixedRate(new TimeDisplayTimerTask(), 5, NOTIFY_INTERVAL);*/
-                } else {
-                    Toast.makeText(getApplicationContext(), "Please select value", Toast.LENGTH_SHORT).show();
-                }
-                break;
 
-
-            case R.id.btn_cancel:
-
-
-                Intent intent = new Intent(getApplicationContext(),Timer_Service.class);
-                stopService(intent);
-
-                mEditor.clear().commit();
-
-                et_hours.setEnabled(true);
-                btn_start.setEnabled(true);
-                tv_timer.setText("");
-
-
-                break;
-
-        }
-
+                    @Override
+                    public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
+                        token.continuePermissionRequest();
+                    }
+                }).check();
     }
 
-    private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            String str_time = intent.getStringExtra("time");
-            tv_timer.setText(str_time);
+//    @Override
+//    protected void onStart() {
+//        super.onStart();
+//        bluetooth.onStart();
+//        bluetooth.enable();
+//    }
+//
+//    @Override
+//    protected void onStop() {
+//        super.onStop();
+//        bluetooth.onStop();
+//    }
 
-        }
-    };
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        registerReceiver(broadcastReceiver,new IntentFilter(TimerService.str_receiver));
-
+    public void showToast(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        unregisterReceiver(broadcastReceiver);
-    }
+
 }

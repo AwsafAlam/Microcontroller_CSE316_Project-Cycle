@@ -266,7 +266,9 @@ public class MapActivity2 extends AppCompatActivity
         }
         else if (id == R.id.lang) {
             // Handle the camera action
-            Toast.makeText(this, "Changing Language", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Blkuetooth", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(MapActivity2.this, EndActivity.class));
+
         }
         else if (id == R.id.log_out) {
             // Handle the camera action
