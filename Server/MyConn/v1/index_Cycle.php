@@ -78,7 +78,7 @@ $app->get('/updateloc', function() use ($app)  {
 
 $app->post('/locstate', function() use ($app)  {
 
-	$Latitude = $_GET['lat'];
+  $Latitude = $_GET['lat'];
   $Longitude = $_GET['lng'];
   $Bike_No = $_GET['bk'];
   $conn = new mysqli("localhost", "root", "aquarium201", "cycle_demo");
@@ -107,6 +107,23 @@ $app->post('/locstate', function() use ($app)  {
      echo $state;
     //echoRespnse(201,$posts);
 });
+
+$app->post('/gpsloc', function() use ($app)  {
+
+  $Latitude = $_GET['lat'];
+  $Longitude = $_GET['lng'];
+  $Bike_No = $_GET['bk'];
+
+  $conn = new mysqli("localhost", "root", "aquarium201", "cycle_demo");
+
+  $strings="UPDATE bicycle SET latitude = "."'".$Latitude."'"." , longitude = "."'".$Longitude."'"." WHERE bicycle_id=". "'".$Bike_No."'"."";
+
+  $result = $conn->prepare($strings);
+
+  $result->execute();
+
+});
+
 
 $app->get('/startRide', function() use ($app)  {
 

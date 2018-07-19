@@ -27,6 +27,8 @@ public class ChatActivity extends AppCompatActivity implements ChatView{
     @BindView(R.id.activity_chat_status) TextView state;
     @BindView(R.id.activity_chat_messages) TextView messages;
     @BindView(R.id.activity_chat_hello_world) Button helloWorld;
+    @BindView(R.id.activity_chat_hello_world1) Button helloWorld1;
+
 
     @Inject
     ChatPresenter presenter;
@@ -51,6 +53,11 @@ public class ChatActivity extends AppCompatActivity implements ChatView{
         presenter.onHelloWorld();
     }
 
+    @OnClick(R.id.activity_chat_hello_world1)
+    public void onHelloWorld1(){
+        presenter.onHelloWorld1();
+    }
+
     @Override
     public void setStatus(String status) {
         state.setText(status);
@@ -70,6 +77,8 @@ public class ChatActivity extends AppCompatActivity implements ChatView{
     @Override
     public void enableHWButton(boolean enabled) {
         helloWorld.setEnabled(enabled);
+        helloWorld1.setEnabled(enabled);
+
     }
 
     @Override

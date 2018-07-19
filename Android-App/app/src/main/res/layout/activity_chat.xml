@@ -31,6 +31,12 @@
         android:id="@+id/activity_chat_hello_world"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/helloWorld"
+        android:text="0"
+        />
+    <Button
+        android:id="@+id/activity_chat_hello_world1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="1"
         android:layout_alignParentBottom="true"/>
 </RelativeLayout>

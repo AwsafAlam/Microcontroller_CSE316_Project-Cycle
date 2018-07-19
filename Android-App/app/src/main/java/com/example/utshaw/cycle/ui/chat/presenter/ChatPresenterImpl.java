@@ -37,8 +37,14 @@ public class ChatPresenterImpl implements ChatPresenter {
 
     @Override
     public void onHelloWorld() {
-        interactor.sendMessage("Hello World !");
-        view.appendMessage("--> Hello World !");
+        interactor.sendMessage("0");
+        view.appendMessage("--> 0");
+    }
+
+    @Override
+    public void onHelloWorld1() {
+        interactor.sendMessage("1");
+        view.appendMessage("--> 1");
     }
 
     private DeviceCallback communicationCallback = new DeviceCallback() {
