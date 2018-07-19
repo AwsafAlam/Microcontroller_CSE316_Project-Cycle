@@ -31,6 +31,7 @@ import com.example.utshaw.cycle.Model.Response;
 import com.example.utshaw.cycle.R;
 import com.example.utshaw.cycle.Rest.ApiClient;
 import com.example.utshaw.cycle.Rest.ApiInterface;
+import com.example.utshaw.cycle.ui.SplashScreen;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -266,8 +267,8 @@ public class MapActivity2 extends AppCompatActivity
         }
         else if (id == R.id.lang) {
             // Handle the camera action
-            Toast.makeText(this, "Blkuetooth", Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(MapActivity2.this, EndActivity.class));
+            Toast.makeText(this, "Bluetooth Scan", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(MapActivity2.this, SplashScreen.class));
 
         }
         else if (id == R.id.log_out) {
