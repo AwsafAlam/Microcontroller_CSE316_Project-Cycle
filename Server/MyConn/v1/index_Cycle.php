@@ -69,11 +69,61 @@ $app->get('/updateloc', function() use ($app)  {
           array_push($posts, $tmp);
        }
 	   $result->close();
+
      echo $state;
 
     //echoRespnse(201,$posts);
 
 });
+
+$app->post('/locstate', function() use ($app)  {
+
+  $Latitude = $_GET['lat'];
+  $Longitude = $_GET['lng'];
+  $Bike_No = $_GET['bk'];
+  $conn = new mysqli("localhost", "root", "aquarium201", "cycle_demo");
+
+      $strings="SELECT * FROM bicycle where bicycle_id=". "'".$Bike_No."'"."";;
+      $result = $conn->prepare($strings);
+
+  $result->execute();
+  $result->bind_result($id,$phone,$ridecount,$lat,$lng,$state);
+  $posts = array();
+
+  while($result->fetch()) {
+         $tmp = array();
+         $item = 20.8;
+
+          $tmp["id"] = $id;
+          $tmp["phone"] = $phone;
+          $tmp["$ridecount"] = $ridecount;
+          $tmp["lat"] = $lat;
+          $tmp["lng"] = $lng;
+          $tmp["state"] = $state;
+
+          array_push($posts, $tmp);
+       }
+	   $result->close();
+     echo $state;
+    //echoRespnse(201,$posts);
+});
+
+$app->post('/gpsloc', function() use ($app)  {
+
+  $Latitude = $_GET['lat'];
+  $Longitude = $_GET['lng'];
+  $Bike_No = $_GET['bk'];
+
+  $conn = new mysqli("localhost", "root", "aquarium201", "cycle_demo");
+
+  $strings="UPDATE bicycle SET latitude = "."'".$Latitude."'"." , longitude = "."'".$Longitude."'"." WHERE bicycle_id=". "'".$Bike_No."'"."";
+
+  $result = $conn->prepare($strings);
+
+  $result->execute();
+
+});
+
 
 $app->get('/startRide', function() use ($app)  {
 

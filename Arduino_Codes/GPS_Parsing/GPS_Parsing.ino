@@ -1,7 +1,7 @@
 #include <TinyGPS++.h>
 #include <SoftwareSerial.h>
 
-static const int RXPin = 4, TXPin = 3;
+static const int RXPin = 1, TXPin = 0;
 static const uint32_t GPSBaud = 9600;
 
 // The TinyGPS++ object
@@ -18,6 +18,7 @@ void setup(){
 void loop(){
   // This sketch displays information every time a new sentence is correctly encoded.
   while (ss.available() > 0){
+    Serial.println("Data");
     gps.encode(ss.read());
     if (gps.location.isUpdated()){
       // Latitude in degrees (double)

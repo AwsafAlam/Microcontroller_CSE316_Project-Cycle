@@ -1,0 +1,1537 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>AdminLTE 2 | Dashboard</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <!-- Bootstrap 3.3.7 -->
+  <link rel="stylesheet" href="../../bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="../../bower_components/font-awesome/css/font-awesome.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="../../bower_components/Ionicons/css/ionicons.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="../../dist/css/AdminLTE.min.css">
+  <!-- AdminLTE Skins. Choose a skin from the css/skins
+       folder instead of downloading all of them to reduce the load. -->
+  <link rel="stylesheet" href="../../dist/css/skins/_all-skins.min.css">
+  <!-- Morris chart -->
+  <link rel="stylesheet" href="../../bower_components/morris.js/morris.css">
+  <!-- jvectormap -->
+  <link rel="stylesheet" href="../../bower_components/jvectormap/jquery-jvectormap.css">
+  <!-- Date Picker -->
+  <link rel="stylesheet" href="../../bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+  <!-- Daterange picker -->
+  <link rel="stylesheet" href="../../bower_components/bootstrap-daterangepicker/daterangepicker.css">
+  <!-- bootstrap wysihtml5 - text editor -->
+  <link rel="stylesheet" href="../../plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+
+  <link rel="stylesheet" href="../../bower_components/fullcalendar/dist/fullcalendar.min.css">
+  <link rel="stylesheet" href="../../bower_components/fullcalendar/dist/fullcalendar.print.min.css" media="print">
+  
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
+
+  <!-- Google Font -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+<style type="text/css">
+  .scrollable-menu {
+    height: auto;
+    max-height: 200px;
+    overflow-x: hidden;
+}
+</style>
+</head>
+<body id="bodymain" class="hold-transition skin-purple sidebar-mini">
+<div class="wrapper">
+
+  <header class="main-header">
+    <!-- Logo -->
+    <a href="index2.html" class="logo">
+      <!-- mini logo for sidebar mini 50x50 pixels -->
+      <span class="logo-mini"><b>A</b>LT</span>
+      <!-- logo for regular state and mobile devices -->
+      <span class="logo-lg"><b>Control </b>Panel</span>
+    </a>
+    <!-- Header Navbar: style can be found in header.less -->
+    <nav class="navbar navbar-static-top">
+      <!-- Sidebar toggle button-->
+      <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+        <span class="sr-only">Toggle navigation</span>
+      </a>
+
+      <div class="navbar-custom-menu">
+        <ul class="nav navbar-nav">
+          <!-- Messages: style can be found in dropdown.less-->
+          <li class="dropdown messages-menu">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <i class="fa fa-envelope-o"></i>
+              <span class="label label-success">4</span>
+            </a>
+            <ul class="dropdown-menu">
+              <li class="header">You have 4 messages</li>
+              <li>
+                <!-- inner menu: contains the actual data -->
+                <ul class="menu">
+                  <li><!-- start message -->
+                    <a href="#">
+                      <div class="pull-left">
+                        <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                      </div>
+                      <h4>
+                        Support Team
+                        <small><i class="fa fa-clock-o"></i> 5 mins</small>
+                      </h4>
+                      <p>Why not buy a new awesome theme?</p>
+                    </a>
+                  </li>
+                  <!-- end message -->
+                  <li>
+                    <a href="#">
+                      <div class="pull-left">
+                        <img src="dist/img/user3-128x128.jpg" class="img-circle" alt="User Image">
+                      </div>
+                      <h4>
+                        AdminLTE Design Team
+                        <small><i class="fa fa-clock-o"></i> 2 hours</small>
+                      </h4>
+                      <p>Why not buy a new awesome theme?</p>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#">
+                      <div class="pull-left">
+                        <img src="dist/img/user4-128x128.jpg" class="img-circle" alt="User Image">
+                      </div>
+                      <h4>
+                        Developers
+                        <small><i class="fa fa-clock-o"></i> Today</small>
+                      </h4>
+                      <p>Why not buy a new awesome theme?</p>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#">
+                      <div class="pull-left">
+                        <img src="dist/img/user3-128x128.jpg" class="img-circle" alt="User Image">
+                      </div>
+                      <h4>
+                        Sales Department
+                        <small><i class="fa fa-clock-o"></i> Yesterday</small>
+                      </h4>
+                      <p>Why not buy a new awesome theme?</p>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#">
+                      <div class="pull-left">
+                        <img src="dist/img/user4-128x128.jpg" class="img-circle" alt="User Image">
+                      </div>
+                      <h4>
+                        Reviewers
+                        <small><i class="fa fa-clock-o"></i> 2 days</small>
+                      </h4>
+                      <p>Why not buy a new awesome theme?</p>
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              <li class="footer"><a href="#">See All Messages</a></li>
+            </ul>
+          </li>
+          <!-- Notifications: style can be found in dropdown.less -->
+          <li class="dropdown notifications-menu">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <i class="fa fa-bell-o"></i>
+              <span class="label label-warning">10</span>
+            </a>
+            <ul class="dropdown-menu">
+              <li class="header">You have 10 notifications</li>
+              <li>
+                <!-- inner menu: contains the actual data -->
+                <ul class="menu">
+                  <li>
+                    <a href="#">
+                      <i class="fa fa-users text-aqua"></i> 5 new members joined today
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#">
+                      <i class="fa fa-warning text-yellow"></i> Very long description here that may not fit into the
+                      page and may cause design problems
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#">
+                      <i class="fa fa-users text-red"></i> 5 new members joined
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#">
+                      <i class="fa fa-shopping-cart text-green"></i> 25 sales made
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#">
+                      <i class="fa fa-user text-red"></i> You changed your username
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              <li class="footer"><a href="#">View all</a></li>
+            </ul>
+          </li>
+          <!-- Tasks: style can be found in dropdown.less -->
+          <li class="dropdown tasks-menu">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <i class="fa fa-flag-o"></i>
+              <span class="label label-danger">9</span>
+            </a>
+            <ul class="dropdown-menu">
+              <li class="header">You have 9 tasks</li>
+              <li>
+                <!-- inner menu: contains the actual data -->
+                <ul class="menu">
+                  <li><!-- Task item -->
+                    <a href="#">
+                      <h3>
+                        Design some buttons
+                        <small class="pull-right">20%</small>
+                      </h3>
+                      <div class="progress xs">
+                        <div class="progress-bar progress-bar-aqua" style="width: 20%" role="progressbar"
+                             aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                          <span class="sr-only">20% Complete</span>
+                        </div>
+                      </div>
+                    </a>
+                  </li>
+                  <!-- end task item -->
+                  <li><!-- Task item -->
+                    <a href="#">
+                      <h3>
+                        Create a nice theme
+                        <small class="pull-right">40%</small>
+                      </h3>
+                      <div class="progress xs">
+                        <div class="progress-bar progress-bar-green" style="width: 40%" role="progressbar"
+                             aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                          <span class="sr-only">40% Complete</span>
+                        </div>
+                      </div>
+                    </a>
+                  </li>
+                  <!-- end task item -->
+                  <li><!-- Task item -->
+                    <a href="#">
+                      <h3>
+                        Some task I need to do
+                        <small class="pull-right">60%</small>
+                      </h3>
+                      <div class="progress xs">
+                        <div class="progress-bar progress-bar-red" style="width: 60%" role="progressbar"
+                             aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                          <span class="sr-only">60% Complete</span>
+                        </div>
+                      </div>
+                    </a>
+                  </li>
+                  <!-- end task item -->
+                  <li><!-- Task item -->
+                    <a href="#">
+                      <h3>
+                        Make beautiful transitions
+                        <small class="pull-right">80%</small>
+                      </h3>
+                      <div class="progress xs">
+                        <div class="progress-bar progress-bar-yellow" style="width: 80%" role="progressbar"
+                             aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                          <span class="sr-only">80% Complete</span>
+                        </div>
+                      </div>
+                    </a>
+                  </li>
+                  <!-- end task item -->
+                </ul>
+              </li>
+              <li class="footer">
+                <a href="#">View all tasks</a>
+              </li>
+            </ul>
+          </li>
+          <!-- User Account: style can be found in dropdown.less -->
+          <li class="dropdown user user-menu">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <img src="dist/img/user1-128x128.jpg" class="user-image" alt="User Image">
+              <span class="hidden-xs">Awsaf Alam</span>
+            </a>
+            <ul class="dropdown-menu">
+              <!-- User image -->
+              <li class="user-header">
+                <img src="dist/img/user1-128x128.jpg" class="img-circle" alt="User Image">
+
+                <p>
+                  Alexander Pierce - Web Developer
+                  <small>Member since Nov. 2012</small>
+                </p>
+              </li>
+              <!-- Menu Body -->
+              <!-- <li class="user-body">
+                <div class="row">
+                  <div class="col-xs-4 text-center">
+                    <a href="#">Followers</a>
+                  </div>
+                  <div class="col-xs-4 text-center">
+                    <a href="#">Sales</a>
+                  </div>
+                  <div class="col-xs-4 text-center">
+                    <a href="#">Friends</a>
+                  </div>
+                </div>
+              </li> -->
+              <!-- Menu Footer-->
+              <li class="user-footer">
+                <div class="pull-left">
+                  <a href="pages/examples/profile.html" class="btn btn-default btn-flat">Profile</a>
+                </div>
+                <div class="pull-right">
+                  <a href="pages/examples/lockscreen.html" class="btn btn-default btn-flat">Sign out</a>
+                </div>
+              </li>
+            </ul>
+          </li>
+          <!-- Control Sidebar Toggle Button -->
+          <li>
+            <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Left side column. contains the logo and sidebar -->
+  <aside class="main-sidebar">
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar">
+      <!-- Sidebar user panel -->
+      <div class="user-panel">
+        <div class="pull-left image">
+          <img src="../../dist/img/user1-128x128.jpg" class="img-circle" alt="User Image">
+        </div>
+        <div class="pull-left info">
+          <p>Awsaf Alam</p>
+          <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+        </div>
+      </div>
+      <!-- search form -->
+      <form action="#" method="get" class="sidebar-form">
+        <div class="input-group">
+          <input type="text" name="q" class="form-control" placeholder="Search...">
+          <span class="input-group-btn">
+                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+                </button>
+              </span>
+        </div>
+      </form>
+      <!-- /.search form -->
+      <!-- sidebar menu: : style can be found in sidebar.less -->
+      <ul class="sidebar-menu" data-widget="tree">
+        <li class="header">MAIN NAVIGATION</li>
+        <li>
+          <a href="../../index1.html">
+            <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+          </a>
+          
+        </li>
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-plane"></i>
+            <span>Flight Management</span>
+            <span class="pull-right-container">
+              <span class="label label-primary pull-right"></span>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="../../pages/adminpages/Schedule.html"><i class="fa fa-calendar"></i>Schedule</a></li>
+            <li><a href="../../pages/adminpages/Boarding.html"><i class="fa fa-location-arrow"></i>Boarding</a></li>
+            <li><a href="../../pages/adminpages/Airport.html"><i class="fa fa-building"></i>Airport</a></li>
+            <li><a href="../../pages/adminpages/Price.html"><i class="fa fa-money"></i>Price</a></li>
+          </ul>
+        </li>
+         <li class="treeview">
+          <a href="#">
+            <i class="fa fa-address-card"></i>
+            <span>Employee Management</span>
+            <span class="pull-right-container">
+              <span class="label label-primary pull-right"></span>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="../../pages/adminpages/Employees.html"><i class="fa fa-user"></i>Employee</a></li>
+            <li><a href="../../pages/adminpages/Expense.html"><i class="fa fa-line-chart"></i>Expense</a></li>
+          </ul>
+        </li>
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-users"></i>
+            <span>Customer Care</span>
+            <span class="pull-right-container">
+              <span class="label label-primary pull-right"></span>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="../../pages/adminpages/Passengers.html"><i class="fa fa-user-circle"></i>Passengers</a></li>
+            <li><a href="../../pages/adminpages/Booking.html"><i class="fa fa-ticket"></i>Booking</a></li>
+            <li><a href="../../pages/adminpages/Offers.html"><i class="fa fa-percent"></i>Offers</a></li>
+          </ul>
+        </li>
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-gears"></i>
+            <span>Hanger</span>
+            <span class="pull-right-container">
+              <span class="label label-primary pull-right">4</span>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="../../pages/adminpages/Aircraft.html"><i class="fa fa-paper-plane"></i>Aircraft</a></li>
+            <li><a href="../../pages/adminpages/Maintenance.html"><i class="fa fa-wrench"></i>Maintenance</a></li>
+            <!-- <li><a href="../../pages/adminpages/Passengers.html"><i class="fa fa-gear"></i>Parts</a></li> -->
+            <!-- <li><a href="pages/adminpages/Passengers.html"><i class="fa fa-circle-o"></i>Fuel</a></li> -->
+        </ul>
+        </li>
+        <!-- <li>
+          <a href="pages/calendar.html">
+            <i class="fa fa-calendar"></i> <span>Calendar</span>
+            <span class="pull-right-container">
+              <small class="label pull-right bg-red">3</small>
+              <small class="label pull-right bg-blue">17</small>
+            </span>
+          </a>
+        </li>
+        <li>
+          <a href="pages/mailbox/mailbox.html">
+            <i class="fa fa-envelope"></i> <span>Mailbox</span>
+            <span class="pull-right-container">
+              <small class="label pull-right bg-yellow">12</small>
+              <small class="label pull-right bg-green">16</small>
+              <small class="label pull-right bg-red">5</small>
+            </span>
+          </a>
+        </li>
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-folder"></i> <span>Examples</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="pages/examples/invoice.html"><i class="fa fa-circle-o"></i> Invoice</a></li>
+            <li><a href="pages/examples/profile.html"><i class="fa fa-circle-o"></i> Profile</a></li>
+            <li><a href="pages/examples/login.html"><i class="fa fa-circle-o"></i> Login</a></li>
+            <li><a href="pages/examples/register.html"><i class="fa fa-circle-o"></i> Register</a></li>
+            <li><a href="pages/examples/lockscreen.html"><i class="fa fa-circle-o"></i> Lockscreen</a></li>
+            <li><a href="pages/examples/404.html"><i class="fa fa-circle-o"></i> 404 Error</a></li>
+            <li><a href="pages/examples/500.html"><i class="fa fa-circle-o"></i> 500 Error</a></li>
+            <li><a href="pages/examples/blank.html"><i class="fa fa-circle-o"></i> Blank Page</a></li>
+            <li><a href="pages/examples/pace.html"><i class="fa fa-circle-o"></i> Pace Page</a></li>
+          </ul>
+        </li>
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-share"></i> <span>Multilevel</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="#"><i class="fa fa-circle-o"></i> Level One</a></li>
+            <li class="treeview">
+              <a href="#"><i class="fa fa-circle-o"></i> Level One
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="#"><i class="fa fa-circle-o"></i> Level Two</a></li>
+                <li class="treeview">
+                  <a href="#"><i class="fa fa-circle-o"></i> Level Two
+                    <span class="pull-right-container">
+                      <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                  </a>
+                  <ul class="treeview-menu">
+                    <li><a href="#"><i class="fa fa-circle-o"></i> Level Three</a></li>
+                    <li><a href="#"><i class="fa fa-circle-o"></i> Level Three</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+            <li><a href="#"><i class="fa fa-circle-o"></i> Level One</a></li>
+          </ul>
+        </li>
+        <li><a href="https://adminlte.io/docs"><i class="fa fa-book"></i> <span>Documentation</span></a>
+        </li> -->
+        <li class="header">Profile</li>
+        <li><a href="index.html"><i class="fa fa-circle-o text-red"></i> <span>Log out</span></a></li>
+        <!-- <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Warning</span></a></li>
+        <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> <span>Information</span></a></li> -->
+      </ul>
+    </section>
+    <!-- /.sidebar -->
+  </aside>
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        Dashboard
+        <small>Control panel</small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">Dashboard</li>
+      </ol>
+    </section>
+
+      <!-- Main content -->
+    <section class="content">
+      <div class="row">
+        <div class="col-md-3">
+          <div class="box box-solid">
+            <div class="box-header with-border">
+              <h4 class="box-title">Schedules Management</h4>
+            </div>
+            <div class="box-body">
+              <!-- the events -->
+              <div id="external-events">
+              <!--   <div class="external-event bg-green">Dhaka - Kolkata</div>
+                <div class="external-event bg-yellow">Dhaka - Chittagong</div>
+                <div class="external-event bg-aqua">Dhaka - Sylhet</div>
+                <div class="external-event bg-light-blue">Chittagong - kolkata</div>
+                <div class="external-event bg-red">Sylhet - London</div>
+               -->  
+              </div>
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /. box -->
+          <div class="box box-solid">
+            <div class="box-header with-border">
+              <h3 class="box-title">Create New Schedule</h3>
+            </div>
+            <div class="box-body">
+              <div class="btn-group" style="width: 100%; margin-bottom: 10px;">
+                <!--<button type="button" id="color-chooser-btn" class="btn btn-info btn-block dropdown-toggle" data-toggle="dropdown">Color <span class="caret"></span></button>-->
+                <ul class="fc-color-picker" id="color-chooser">
+                  <li><a class="text-aqua" href="#"><i class="fa fa-square"></i></a></li>
+                  <li><a class="text-blue" href="#"><i class="fa fa-square"></i></a></li>
+                  <li><a class="text-light-blue" href="#"><i class="fa fa-square"></i></a></li>
+                  <li><a class="text-teal" href="#"><i class="fa fa-square"></i></a></li>
+                  <li><a class="text-yellow" href="#"><i class="fa fa-square"></i></a></li>
+                  <li><a class="text-orange" href="#"><i class="fa fa-square"></i></a></li>
+                  <li><a class="text-green" href="#"><i class="fa fa-square"></i></a></li>
+                  <li><a class="text-lime" href="#"><i class="fa fa-square"></i></a></li>
+                  <li><a class="text-red" href="#"><i class="fa fa-square"></i></a></li>
+                  <li><a class="text-purple" href="#"><i class="fa fa-square"></i></a></li>
+                  <li><a class="text-fuchsia" href="#"><i class="fa fa-square"></i></a></li>
+                  <li><a class="text-muted" href="#"><i class="fa fa-square"></i></a></li>
+                  <li><a class="text-navy" href="#"><i class="fa fa-square"></i></a></li>
+                </ul>
+              </div>
+              <!-- /btn-group -->
+              <div class="input-group">
+                <input id="From" type="text" class="form-control" placeholder="From">
+                <input id="To" type="text" class="form-control" placeholder="TO">
+                
+                <div class="input-group-btn">
+                  <button id="add-new-event" type="button" class="btn btn-primary btn-flat">Add</button>
+                </div>
+                
+                <!-- /btn-group -->
+              </div>
+              <!-- <input id="depart" type="datetime-local" class="form-control" placeholder="Enter Departure"> -->
+              <!-- <div class="input-group date" data-provide="datetimepicker"> -->
+              <div class="input-group date" id="datetimepicker">
+                <input type="text" id="depart" placeholder="Departure" class="form-control">
+                  <div class="input-group-addon">
+                      <span class="glyphicon glyphicon-th"></span>
+                  </div>
+              </div>
+              <input id="Plane" type="text" class="form-control" placeholder="Choose Plane">
+                
+              <!-- /input-group -->
+            </div>
+          </div>
+
+          <div class="box box-solid" style="display: none;">
+            <div class="box-header with-border">
+              <h3 class="box-title">Flight Crew</h3>
+            </div>
+            <div class="box-body">
+              <!-- /btn-group -->
+              <div class="input-group">
+                
+                <button type="button" style="margin: 15px;" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" id="Pilot1txt" >Pilot 1<span class="caret"></span></button>
+                
+
+                <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" id="Pilot2txt" >Pilot 2<span class="caret"></span></button>
+                <ul class="dropdown-menu scrollable-menu" id="Pilotlist" role="menu">
+                  <li><a href="">awsaf</a></li>
+                </ul>
+              </div>
+              <div class="input-group">
+
+                <button style="margin: 15px;" type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" id="crew" >Flight Attendent<span class="caret"></span></button>
+                <ul class="dropdown-menu scrollable-menu" id="crewlist" role="menu">
+                  <li><a href="">Fuad</a></li>
+                </ul>
+
+                <h5 id="FLightAttendent">Choose minimum 3 Flight Attendants</h5>
+              </div>
+              
+              <!-- <div class="input-group">
+                  <button id="add-new-event" type="button" class="btn btn-primary btn-flat">Add</button>
+                </div>
+               -->  
+                
+              <!-- /input-group -->
+            </div>
+          </div>
+        </div>
+
+          
+        <!-- /.col -->
+        <div class="col-md-9">
+          <div class="box box-primary">
+            <div class="box-body no-padding">
+              <!-- THE CALENDAR -->
+              <div id="calendar"></div>
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /. box -->
+        </div>
+
+        <div class="col-xs-12">
+          <div class="box">
+            <div class="box-header">
+              <h3 class="box-title">Flight Crew</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+              <table class="table-bordered table-hover" id="Emptable" class="table table-bordered table-striped">
+                <thead class="thead-dark">
+                <tr>
+                  <th>FLight ID</th>
+                  <th>Route ID</th>
+                  <th>Employee ID</th>
+                  <th>Name</th>
+                  <th>Designation</th>
+                  <th>Departure</th>
+                  <th>Arrival</th>
+
+                </tr>
+                </thead>
+
+              </table>
+            </div>
+        </div>
+
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </section>
+  
+
+
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+  <footer class="main-footer">
+    <div class="pull-right hidden-xs">
+      <b>Version</b> 1.0.0
+    </div>
+    <strong>Copyright &copy; 2017 <a href="https://awsaf114.github.io">Awsaf Alam</a>.</strong> All rights
+    reserved.
+  </footer>
+
+  <div class="control-sidebar-bg"></div>
+</div>
+<!-- ./wrapper -->
+
+<!-- Modal -->
+<div class="modal fade" id="UpdateEventModal" role="dialog">
+  <div class="modal-dialog" >
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">Update FLight Status</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h2>Schedule</h2>
+
+        <div class="dropdown">
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown">
+            Status
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+           <li><a class="dropdown-item" href="#">ON TIME</a></li> 
+           <li><a class="dropdown-item" href="#">DELAYED</a></li> 
+          </ul>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+<!-- jQuery 3 -->
+<script src="../../bower_components/jquery/dist/jquery.min.js"></script>
+<!-- jQuery UI 1.11.4 -->
+<script src="../../bower_components/jquery-ui/jquery-ui.min.js"></script>
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+<script>
+  $.widget.bridge('uibutton', $.ui.button);
+</script>
+
+<!-- jQuery 3 -->
+<script src="../../bower_components/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap 3.3.7 -->
+<script src="../../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+<!-- jQuery UI 1.11.4 -->
+<script src="../../bower_components/jquery-ui/jquery-ui.min.js"></script>
+<!-- Slimscroll -->
+<script src="../../bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+<!-- FastClick -->
+<script src="../../bower_components/fastclick/lib/fastclick.js"></script>
+<!-- AdminLTE App -->
+<script src="../../dist/js/adminlte.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="../../dist/js/demo.js"></script>
+
+<!-- fullCalendar -->
+<script src="../../bower_components/moment/moment.js"></script>
+<script src="../../bower_components/fullcalendar/dist/fullcalendar.min.js"></script>
+<!-- DataTables -->
+<script src="../../bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="../../bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+
+<!-- Datepicker -->
+<script src="../../bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+<script src="../../bower_components/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+
+<!-- Page specific script -->
+<script>
+var waitingDialog = waitingDialog || (function ($) {
+    'use strict';
+
+  // Creating modal dialog's DOM
+  var $dialog = $(
+    '<div class="modal fade" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-hidden="true" style="padding-top:15%; overflow-y:visible;">' +
+    '<div class="modal-dialog modal-m">' +
+    '<div class="modal-content">' +
+      '<div class="modal-header"><h3 style="margin:0;"></h3></div>' +
+      '<div class="modal-body">' +
+        '<div class="progress progress-striped active" style="margin-bottom:0;"><div class="progress-bar" style="width: 100%"></div></div>' +
+      '</div>' +
+    '</div></div></div>');
+
+  return {
+    /**
+     * Opens our dialog
+     * @param message Custom message
+     * @param options Custom options:
+     *          options.dialogSize - bootstrap postfix for dialog size, e.g. "sm", "m";
+     *          options.progressType - bootstrap postfix for progress bar type, e.g. "success", "warning".
+     */
+    show: function (message, options) {
+      // Assigning defaults
+      if (typeof options === 'undefined') {
+        options = {};
+      }
+      if (typeof message === 'undefined') {
+        message = 'Loading';
+      }
+      var settings = $.extend({
+        dialogSize: 'm',
+        progressType: '',
+        onHide: null // This callback runs after the dialog was hidden
+      }, options);
+
+      // Configuring dialog
+      $dialog.find('.modal-dialog').attr('class', 'modal-dialog').addClass('modal-' + settings.dialogSize);
+      $dialog.find('.progress-bar').attr('class', 'progress-bar');
+      if (settings.progressType) {
+        $dialog.find('.progress-bar').addClass('progress-bar-' + settings.progressType);
+      }
+      $dialog.find('h3').text(message);
+      // Adding callbacks
+      if (typeof settings.onHide === 'function') {
+        $dialog.off('hidden.bs.modal').on('hidden.bs.modal', function (e) {
+          settings.onHide.call($dialog);
+        });
+      }
+      // Opening dialog
+      $dialog.modal();
+    },
+    /**
+     * Closes dialog
+     */
+    hide: function () {
+      $dialog.modal('hide');
+    }
+  };
+})(jQuery);
+
+$(function () {
+
+  var SCHEDULE_DATA;
+
+    $('#datetimepicker').datetimepicker();
+    $('#datetimepicker1').datetimepicker();
+
+    // Loading fLIGHT cREW
+    var Employeetable = document.getElementById('Emptable');
+
+  
+  var getFromDb="../../v1/index.php?table=GetFlightCrew&Flight=";
+   var Obj;
+   xmlhttp = new XMLHttpRequest();
+
+ 
+  var Emplotable;
+  xmlhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      // console.log(this.responseText);
+      Emplotable = this.responseText;
+      MakeTable(Emplotable);
+   
+      // console.log(JSON.parse(Emplotable));
+        // document.getElementById("table").innerHTML = this.responseText;
+    }
+  };
+   xmlhttp.open("GET", getFromDb, true);
+
+   xmlhttp.send();
+
+function MakeTable(Emplotable) {
+  // body...
+  var Empldata = JSON.parse(Emplotable);
+  console.log(Empldata);
+  var tbody = document.createElement("tbody");
+  var Dropdown = document.getElementById('Pilotlist');
+  var FLightAttendent = document.getElementById('crewlist');
+
+  Employeetable.append(tbody);
+
+
+  for(var i=0 ; i< Empldata.length ; i++){
+      var tr = document.createElement("tr");
+      tbody.append(tr);
+    
+    for (var j = 0; j < Empldata[i].length; j++) {
+    
+      var td = document.createElement("td");
+      td.textContent = Empldata[i][j];
+        tr.append(td);
+
+        if(j == 4 && (Empldata[i][j] == "Pilot 1" || Empldata[i][j] == "Pilot 2")){
+            
+            var listitem = document.createElement('li');
+            Dropdown.append(listitem);
+
+            var a = document.createElement('a');
+            a.id = "Designation"+i;
+            a.textContent = Empldata[i][3];
+            listitem.append(a);
+
+            handleClickDropdown(a.id , i , Empldata);
+          }
+
+        if(j == 4 && Empldata[i][j] == "Flight Attendant"){
+            
+            var listitem = document.createElement('li');
+            FLightAttendent.append(listitem);
+
+            var a = document.createElement('a');
+            a.id = "Designation"+i;
+            a.textContent = Empldata[i][3];
+            listitem.append(a);
+
+            handleClickDropdown(a.id , i , Empldata);
+          }
+
+
+      }
+    
+  }
+
+
+  $('#Emptable').DataTable({
+      'paging'      : true,
+      'lengthChange': true,
+      'searching'   : true,
+      'ordering'    : [[ 1, "asc" ]],
+      'info'        : true,
+      'autoWidth'   : true
+    });
+}
+
+function handleClickDropdown(id , i ,Empldata) {
+    // body...
+    document.getElementById(id).addEventListener("click" , function () {
+      // body...
+      console.log(Empldata[i][1]);
+      // if(srcflag){
+      //   document.getElementById('srcflag').textContent = Empldata[i][3];
+      // }
+      // else{
+      //   document.getElementById('dstflag').textContent = Empldata[i][3];
+      // }
+
+
+    });
+  }
+
+    /* initialize the external events
+     -----------------------------------------------------------------*/
+    function init_events(ele) {
+      ele.each(function () {
+
+        // create an Event Object (http://arshaw.com/fullcalendar/docs/event_data/Event_Object/)
+        // it doesn't need to have a start or end
+        var eventObject = {
+          title: $.trim($(this).text()), // use the element's text as the event title
+          duration: '03:00:00' 
+        }
+
+        // store the Event Object in the DOM element so we can get to it later
+        $(this).data('eventObject', eventObject)
+
+        // make the event draggable using jQuery UI
+        $(this).draggable({
+          zIndex        : 1070,
+          revert        : true, // will cause the event to go back to its
+          revertDuration: 0  //  original position after the drag
+        })
+
+      })
+    }
+
+    init_events($('#external-events div.external-event'))
+
+    function handleclick(id) {
+      // body...
+      document.getElementById("save"+id).addEventListener("click" , function () {
+        // body...
+        
+        var Status = document.getElementById("dropdownMenuButton"+id).value;
+
+        if(Status == "ON TIME"){
+          var newstat = Status.split(" ");
+          Status = newstat[0]+"*"+newstat[1];
+          console.log(Status);
+        }
+
+
+         var getFromDb="../../v1/Flight_status_update.php?Status="+Status+"&Flight="+id;
+
+           var Obj;
+           xmlhttp = new XMLHttpRequest();
+           
+           var flightresponse;
+            xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+              console.log(this.responseText);
+              flightresponse = this.responseText;
+            
+              // console.log(flightdata);
+                // document.getElementById("table").innerHTML = this.responseText;
+            }
+            };
+           xmlhttp.open("GET", getFromDb, true);
+
+           xmlhttp.send();
+
+
+
+        $("#"+id).modal('hide');
+        location.reload();
+
+      });
+
+      document.getElementById("del"+id).addEventListener("click" , function () {
+          $("#"+id).modal('hide');
+          
+          var getFromDb="../../v1/index.php?table=DeleteFlight&Flight="+id;
+           xmlhttp = new XMLHttpRequest();
+
+         
+          xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+              console.log(this.responseText);
+              location.reload();
+            }
+          };
+           xmlhttp.open("GET", getFromDb, true);
+
+           xmlhttp.send();
+           alert("Are you sure you want to Delete this schedule?\n Any changes you make cannot be reverted!");
+
+
+
+      });
+
+    }
+    //Date for the calendar events (dummy data)
+    var date = new Date()
+    var d    = date.getDate(), // 1- 31
+        m    = date.getMonth(), //0 11
+        y    = date.getFullYear() //accurate
+
+    // console.log(date.toJSON());
+    $('#calendar').fullCalendar({
+      header    : {
+        left  : 'prev,next today',
+        center: 'title',
+        right : 'month,agendaWeek,agendaDay'
+      },
+      buttonText: {
+        today: 'today',
+        month: 'month',
+        week : 'week',
+        day  : 'day'
+      },
+      // defaultView: 'agendaWeek',
+      //Random default events
+      events    : function (start , end , timezone , callback) {
+        // body...
+        var getFromDb="../../v1/index.php?table=ScheduleCalendar&Flight=";
+         var Obj;
+         xmlhttp = new XMLHttpRequest();
+
+       
+        var EmploSch;
+        var events = [];
+        xmlhttp.onreadystatechange = function() {
+          if (this.readyState == 4 && this.status == 200) {
+            // console.log(this.responseText);
+            EmploSch = JSON.parse(this.responseText);
+            SCHEDULE_DATA = EmploSch;
+            // MakeEvents(Emplotable);
+            console.log(EmploSch);
+            // console.log(y+" " + m +" "+ d);
+            for(var i=0 ; i<(EmploSch.length)/4; i++){
+              // console.log("in loop");
+
+              var Title = EmploSch[i].Source + " - " + EmploSch[i].Destination
+                          +" ("+ EmploSch[i].Status+")";
+              
+              var Arrival = EmploSch[i].Arrival.split(" ");
+              var Arrdate = Arrival[0].split("-");
+              var ArrTime = Arrival[1].split(":");
+            
+              var Depparture = EmploSch[i].Departure.split(" ");
+              var Depdate = Depparture[0].split("-");
+              var DepTime = Depparture[1].split(":");
+              var Color;
+              if (EmploSch[i].Status == "DELAYED") {
+                Color = '#c62828';
+              }else{
+                Color = '#00a65a';
+              }
+
+              events.push({
+                title          : Title,
+                id             : EmploSch[i].Flight,
+                start          : new Date(Depdate[0], Depdate[1]-1, Depdate[2], DepTime[0],DepTime[1] , DepTime[2]),
+                end            : new Date(Arrdate[0], Arrdate[1]-1, Arrdate[2], ArrTime[0],ArrTime[1] , ArrTime[2]),
+                allDay         : false,
+                backgroundColor: Color, //Success (green)
+                borderColor    : Color //Success (green)
+              });
+            
+                var body = document.getElementById('bodymain');
+                var modal = document.createElement('div');
+                modal.classList.add('modal');
+                modal.classList.add('fade');
+                modal.id = EmploSch[i].Flight;
+                body.append(modal);
+
+                var mdialog = document.createElement('div');
+                mdialog.classList.add('modal-dialog');
+                modal.append(mdialog);
+
+                var content = document.createElement('div');
+                content.classList.add('modal-content');
+                mdialog.append(content);
+
+                var mheader = document.createElement('div');
+                mheader.classList.add('modal-header');
+                content.append(mheader);
+
+                var h3 = document.createElement('h3');
+                h3.classList.add('modal-title');
+                h3.textContent = "Flight Details";
+                mheader.append(h3);
+
+                // var str = document.createElement('strong');
+                // str = Title;
+                // mheader.append(str);
+
+                var mbody = document.createElement('div');
+                mbody.classList.add('modal-body');
+                // mbody.style.cssText = 'display: flex;';
+                content.append(mbody);
+
+                var h3 = document.createElement('h3');
+                h3.textContent = "Flight "+EmploSch[i].Flight+" -> "+Title;
+                mbody.append(h3);
+
+                var actions = document.createElement('div');
+                actions.style.cssText = 'display: flex';
+                mbody.append(actions);
+
+                var drop = document.createElement('div');
+                drop.classList.add('dropdown');
+                drop.style.cssText = 'margin-right: 10px;';
+                actions.append(drop);
+
+                var btn = document.createElement('button');
+                btn.classList.add('btn');
+                btn.classList.add('btntextchange');
+                btn.classList.add('btn-primary');
+                btn.classList.add('dropdown-toggle');
+                btn.id = "dropdownMenuButton"+modal.id;
+                btn.type = "button";
+                btn.setAttribute("data-toggle", "dropdown");
+                btn.textContent = "Flight Status";
+                drop.append(btn);
+
+                var ul = document.createElement('ul');
+                ul.classList.add('dropdown-menu');
+                drop.append(ul);
+
+                var li = document.createElement('li');
+                ul.append(li);
+                
+                var listitem = document.createElement('a');
+                listitem.classList.add('dropdown-item');
+                // li.classList.add('btn-success');
+                listitem.textContent = "ON TIME";
+                listitem.style.cursor = "pointer";
+                li.append(listitem);
+
+                var li1 = document.createElement('li');
+                ul.append(li1);
+                
+                var listitem1 = document.createElement('a');
+                listitem1.classList.add('dropdown-item');
+                // listitem.classList.add('btn-danger');
+                listitem1.textContent = "DELAYED";
+                listitem1.style.cursor = "pointer";
+                li1.append(listitem1);
+
+                var del = document.createElement('button');
+                del.classList.add('btn');
+                del.classList.add('btn-danger');
+                del.id = "del"+modal.id;
+                del.textContent = "Delete Schedule";
+                actions.append(del);
+
+
+
+
+                var mfooter = document.createElement('div');
+                mfooter.classList.add('modal-footer');
+                content.append(mfooter);
+
+                var save = document.createElement('button');
+                save.type = "button";
+                save.id = "save"+modal.id;
+                save.textContent = "Save Changes";
+                save.classList.add('btn');
+                save.classList.add('btn-primary');
+                mfooter.append(save);
+
+                var cancel = document.createElement('button');
+                cancel.type = "button";
+                cancel.textContent = "Close";
+                cancel.classList.add('btn');
+                cancel.classList.add('btn-primary');
+                cancel.setAttribute("data-dismiss","modal");
+                mfooter.append(cancel);
+
+
+                $(".dropdown-menu li a").click(function(){
+    
+                  $(".btntextchange:first-child").text($(this).text());
+                   $(".btntextchange:first-child").val($(this).text());
+                });
+
+              handleclick(modal.id);
+
+            }
+            waitingDialog.hide();
+                // console.log(callback);
+            callback(events); 
+          }
+            };
+         xmlhttp.open("GET", getFromDb, true);
+
+        xmlhttp.send();
+        waitingDialog.show("Loading Schedule Data")
+      },
+      selectable: true,
+      selectHelper: true,
+      // eventLimit: true,
+      editable  : true,
+      droppable : true, // this allows things to be dropped onto the calendar !!!
+      eventClick: function (calevent , jsEvent , view) {
+        // body...
+        var ID = calevent.id;
+        console.log(calevent.title+" "+calevent.id);
+        console.log('View: ' + view.name);
+
+        // var start = $.fullCalendar.moment(calevent.end).format('h:mm');
+        // var end = $.fullcalendar.moment(calevent.start).format('dddd , MMMM Do YYYY . h:mm')
+
+
+
+        // change the border color just for fun
+        $(this).css('background-color', 'red');
+        $('#'+ID).modal('toggle');
+
+      },
+      eventDrop: function(event, delta, revertFunc) {
+
+        //alert(event.title + " was dropped on " + event.start.format());
+
+        if (!confirm("Are you sure about this change?")) {
+            revertFunc();
+        }
+        else{
+          
+        }
+
+    },
+    drop      : function (date, allDay) { // this function is called when something is dropped
+
+      // retrieve the dropped element's stored Event Object
+      var originalEventObject = $(this).data('eventObject')
+
+      // we need to copy it, so that multiple events don't have a reference to the same object
+      var copiedEventObject = $.extend({}, originalEventObject)
+      console.log(copiedEventObject);
+      console.log(date);
+      console.log(allDay);
+
+      var Dur = copiedEventObject.duration.split(':');
+      // assign it the date that was reported
+      copiedEventObject.start           = new Date(date)
+      copiedEventObject.allDay          = false
+      // Default duration 2 hrs when end not specifies
+      // copiedEventObject.end = new Date(  Dur[0]+1 , Dur[1] ); // does not work
+      copiedEventObject.backgroundColor = $(this).css('background-color')
+      copiedEventObject.borderColor     = $(this).css('border-color')
+
+      console.log(copiedEventObject.end);
+      console.log(new Date(copiedEventObject.start).getTime()+(Dur[0]));
+
+      // render the event on the calendar
+      // the last `true` argument determines if the event "sticks" (http://arshaw.com/fullcalendar/docs/event_rendering/renderEvent/)
+      $('#calendar').fullCalendar('renderEvent', copiedEventObject, true)
+
+      // is the "remove after drop" checkbox checked?
+      // if ($('#drop-remove').is(':checked')) {
+      //   // if so, remove the element from the "Draggable Events" list
+      //   $(this).remove()
+      // }
+
+    }
+    })
+
+
+    /* ADDING EVENTS */
+    function addOthers() {
+      // body...
+      EmploSch = SCHEDULE_DATA;
+      for(var i=(EmploSch.length)/5 ; i<(EmploSch.length) ; i++){
+              // console.log("in loop");
+
+              var Title = EmploSch[i].Source + " - " + EmploSch[i].Destination
+                          +" ("+ EmploSch[i].Status+")";
+              
+              var Arrival = EmploSch[i].Arrival.split(" ");
+              var Arrdate = Arrival[0].split("-");
+              var ArrTime = Arrival[1].split(":");
+            
+              var Depparture = EmploSch[i].Departure.split(" ");
+              var Depdate = Depparture[0].split("-");
+              var DepTime = Depparture[1].split(":");
+              var Color;
+              if (EmploSch[i].Status == "DELAYED") {
+                Color = '#c62828';
+              }else{
+                Color = '#00a65a';
+              }
+
+              events.push({
+                title          : Title,
+                id             : EmploSch[i].Flight,
+                start          : new Date(Depdate[0], Depdate[1]-1, Depdate[2], DepTime[0],DepTime[1] , DepTime[2]),
+                end            : new Date(Arrdate[0], Arrdate[1]-1, Arrdate[2], ArrTime[0],ArrTime[1] , ArrTime[2]),
+                allDay         : false,
+                backgroundColor: Color, //Success (green)
+                borderColor    : Color //Success (green)
+              });
+            
+                var body = document.getElementById('bodymain');
+                var modal = document.createElement('div');
+                modal.classList.add('modal');
+                modal.classList.add('fade');
+                modal.id = EmploSch[i].Flight;
+                body.append(modal);
+
+                var mdialog = document.createElement('div');
+                mdialog.classList.add('modal-dialog');
+                modal.append(mdialog);
+
+                var content = document.createElement('div');
+                content.classList.add('modal-content');
+                mdialog.append(content);
+
+                var mheader = document.createElement('div');
+                mheader.classList.add('modal-header');
+                content.append(mheader);
+
+                var h3 = document.createElement('h3');
+                h3.classList.add('modal-title');
+                h3.textContent = "Flight Details";
+                mheader.append(h3);
+
+                // var str = document.createElement('strong');
+                // str = Title;
+                // mheader.append(str);
+
+                var mbody = document.createElement('div');
+                mbody.classList.add('modal-body');
+                // mbody.style.cssText = 'display: flex;';
+                content.append(mbody);
+
+                var h3 = document.createElement('h3');
+                h3.textContent = "Flight "+EmploSch[i].Flight+" -> "+Title;
+                mbody.append(h3);
+
+                var actions = document.createElement('div');
+                actions.style.cssText = 'display: flex';
+                mbody.append(actions);
+
+                var drop = document.createElement('div');
+                drop.classList.add('dropdown');
+                drop.style.cssText = 'margin-right: 10px;';
+                actions.append(drop);
+
+                var btn = document.createElement('button');
+                btn.classList.add('btn');
+                btn.classList.add('btntextchange');
+                btn.classList.add('btn-primary');
+                btn.classList.add('dropdown-toggle');
+                btn.id = "dropdownMenuButton"+modal.id;
+                btn.type = "button";
+                btn.setAttribute("data-toggle", "dropdown");
+                btn.textContent = "Flight Status";
+                drop.append(btn);
+
+                var ul = document.createElement('ul');
+                ul.classList.add('dropdown-menu');
+                drop.append(ul);
+
+                var li = document.createElement('li');
+                ul.append(li);
+                
+                var listitem = document.createElement('a');
+                listitem.classList.add('dropdown-item');
+                // li.classList.add('btn-success');
+                listitem.textContent = "ON TIME";
+                listitem.style.cursor = "pointer";
+                li.append(listitem);
+
+                var li1 = document.createElement('li');
+                ul.append(li1);
+                
+                var listitem1 = document.createElement('a');
+                listitem1.classList.add('dropdown-item');
+                // listitem.classList.add('btn-danger');
+                listitem1.textContent = "DELAYED";
+                listitem1.style.cursor = "pointer";
+                li1.append(listitem1);
+
+                var del = document.createElement('button');
+                del.classList.add('btn');
+                del.classList.add('btn-danger');
+                del.id = "del"+modal.id;
+                del.textContent = "Delete Schedule";
+                actions.append(del);
+
+
+
+
+                var mfooter = document.createElement('div');
+                mfooter.classList.add('modal-footer');
+                content.append(mfooter);
+
+                var save = document.createElement('button');
+                save.type = "button";
+                save.id = "save"+modal.id;
+                save.textContent = "Save Changes";
+                save.classList.add('btn');
+                save.classList.add('btn-primary');
+                mfooter.append(save);
+
+                var cancel = document.createElement('button');
+                cancel.type = "button";
+                cancel.textContent = "Close";
+                cancel.classList.add('btn');
+                cancel.classList.add('btn-primary');
+                cancel.setAttribute("data-dismiss","modal");
+                mfooter.append(cancel);
+
+
+                $(".dropdown-menu li a").click(function(){
+    
+                  $(".btntextchange:first-child").text($(this).text());
+                   $(".btntextchange:first-child").val($(this).text());
+                });
+
+              handleclick(modal.id);
+
+            }
+    }
+
+    var currColor = '#3c8dbc' //Red by default
+    //Color chooser button
+    var colorChooser = $('#color-chooser-btn')
+    $('#color-chooser > li > a').click(function (e) {
+      e.preventDefault()
+      //Save color
+      currColor = $(this).css('color')
+      //Add color effect to button
+      $('#add-new-event').css({ 'background-color': currColor, 'border-color': currColor })
+    })
+    $('#add-new-event').click(function (e) {
+      e.preventDefault()
+
+      //Get value and make sure it is not null
+      var val = $('#From').val(),
+       To = $('#To').val(),
+       Departure = $('#depart').val(),
+       Plane = $('#Plane').val(),
+       Arrival = $('#arrive').val();
+
+      var str = Departure.split(" ");
+      var datechange = str[0].split("/");
+      var dep = datechange[2]+"-"+datechange[0]+"-"+datechange[1];
+
+
+      // var formating = dep.split(" ");
+      if(str[2] == "PM"){
+          var hr = str[1].split(":");
+          var i = parseInt(hr[0]);
+          i = i +12;
+          var newformat = i+":"+hr[1]+":00"
+          dep = dep+" "+newformat;
+      }
+      else{
+          var newformat = str[1]+":00"
+          dep = dep+" "+newformat;
+      }
+
+
+      if (val.length == 0) {
+        return
+      }
+      console.log(dep);
+      //Create events
+      var event = $('<div />')
+
+      event.css({
+        'background-color': currColor,
+        'border-color'    : currColor,
+        'color'           : '#fff'
+      }).addClass('external-event')
+      event.html(val+" - "+To)
+      event.data('duration' , '03:00')
+      $('#external-events').prepend(event)
+
+      //Add draggable funtionality
+      init_events(event)
+
+      //Remove event from text input
+      $('#From').val('')
+      $('#To').val('')
+      $('#depart').val('')
+      $('#Plane').val('')
+      $('#arrive').val('')
+
+  // body...
+  console.log("Validation start");
+  
+  var data=new FormData();
+  data.append('Source',val);
+  data.append('Destination',To);
+  data.append('Aircraft_ID',Plane);
+  data.append('Departure',dep);
+  data.append('Arrival',Arrival);
+  data.append('Plane' , Plane);
+  
+
+  //Insert New Passenger
+  var PosttoDb="../../v1/Schedule_insert.php";
+    var Obj;
+    xmlhttp = new XMLHttpRequest();
+   
+  //   var flightresponse;
+    xmlhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      console.log("Data sent");
+      console.log(this.responseText+"   Posted   ......");
+    }
+  };
+   xmlhttp.open("POST", PosttoDb , true);
+
+   xmlhttp.send(data);
+      location.reload();
+  
+
+
+    })
+  })
+</script>
+
+
+
+</body>
+</html>

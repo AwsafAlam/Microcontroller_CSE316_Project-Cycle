@@ -8,15 +8,5 @@
     tools:context=".Activity.EndActivity"
     tools:showIn="@layout/activity_end">
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/timer_button"
-        android:text="Timer"/>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Time"
-        android:id="@+id/timer_text_view"/>
 </android.support.constraint.ConstraintLayout>

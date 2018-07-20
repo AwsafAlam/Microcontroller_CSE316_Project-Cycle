@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>BOARDING PASS</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <!-- Bootstrap 3.3.7 -->
+  <link rel="stylesheet" href="../../bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="../../bower_components/font-awesome/css/font-awesome.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="../../bower_components/Ionicons/css/ionicons.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="../../dist/css/AdminLTE.min.css">
+
+  
+<style type="text/css">
+  @import url('https://fonts.googleapis.com/css?family=Roboto:100,400');
+
+
+html, * {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  font-size: 16px;
+}
+
+body {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  font-family: 'Roboto', sans-serif;
+}
+
+img {
+  max-width: 100%;  
+}
+
+.flight-card {
+  width: 805px;
+  height: 700px;
+  border-radius: 35px;
+  margin: 10px auto;
+  overflow: hidden;
+  -webkit-box-shadow: 0px 0px 5px rgba(0,0,0,0.2);
+          box-shadow: 0px 0px 5px rgba(0,0,0,0.2);
+}
+
+.flight-card--header {
+  width: 100%;
+  height: 230px;
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#264b76+0,002c5f+100 */
+  background: -webkit-gradient(linear, left top, left bottom, from(#264b76),to(#002c5f));
+  background: linear-gradient(to bottom, #264b76 0%,#002c5f 100%);
+  padding: 20px 55px;
+  border-bottom: 7px solid #6DBE47;
+  position: relative;
+}
+
+.flight-card--header:before {
+  content: '';
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  background: #fff;
+  border-radius: 50px;
+  top: 50%;
+  left: 0;
+  -webkit-transform: translateY(-50%) translateX(-50%);
+          transform: translateY(-50%) translateX(-50%);
+}
+
+.flight-card--header:after {
+  content: '';
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  background: #fff;
+  border-radius: 50px;
+  top: 50%;
+  right: 0;
+  -webkit-transform: translateY(-50%) translateX(50%);
+          transform: translateY(-50%) translateX(50%);
+}
+
+.flight-card--header-logo {
+  /*width: 122px;*/
+  margin: 0 0 20px 0;
+}
+
+.flight-card--header-details {
+  width: 100%;
+  height: auto;
+  border-top: 3px solid rgba(255,255,255,0.3);
+  color: #fff;
+}
+
+.details-passenger {
+  width: 50%;
+  float: left;
+}
+
+.details-depart, .details-arrive {
+  width: 25%;
+  float: left;
+}
+
+.detail--title {
+  opacity: 0.5;
+  display: block;
+  margin: 30px 0 0 0;
+}
+
+.detail--text {
+  display: block;
+  margin: 5px 0 0 0;
+}
+
+.flight-card--details {
+  padding: 50px 55px;
+}
+
+.detail-code {
+  color: #002C5F;
+  font-size: 70px;
+  display: block;
+  font-weight: 100;
+}
+
+.detail-city {
+  color: #002C5F;
+
+}
+
+.bc-from {
+  width: 30%;
+  float: left;
+}
+
+.bc-to {
+  width: 30%;
+  float: right;
+  text-align: right;
+}
+
+.bc-plane {
+  width: 40%;
+  float: left;
+  text-align: center;
+  position: relative;
+}
+
+.bc-plane img {
+  width: 20%;
+  margin: 20px auto 0 auto;
+}
+
+.bc-plane:before {
+  content: '';
+  width: 135px;
+  height: 2px;
+  background: #efefef;
+  position: absolute;
+  top: 45px;
+  left: -50px;
+}
+
+.bc-plane:after {
+  content: '';
+  width: 135px;
+  height: 2px;
+  background: #efefef;
+  position: absolute;
+  top: 45px;
+  right: -50px;
+}
+
+.flight-card-details--text {
+  width: 100%;
+  padding: 80px 0 0 0;
+  clear: both;
+  overflow: auto;
+}
+
+.text-left {
+  width: 33%;
+  float: left;
+}
+
+.text-middle {
+  width: 33%;
+  float: left;
+  padding: 0 0 0 80px
+}
+
+.mint {
+  position: relative;
+}
+
+.mint:before {
+  content: '';
+  position: absolute;
+  bottom: 5px;
+  right: 80px;
+  width: 10px;
+  height: 10px;
+  background: #6DBE47;
+  border-radius: 50%;
+}
+
+.text-right {
+  width: 33%;
+  float: right;
+  text-align: right;
+}
+
+.text-hline {
+  color: #6a8597;
+  text-transform: uppercase;
+  display: block;
+  letter-spacing: 2px;
+}
+
+.text-actual {
+  color: #002C5F;
+  padding: 10px 0 0 0;
+  display: block;
+}
+
+.flight-card-details--admin {
+  margin: 20px 0 0 0;
+  color: #bdc3c7;
+  letter-spacing: 1px;
+}
+
+.admin-left {
+  width: 50%;
+  float: left;
+}
+
+.admin-right {
+  width: 50%;
+  float: right;
+  text-align: right;
+}
+</style>
+
+</head>
+<body onload="handleonload();">
+ <div class='flight-card'>
+  <div class='flight-card--header'>
+    <div class='flight-card--header-logo' style="display: flex;">
+      <!-- <img src='https://book.jetblue.com/assets/header/img/jetblue-white-reg.png'> -->
+      <h1 style="color: white;">BUET Airlines</h1>
+      <h2 style="padding-left: 6em; color: white;">BOARDING PASS</h2>
+    </div>
+    <div class='flight-card--header-details'>
+      <div class='details-passenger'>
+        <span class='detail--title'>
+          Passenger
+        </span>
+        <span class='detail--text' id="Name">
+          James Macpherson
+        </span>
+      </div>
+      <div class='details-depart'>
+        <span class='detail--title'>
+          Departs
+        </span>
+        <span class='detail--text' id="Departs">
+          Apr 2, 2017
+        </span>
+      </div>
+      <div class='details-arrive'>
+        <span class='detail--title'>
+          Arrives
+        </span>
+        <span class='detail--text' id="Arrives">
+          Apr 3, 2017
+        </span>
+      </div>
+    </div>
+  </div>
+  <div class='flight-card--details'>
+    <div class='bc-from'>
+      <span class='detail-code' id="SrcCode">
+        SFO
+      </span>
+      <span class='detail-city' id="srcAirport">
+        San Francisco, California
+      </span>
+    </div>
+    <div class='bc-plane'>
+      <img src='Flight_icon.svg'>
+    </div>
+    <div class='bc-to'>
+      <span class='detail-code' id="DstCode">
+        PVD
+      </span>
+      <span class='detail-city' id="DstAirport">
+        Providence, Rhode Island
+      </span>
+    </div>
+    <div class='flight-card-details--text'>
+      <div class='text-left'>
+        <span class='text-hline'>
+          SEAT
+        </span>
+        <span class='text-actual' id="Seat">
+          2B
+        </span>
+      </div>
+      <div class='text-middle'>
+        <span class='text-hline'>
+          Flight
+        </span>
+        <span class='text-actual' id="Flight">
+          B6 843
+        </span>
+      </div>
+      <div class='text-right'>
+        <span class='text-hline'>
+          Class
+        </span>
+        <span class='text-actual mint' id="Class">
+          Economy
+        </span>
+      </div>
+    </div>
+    <div class='flight-card-details--admin' style="display: flex;">
+      <!-- <div class='admin-left'>
+        PVD-SFO FUN 2017 - A321
+      </div>
+      <div class='admin-right'>
+        SEA1F MOSAIC
+      </div> -->
+    <h3>Boarding Time</h3>
+    <strong style="margin-left: 30px;"><h2>0945</h2></strong>
+    </div>
+    <div class="container text-centre" id="barcode" style="width: min-content; height: 40px; font-size: 34px; text-align: center; margin-top: 15px;">
+      ||||||||||||||||||||||||||||||||||||||||||||||||
+    </div>
+
+  </div>
+</div>
+<script type="text/javascript">
+  function handleonload(argument) {
+    // body...
+    var url = document.location.href;
+    var data = url.split('?');
+        // params = url.split('?')[1].split('&'),
+        // data = {}, tmp;
+    // for (var i = 0, l = params.length; i < l; i++) {
+    //      tmp = params[i].split('=');
+    //      data[tmp[0]] = tmp[1];
+    // }
+    // console.log(url);
+    console.log("DAtadasu   ----  "+data[1].split('=')[1]);
+    var Booking_ID = data[1].split('=')[1];
+  
+    var barcode = "Booking_ID="+Booking_ID;
+     var getFromDb="../../v1/GenerateBarcode/generate.php?text="+barcode;
+     xmlhttp = new XMLHttpRequest();
+
+ 
+    xmlhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      console.log(this.responseText);
+      
+        document.getElementById("barcode").innerHTML = this.responseText;
+       // window.print();
+
+      }
+    };
+   xmlhttp.open("GET", getFromDb, true);
+
+   xmlhttp.send();
+
+    var getFromDb="../../v1/index.php?table=BoardingData&Flight="+Booking_ID;
+     xmlhttp = new XMLHttpRequest();
+
+ 
+    xmlhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      console.log(this.responseText);
+      
+       var dataJ= this.responseText;
+       var data = JSON.parse(dataJ);
+
+       console.log(data);
+        document.getElementById('Name').textContent = data[0][0] ;
+        document.getElementById('Departs').textContent = data[0][6] ;
+        document.getElementById('Arrives').textContent = data[0][5] ;
+        document.getElementById('SrcCode').textContent = data[0][1] ;
+        document.getElementById('srcAirport').textContent = data[0][2] ;
+        document.getElementById('DstCode').textContent = data[0][3] ;
+        document.getElementById('DstAirport').textContent = data[0][4] ;
+        document.getElementById('Seat').textContent = data[0][7] ;
+        document.getElementById('Flight').textContent = data[0][8] ;
+
+       window.print();
+       // FillUp(resJSON);
+
+      }
+    };
+   xmlhttp.open("GET", getFromDb, true);
+
+   xmlhttp.send();
+
+
+
+  }
+
+  
+</script>
+</body>
+</html>
