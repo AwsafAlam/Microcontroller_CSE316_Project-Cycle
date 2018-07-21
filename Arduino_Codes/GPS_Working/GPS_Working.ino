@@ -5,22 +5,22 @@ static const uint32_t GPSBaud = 9600;
 
 // The TinyGPS++ object
 TinyGPSPlus gps;
+SoftwareSerial GPS_Serial1(9,10); //Rx , Tx
 
 
 void setup()
 {
   Serial.begin(9600);
-  Serial.println("uBlox Neo 6M Test");
-  Serial1.begin(GPSBaud);
+  GPS_Serial1.begin(GPSBaud);
 }
 
 void loop() // run over and over
 {
-  if (Serial1.available()){
+  if (GPS_Serial1.available()){
    //  Serial.write(Serial1.read());
 
    //Serial.println("Data");
-    gps.encode(Serial1.read());
+    gps.encode(GPS_Serial1.read());
     if (gps.location.isUpdated()){
       Serial.println("------------------------------------------------------");
       // Latitude in degrees (double)
