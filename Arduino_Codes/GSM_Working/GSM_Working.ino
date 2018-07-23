@@ -31,6 +31,8 @@ void GSMinit(){
   dtostrf(floatLng, 4, 3, charLng);
 
    char * writeQuery = "AT+HTTPPARA=\"URL\",\"http://198.211.96.87/v1/index_Cycle.php/gpsloc?lat=";
+   //char * writeQuery = "AT+HTTPPARA=\"URL\",\"http://onlinesohopathi.com/v1/index_Cycle.php/gpsloc?lat=";
+   
    strcpy(main,writeQuery);
    strcat(main,charLat);
    strcat(main,"&lng=");
