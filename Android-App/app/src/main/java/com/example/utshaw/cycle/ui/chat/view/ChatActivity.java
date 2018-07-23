@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetBehavior;
@@ -22,9 +24,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.utshaw.cycle.Activity.MainActivity;
-import com.example.utshaw.cycle.Activity.MapActivity;
 import com.example.utshaw.cycle.Activity.MapActivity2;
 import com.example.utshaw.cycle.Model.LocationInfo;
 import com.example.utshaw.cycle.Model.Response;
@@ -32,6 +32,7 @@ import com.example.utshaw.cycle.MyApp;
 import com.example.utshaw.cycle.R;
 import com.example.utshaw.cycle.Rest.ApiClient;
 import com.example.utshaw.cycle.Rest.ApiInterface;
+import com.example.utshaw.cycle.data.Stopwatch;
 import com.example.utshaw.cycle.ui.chat.data.ChatModule;
 import com.example.utshaw.cycle.ui.chat.data.DaggerChatComponent;
 import com.example.utshaw.cycle.ui.chat.presenter.ChatPresenter;
@@ -50,7 +51,11 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 import javax.inject.Inject;
 
@@ -68,12 +73,15 @@ public class ChatActivity extends AppCompatActivity implements ChatView,OnMapRea
     @BindView(R.id.activity_chat_status) TextView state;
     @BindView(R.id.activity_chat_messages) TextView messages;
 
+
         private GoogleMap mMap;
         private DrawerLayout mDrawerLayout;
         private ActionBarDrawerToggle mToggle;
         private Toolbar mToolbar;
         private BottomSheetBehavior sheetBehavior;
         private Button btn;
+        private TextView tvTextView;
+
         private TextView textView;
         private FusedLocationProviderClient mFusedLocationProviderClient;
 
@@ -81,6 +89,40 @@ public class ChatActivity extends AppCompatActivity implements ChatView,OnMapRea
         private static final float DEFAUlT_ZOOM = 15f;
         @Inject
         ChatPresenter presenter;
+
+    final int MSG_START_TIMER = 0;
+    final int MSG_STOP_TIMER = 1;
+    final int MSG_UPDATE_TIMER = 2;
+
+    Stopwatch timer = new Stopwatch();
+    final int REFRESH_RATE = 100;
+
+    Handler mHandler = new Handler()
+    {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case MSG_START_TIMER:
+                    timer.start(); //start timer
+                    mHandler.sendEmptyMessage(MSG_UPDATE_TIMER);
+                    break;
+
+                case MSG_UPDATE_TIMER:
+                    tvTextView.setText(formatDate(timer.getElapsedTime()));
+                    mHandler.sendEmptyMessageDelayed(MSG_UPDATE_TIMER,REFRESH_RATE); //text view is updated every second,
+                    break;                                  //though the timer is still running
+                case MSG_STOP_TIMER:
+                    mHandler.removeMessages(MSG_UPDATE_TIMER); // no more updates.
+                    timer.stop();//stop timer
+                    tvTextView.setText(formatDate(timer.getElapsedTime()));
+                    break;
+
+                default:
+                    break;
+            }
+        }
+    };
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -95,9 +137,12 @@ public class ChatActivity extends AppCompatActivity implements ChatView,OnMapRea
         ButterKnife.bind(this);
 
         presenter.onCreate(getIntent());
+        mHandler.sendEmptyMessage(MSG_START_TIMER);
+
         String barcode = "1";
 
         btn = findViewById(R.id.unlock);
+        tvTextView = findViewById(R.id.timer);
 
         btn.setOnClickListener(new View.OnClickListener() {
            @Override
@@ -114,6 +159,8 @@ public class ChatActivity extends AppCompatActivity implements ChatView,OnMapRea
                        //textView.setText(textView.getText() + " ->" + LocationObj.get(0).getOverview());
                        //presenter.onStop();
                        onHelloWorld0();
+                       mHandler.sendEmptyMessage(MSG_STOP_TIMER);
+
                        //Disable bluetooth
                        BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
                        if (mBluetoothAdapter.isEnabled()) {
@@ -350,5 +397,13 @@ public class ChatActivity extends AppCompatActivity implements ChatView,OnMapRea
     protected void onStop() {
         super.onStop();
         presenter.onStop();
+    }
+
+    String formatDate(long timeSTamp){
+        Date date = new Date(timeSTamp);
+        DateFormat formatter = new SimpleDateFormat("HH:mm:ss.SSS");
+        formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
+        String dateFormatted = formatter.format(date);
+        return dateFormatted;
     }
 }
