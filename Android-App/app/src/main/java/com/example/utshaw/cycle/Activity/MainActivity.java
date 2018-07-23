@@ -32,8 +32,8 @@ public class MainActivity extends AppCompatActivity {
         String loggedIn = sharedPreferences.getString("loggedIn", "false");
 
         if(loggedIn.equals("true")){
-            //Intent main_activity = new Intent(getApplicationContext(),MainActivity.class);
-            //startActivity(main_activity);
+            Intent main_activity = new Intent(getApplicationContext(),MapActivity2.class);
+            startActivity(main_activity);
             finish();
         }
 

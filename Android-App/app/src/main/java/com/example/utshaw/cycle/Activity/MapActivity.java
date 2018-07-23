@@ -30,6 +30,7 @@ import com.example.utshaw.cycle.Model.Response;
 import com.example.utshaw.cycle.R;
 import com.example.utshaw.cycle.Rest.ApiClient;
 import com.example.utshaw.cycle.Rest.ApiInterface;
+import com.example.utshaw.cycle.ui.chat.presenter.ChatPresenter;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -71,18 +72,21 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
 
-        String barcode = getIntent().getStringExtra("code");
-
-        textView = findViewById(R.id.barcode);
-        if (TextUtils.isEmpty(barcode)) {
-
-            textView.setText("No Code");
-        } else {
+        //String barcode = getIntent().getStringExtra("code");
+        String barcode = "1";
+//        textView = findViewById(R.id.barcode);
+//        if (TextUtils.isEmpty(barcode)) {
+//
+//            textView.setText("No Code");
+//        } else {
             sendtoGSM(barcode);
             textView.setText(barcode);
+//
+//        }
 
-        }
-
+        // Using getSerializableExtra(String key) method
+       //  presenter = (ChatPresenter) getIntent().getSerializableExtra("parcel_data");
+    //presenter.onStop();
 
         btn = findViewById(R.id.unlock);
 
@@ -99,6 +103,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                         List<LocationInfo> LocationObj = response.body().getResults();
                         Log.d(TAG, "Returned: " + LocationObj.size());
                         textView.setText(textView.getText() + " ->" + LocationObj.get(0).getOverview());
+                        //presenter.onStop();
                         startActivity(new Intent(MapActivity.this, MapActivity2.class));
 
                     }

@@ -106,7 +106,8 @@ void GPS_parse() // run over and over
   floatLat++;
   floatLng++;
   //Serial.println("In GSMInit");
-  GPS_parse();
+  //GPS_parse();
+
   char charLat[10];
   char charLng[10];
 
@@ -115,9 +116,12 @@ void GPS_parse() // run over and over
   //temporarily holds data from vals
 
   //4 is mininum width, 3 is precision; float value is copied onto buff
-  dtostrf(gpslat, 6, 5, charLat);
-  dtostrf(gpslng, 6, 5, charLng);
+//  dtostrf(gpslat, 6, 5, charLat);
+//  dtostrf(gpslng, 6, 5, charLng);
 
+  dtostrf(floatLat, 4, 3, charLat);
+  dtostrf(floatLng, 4, 3, charLng);
+  
    char * writeQuery = "AT+HTTPPARA=\"URL\",\"http://198.211.96.87/v1/index_Cycle.php/gpsloc?lat=";
    strcpy(main,writeQuery);
    strcat(main,charLat);

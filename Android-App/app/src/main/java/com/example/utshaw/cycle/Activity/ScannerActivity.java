@@ -10,17 +10,25 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
+import android.util.Log;
 import android.util.SparseArray;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.utshaw.cycle.Model.LocationInfo;
+import com.example.utshaw.cycle.Model.Response;
 import com.example.utshaw.cycle.R;
+import com.example.utshaw.cycle.Rest.ApiClient;
+import com.example.utshaw.cycle.Rest.ApiInterface;
+import com.example.utshaw.cycle.ui.SplashScreen;
 import com.google.android.gms.vision.barcode.Barcode;
 
 import java.util.List;
 
 import info.androidhive.barcode.BarcodeReader;
+import retrofit2.Call;
+import retrofit2.Callback;
 
 public class ScannerActivity extends AppCompatActivity implements BarcodeReader.BarcodeReaderListener {
 
@@ -98,12 +106,45 @@ public class ScannerActivity extends AppCompatActivity implements BarcodeReader.
                         String value = String.valueOf(input.getText());
                         // Do something with value!
                         Toast.makeText(ScannerActivity.this, "Starting Ride Now", Toast.LENGTH_SHORT).show();
+                        //startActivity(new Intent(MapActivity2.this, SplashScreen.class));
 
-                        Intent intent = new Intent(ScannerActivity.this, MapActivity.class);
-                        intent.putExtra("code", value);
-                        startActivity(intent);
+//                        Intent intent = new Intent(ScannerActivity.this, SplashScreen.class);
+//                        intent.putExtra("code", value);
+//                        startActivity(intent);
 
-                        }
+                        final String code = value;
+                        ApiInterface apiService =
+                                ApiClient.getClient().create(ApiInterface.class);
+
+                        Call<Response> call = apiService.getNearbyBikes(value); //Sending Bike code to API
+                        call.enqueue(new Callback<Response>() {
+                            @Override
+                            public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
+                                List<LocationInfo> LocationObj = response.body().getResults();
+                                //Log.d(TAG, "Returned: " + LocationObj.size());
+                                //textView.setText(textView.getText() + " ->" + LocationObj.get(0).getOverview());
+                                if(LocationObj.get(0).isOccupied() == 1){
+                                    Intent intent = new Intent(ScannerActivity.this, SplashScreen.class);
+                                    intent.putExtra("code", code);
+                                    startActivity(intent);
+                                }
+                                else{
+                                    Intent intent = new Intent(ScannerActivity.this, MapActivity2.class);
+                                    startActivity(intent);
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<Response> call, Throwable t) {
+                                //Log.e(TAG, t.toString());
+
+                            }
+
+
+                        });
+
+
+                    }
                 });
 
                 alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -126,12 +167,38 @@ public class ScannerActivity extends AppCompatActivity implements BarcodeReader.
     public void onScanned(Barcode barcode) {
         // playing barcode reader beep sound
         barcodeReader.playBeep();
-//        Toast.makeText(getApplicationContext(), "CODE:- " + barcode.displayValue, Toast.LENGTH_LONG).show();
+        final String code = barcode.displayValue;
+        ApiInterface apiService =
+                ApiClient.getClient().create(ApiInterface.class);
 
-        // ticket details activity by passing barcode
-        Intent intent = new Intent(ScannerActivity.this, MapActivity.class);
-        intent.putExtra("code", barcode.displayValue);
-        startActivity(intent);
+        Call<Response> call = apiService.getNearbyBikes(barcode.displayValue); //Sending Bike code to API
+        call.enqueue(new Callback<Response>() {
+            @Override
+            public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
+                List<LocationInfo> LocationObj = response.body().getResults();
+                //Log.d(TAG, "Returned: " + LocationObj.size());
+                //textView.setText(textView.getText() + " ->" + LocationObj.get(0).getOverview());
+                if(LocationObj.get(0).isOccupied() == 1){
+                    Intent intent = new Intent(ScannerActivity.this, SplashScreen.class);
+                    intent.putExtra("code", code);
+                    startActivity(intent);
+                }
+                else{
+                    Intent intent = new Intent(ScannerActivity.this, MapActivity2.class);
+                    startActivity(intent);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Response> call, Throwable t) {
+                //Log.e(TAG, t.toString());
+
+            }
+
+
+        });
+
+
     }
 
     @Override

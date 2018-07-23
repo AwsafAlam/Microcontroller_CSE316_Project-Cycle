@@ -4,10 +4,14 @@ import android.app.Activity;
 import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
 import android.os.Handler;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import com.example.utshaw.cycle.R;
 import com.example.utshaw.cycle.ui.chat.interactor.ChatInteractor;
 import com.example.utshaw.cycle.ui.chat.view.ChatView;
+
+import java.io.Serializable;
 
 import me.aflak.bluetooth.BluetoothCallback;
 import me.aflak.bluetooth.DeviceCallback;
@@ -17,7 +21,7 @@ import me.aflak.bluetooth.DeviceCallback;
  * Created by Omar on 20/12/2017.
  */
 
-public class ChatPresenterImpl implements ChatPresenter {
+public class ChatPresenterImpl implements ChatPresenter,Serializable {
     private ChatView view;
     private ChatInteractor interactor;
     private BluetoothDevice device;
@@ -38,13 +42,14 @@ public class ChatPresenterImpl implements ChatPresenter {
     @Override
     public void onHelloWorld() {
         interactor.sendMessage("0");
-        view.appendMessage("--> 0");
+        //view.appendMessage("--> 0");
+        //interactor.onStop();
     }
 
     @Override
     public void onHelloWorld1() {
         interactor.sendMessage("1");
-        view.appendMessage("--> 1");
+        //view.appendMessage("--> 1");
     }
 
     private DeviceCallback communicationCallback = new DeviceCallback() {
@@ -52,6 +57,7 @@ public class ChatPresenterImpl implements ChatPresenter {
         public void onDeviceConnected(BluetoothDevice device) {
             view.setStatus(R.string.bluetooth_connected);
             view.enableHWButton(true);
+            interactor.sendMessage("1");
         }
 
         @Override
@@ -74,7 +80,7 @@ public class ChatPresenterImpl implements ChatPresenter {
         @Override
         public void onConnectError(final BluetoothDevice device, String message) {
             view.setStatus(R.string.bluetooth_connect_in_3sec);
-            view.showToast("New attempt in 3 sec...");
+            //view.showToast("New attempt in 3 sec...");
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -129,4 +135,5 @@ public class ChatPresenterImpl implements ChatPresenter {
 
         }
     };
+
 }
