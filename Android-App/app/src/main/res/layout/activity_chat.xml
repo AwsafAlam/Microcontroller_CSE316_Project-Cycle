@@ -21,22 +21,16 @@
         android:id="@+id/activity_chat_messages"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/activity_chat_hello_world"
+        android:layout_above="@+id/activity_chat_hello_world1"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/activity_chat_status"
         android:scrollbars="vertical"
         android:textSize="18sp" />
 
     <Button
-        android:id="@+id/activity_chat_hello_world"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="0"
-        />
-    <Button
         android:id="@+id/activity_chat_hello_world1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="1"
+        android:text="unlock"
         android:layout_alignParentBottom="true"/>
 </RelativeLayout>

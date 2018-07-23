@@ -26,7 +26,6 @@ import butterknife.OnClick;
 public class ChatActivity extends AppCompatActivity implements ChatView{
     @BindView(R.id.activity_chat_status) TextView state;
     @BindView(R.id.activity_chat_messages) TextView messages;
-    @BindView(R.id.activity_chat_hello_world) Button helloWorld;
     @BindView(R.id.activity_chat_hello_world1) Button helloWorld1;
 
 
@@ -48,10 +47,6 @@ public class ChatActivity extends AppCompatActivity implements ChatView{
         presenter.onCreate(getIntent());
     }
 
-    @OnClick(R.id.activity_chat_hello_world)
-    public void onHelloWorld(){
-        presenter.onHelloWorld();
-    }
 
     @OnClick(R.id.activity_chat_hello_world1)
     public void onHelloWorld1(){
@@ -76,7 +71,6 @@ public class ChatActivity extends AppCompatActivity implements ChatView{
 
     @Override
     public void enableHWButton(boolean enabled) {
-        helloWorld.setEnabled(enabled);
         helloWorld1.setEnabled(enabled);
 
     }

@@ -61,12 +61,12 @@ ISR (USART_RXC_vect)
 	char data = UDR;
 	PORTA = 0xF0;
 	
-	if(data=='1'){
+	if(data=='1'){ //unlock
 		PORTA |= (1<<PORTA0);
 		debugClockWise();
 		UART_send(data) ;
 	}
-	else if(data=='0'){
+	else if(data=='0'){ //lock
 		PORTA |= (1<<PORTA1);
 		debugAntiClockWise();
 		UART_send(data) ;
