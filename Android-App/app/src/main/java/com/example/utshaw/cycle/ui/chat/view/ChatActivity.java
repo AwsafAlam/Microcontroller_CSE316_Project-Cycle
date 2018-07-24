@@ -142,7 +142,8 @@ public class ChatActivity extends AppCompatActivity implements ChatView,OnMapRea
         String barcode = "1";
 
         btn = findViewById(R.id.unlock);
-        tvTextView = findViewById(R.id.timer);
+//        tvTextView = findViewById(R.id.timer);
+        tvTextView = findViewById(R.id.displaytime);
 
         btn.setOnClickListener(new View.OnClickListener() {
            @Override
