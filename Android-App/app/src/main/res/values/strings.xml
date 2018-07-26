@@ -32,7 +32,7 @@
     <string name="gender">GENDER</string>
     <string name="blood_group">Email</string>
     <string name="address">ADDRESS</string>
-    <string name="age">AGE</string>
+    <string name="age">Mobile</string>
     <string name="title_activity_map2">MapActivity2</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>

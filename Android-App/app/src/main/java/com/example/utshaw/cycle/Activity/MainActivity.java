@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         final TextView goto_signup_text = (TextView) findViewById(R.id.textView_login_signup_button);
+        final TextView goto_signup_text2 = (TextView) findViewById(R.id.textView);
 
         goto_signup_text.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,9 +51,6 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
-
-
-        final TextView goto_signup_text2 = (TextView) findViewById(R.id.textView);
 
         goto_signup_text2.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,7 +66,6 @@ public class MainActivity extends AppCompatActivity {
 
 
         final Button login_button = (Button) findViewById(R.id.button_signin);
-
         final EditText login_username = (EditText) findViewById(R.id.editText_login_name);
         final EditText login_mobile = (EditText) findViewById(R.id.editText_login_mobile);
 
@@ -100,13 +97,13 @@ public class MainActivity extends AppCompatActivity {
                                 Toast.makeText(getApplicationContext(), "Wrong Username or Mobile No", Toast.LENGTH_SHORT).show();
                             }
                         }
-                  //      startActivity(new Intent(MainActivity.this, MapActivity2.class));
-                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.putString("loggedIn", "true");
-                        editor.apply();
-                        Intent main_activity = new Intent(getApplicationContext(),MapActivity2.class);
-                        startActivity(main_activity);
-                        finish();
+
+//                        SharedPreferences.Editor editor = sharedPreferences.edit();
+//                        editor.putString("loggedIn", "true");
+//                        editor.apply();
+//                        Intent main_activity = new Intent(getApplicationContext(),MapActivity2.class);
+//                        startActivity(main_activity);
+//                        finish();
 
                     }
                 }
@@ -141,39 +138,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-//        if(mAuthStateListener != null) {
-//            mFirebaseAuth.removeAuthStateListener(mAuthStateListener);
-//        }
 
     }
 
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        if(requestCode == RC_SIGN_IN){
-//            if(resultCode == RESULT_OK){
-//                onSignedInInitalize();
-//            }else{
-//                Toast.makeText(this, "Cancel signing in!", Toast.LENGTH_SHORT).show();
-//                finish();
-//            }
-//        }
-//    }
 
     @Override
     protected void onResume() {
         super.onResume();
-
-//        mFirebaseAuth.addAuthStateListener(mAuthStateListener);
     }
 
-//    private void onSignedInInitalize(){
-//        userAuthPhoneNumber = mFirebaseAuth.getCurrentUser().getPhoneNumber().toString();
-//        Toast.makeText(this, "Hello " + userAuthPhoneNumber, Toast.LENGTH_SHORT).show();
-//    }
-
-
-//    public void goToMap(View view) {
-//        startActivity(new Intent(MainActivity.this, MapActivity.class));
-//    }
 }

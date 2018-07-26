@@ -1,8 +1,10 @@
 package com.example.utshaw.cycle.Activity;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
@@ -121,6 +123,7 @@ public class MapActivity2 extends AppCompatActivity
             @Override
             public void onError(Status status) {
                 // TODO: Handle the error.
+                Toast.makeText(MapActivity2.this, "Handle AutoComplete Fragment", Toast.LENGTH_SHORT).show();
                 Log.i("Utshaw", "An error occurred: " + status);
             }
         });
@@ -136,7 +139,7 @@ public class MapActivity2 extends AppCompatActivity
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Intent intent = new Intent(MapActivity2.this, MainActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         intent.putExtra("Exit me", true);
                         startActivity(intent);
                         finish();
@@ -197,8 +200,6 @@ public class MapActivity2 extends AppCompatActivity
         LatLng home = new LatLng(23.775195, 90.353864);
 
 
-
-
         final Marker mymarker = mMap.addMarker(new MarkerOptions().position(home)
                 .title("Bike 1"));
 
@@ -240,15 +241,12 @@ public class MapActivity2 extends AppCompatActivity
             startActivity(new Intent(MapActivity2.this, ProfileActivity.class));
         }
         else if (id == R.id.places) {
-            // Handle the camera action
             Toast.makeText(this, "My Places", Toast.LENGTH_SHORT).show();
         }
         else if (id == R.id.timeline) {
-            // Handle the camera action
             Toast.makeText(this, "Timeline", Toast.LENGTH_SHORT).show();
         }
         else if (id == R.id.payment) {
-            // Handle the camera action
             startActivity(new Intent(MapActivity2.this, PaymentActivity.class));
         }
         else if (id == R.id.promo) {
@@ -257,7 +255,6 @@ public class MapActivity2 extends AppCompatActivity
         }
         else if (id == R.id.settings) {
             startActivity(new Intent(MapActivity2.this, SettingActivity.class));
-
         }
         else if (id == R.id.about) {
             // Handle the camera action
@@ -267,12 +264,21 @@ public class MapActivity2 extends AppCompatActivity
         }
         else if (id == R.id.lang) {
             // Handle the camera action
-            Toast.makeText(this, "Bluetooth Scan", Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(MapActivity2.this, SplashScreen.class));
+            Toast.makeText(this, "This Feature is not available yet", Toast.LENGTH_SHORT).show();
+            //startActivity(new Intent(MapActivity2.this, SplashScreen.class));
 
         }
         else if (id == R.id.log_out) {
             // Handle the camera action
+            final SharedPreferences sharedPreferences = getSharedPreferences("signUpInfo", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("userName","");
+            editor.putString("userMobile", "");
+            editor.putString("userAge", "");
+            editor.putString("userBloodGroup", "");
+            editor.putString("userAddress", "");
+            editor.putString("loggedIn", "false");
+            editor.apply();
             Toast.makeText(this, "Logging Out", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(MapActivity2.this, Signup_form_one.class));
 

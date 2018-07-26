@@ -32,13 +32,13 @@ public class Signup_form_one extends AppCompatActivity {
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
         final Button get_photo_button = (Button) findViewById(R.id.upload_pic_button);
-
+        final Button sign_up_next_button = (Button) findViewById(R.id.button_signup_next);
         final EditText signup_name_edittext = (EditText) findViewById(R.id.signupName);
         final EditText signup_mobile_edittext = (EditText) findViewById(R.id.signupMobile);
 
-        final Button sign_up_next_button = (Button) findViewById(R.id.button_signup_next);
 
         final TextView goto_login_text = (TextView) findViewById(R.id.textView_signupform_login_button);
+        final TextView goto_login_text2 = (TextView) findViewById(R.id.textView2);
 
         goto_login_text.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,10 +53,10 @@ public class Signup_form_one extends AppCompatActivity {
                                 SharedPreferences.Editor editor = sharedPreferences.edit();
                                 editor.putString("userName","");
                                 editor.putString("userMobile", "");
-                                editor.putString("userAge", "");
-                                editor.putString("userGender", "");
-                                editor.putString("userBloodGroup", "");
+                                editor.putString("userPass", "");
+                                editor.putString("userEmail", "");
                                 editor.putString("userAddress", "");
+                                editor.putString("loggedIn", "false");
                                 editor.apply();
                                 Intent loginPage = new Intent(getApplicationContext(),MainActivity.class);
                                 startActivity(loginPage);
@@ -76,9 +76,6 @@ public class Signup_form_one extends AppCompatActivity {
         });
 
 
-
-        final TextView goto_login_text2 = (TextView) findViewById(R.id.textView2);
-
         goto_login_text2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -92,10 +89,10 @@ public class Signup_form_one extends AppCompatActivity {
                                 SharedPreferences.Editor editor = sharedPreferences.edit();
                                 editor.putString("userName","");
                                 editor.putString("userMobile", "");
-                                editor.putString("userAge", "");
-                                editor.putString("userGender", "");
-                                editor.putString("userBloodGroup", "");
+                                editor.putString("userPass", "");
+                                editor.putString("userEmail", "");
                                 editor.putString("userAddress", "");
+                                editor.putString("loggedIn", "false");
                                 editor.apply();
                                 Intent loginPage = new Intent(getApplicationContext(),MainActivity.class);
                                 startActivity(loginPage);
@@ -143,7 +140,7 @@ public class Signup_form_one extends AppCompatActivity {
                             final SharedPreferences sharedPreferences = getSharedPreferences("signUpInfo", Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = sharedPreferences.edit();
                             editor.putString("userName",signup_name_edittext.getText().toString());
-                            editor.putString("userMobile", signup_mobile_edittext.getText().toString());
+                            editor.putString("userPass", signup_mobile_edittext.getText().toString());
                             editor.apply();
                             Intent nextSignup = new Intent(getApplicationContext(), Signup_form_two.class);
                             startActivity(nextSignup);
@@ -191,10 +188,11 @@ public class Signup_form_one extends AppCompatActivity {
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putString("userName","");
                         editor.putString("userMobile", "");
-                        editor.putString("userAge", "");
+                        editor.putString("userPass", "");
                         editor.putString("userGender", "");
                         editor.putString("userBloodGroup", "");
                         editor.putString("userAddress", "");
+                        editor.putString("loggedIn", "false");
                         editor.apply();
                         Intent loginPage = new Intent(getApplicationContext(),MainActivity.class);
                         startActivity(loginPage);

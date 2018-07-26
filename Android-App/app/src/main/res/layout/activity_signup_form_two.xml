@@ -35,7 +35,7 @@
         android:id="@+id/textView20"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/signupAge"
+        android:layout_above="@+id/signupMobile"
         android:layout_alignEnd="@+id/signupAddress"
         android:layout_marginBottom="37dp"
         android:text="@string/steps"
@@ -96,36 +96,25 @@
         android:textStyle="bold" />
 
     <android.support.v7.widget.AppCompatEditText
-        android:id="@+id/signupAge"
-        android:layout_width="110dp"
+        android:id="@+id/signupMobile"
+        android:layout_width="270dp"
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/textView10"
         android:layout_below="@+id/textView10"
-        app:backgroundTint="@color/colorIndigo"
         android:ems="10"
         android:gravity="start"
         android:inputType="number"
         android:textColor="@color/colorWhite"
-        android:textSize="17sp" />
+        android:textSize="17sp"
+        app:backgroundTint="@color/colorIndigo" />
 
-    <TextView
-        android:id="@+id/textView12"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/signupAge"
-        android:layout_marginTop="10dp"
-        android:layout_below="@+id/signupAge"
-        android:text="@string/gender"
-        android:textColor="@color/colorIndigo"
-        android:textSize="15sp"
-        android:textStyle="bold" />
 
     <android.support.v7.widget.AppCompatEditText
-        android:id="@+id/signupGender"
-        android:layout_width="110dp"
+        android:id="@+id/signupEmail"
+        android:layout_width="270dp"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/textView12"
-        android:layout_below="@+id/textView12"
+        android:layout_alignStart="@+id/textView13"
+        android:layout_below="@+id/textView13"
         android:ems="10"
         android:gravity="start"
         android:inputType="text"
@@ -133,25 +122,12 @@
         android:textSize="17sp"
         app:backgroundTint="@color/colorIndigo" />
 
-    <android.support.v7.widget.AppCompatEditText
-        android:id="@+id/signupBlood"
-        android:layout_width="110dp"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/textView13"
-        android:layout_below="@+id/textView13"
-        app:backgroundTint="@color/colorIndigo"
-        android:ems="10"
-        android:gravity="start"
-        android:inputType="text"
-        android:textColor="@color/colorWhite"
-        android:textSize="17sp" />
-
     <TextView
         android:id="@+id/textView13"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/signupGender"
-        android:layout_below="@+id/signupGender"
+        android:layout_alignStart="@+id/signupMobile"
+        android:layout_below="@+id/signupMobile"
         android:text="@string/blood_group"
         android:layout_marginTop="10dp"
         android:textColor="@color/colorIndigo"
@@ -162,8 +138,8 @@
         android:id="@+id/textView14"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/signupBlood"
-        android:layout_below="@+id/signupBlood"
+        android:layout_alignStart="@+id/signupEmail"
+        android:layout_below="@+id/signupEmail"
         android:layout_marginTop="10dp"
         android:text="@string/address"
         android:textColor="@color/colorIndigo"

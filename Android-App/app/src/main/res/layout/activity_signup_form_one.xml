@@ -164,7 +164,9 @@
         android:layout_below="@+id/textView11"
         app:backgroundTint="@color/colorIndigo"
         android:ems="10"
-        android:inputType="phone" />
+        android:inputType="textPassword" />
+
+
 
 
 </RelativeLayout>

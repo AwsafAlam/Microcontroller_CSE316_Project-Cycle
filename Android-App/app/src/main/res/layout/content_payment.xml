@@ -14,7 +14,7 @@
         android:layout_height="50dp"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="36dp"
         android:background="@drawable/login_edittext_background"
         android:drawablePadding="10dp"
         android:drawableStart="@drawable/ic_payment_black_24dp"
@@ -26,11 +26,12 @@
         android:text="Cash"
         android:textColor="@color/colorPrimaryText"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/credit"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/recharge"
@@ -50,11 +51,11 @@
         android:text="Recharge"
         android:textColor="@color/colorPrimaryText"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/textView5"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.294" />
+        app:layout_constraintTop_toBottomOf="@+id/textView6"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/credit"
@@ -78,19 +79,20 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.283" />
+        app:layout_constraintTop_toBottomOf="@+id/recharge"
+        app:layout_constraintVertical_bias="0.003" />
 
     <View
         android:id="@+id/view"
         android:layout_width="match_parent"
         android:layout_height="1.5dp"
         android:layout_marginBottom="8dp"
+        android:layout_marginTop="4dp"
         android:background="@color/colorStrokeGrey"
         app:layout_constraintBottom_toTopOf="@+id/button_signin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5"></View>
+        app:layout_constraintTop_toBottomOf="@+id/textView"></View>
 
     <Button
         android:id="@+id/button_signin"
@@ -109,7 +111,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
         app:layout_constraintVertical_bias="1.0" />
 
     <TextView
@@ -132,7 +134,7 @@
         app:layout_constraintTop_toBottomOf="@+id/view" />
 
     <TextView
-        android:id="@+id/textView_login_signup_button"
+        android:id="@+id/payment_methods"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/button_signin"
