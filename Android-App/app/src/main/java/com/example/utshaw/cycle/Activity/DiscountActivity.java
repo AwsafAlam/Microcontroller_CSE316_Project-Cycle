@@ -2,7 +2,9 @@ package com.example.utshaw.cycle.Activity;
 
 import android.content.ClipData;
 import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -34,6 +36,13 @@ public class DiscountActivity extends AppCompatActivity {
 
         copy = findViewById(R.id.clipcpy);
         Invite = findViewById(R.id.invite);
+
+        final SharedPreferences sharedPreferences = getSharedPreferences("appInfo", Context.MODE_PRIVATE);
+        String promo = sharedPreferences.getString("promo", "");
+
+        if(!promo.equals("")){
+            copy.setText(promo);
+        }
 
         myClipboard = (ClipboardManager)getSystemService(CLIPBOARD_SERVICE);
 

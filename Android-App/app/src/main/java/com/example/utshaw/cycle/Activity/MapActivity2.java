@@ -34,6 +34,7 @@ import com.example.utshaw.cycle.R;
 import com.example.utshaw.cycle.Rest.ApiClient;
 import com.example.utshaw.cycle.Rest.ApiInterface;
 import com.example.utshaw.cycle.ui.SplashScreen;
+import com.example.utshaw.cycle.ui.scan.view.ScanActivity;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -50,7 +51,13 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.MultiplePermissionsReport;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -81,9 +88,11 @@ public class MapActivity2 extends AppCompatActivity
                 Snackbar.make(view, "Scan to unlock Bike", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
                 startActivity(new Intent(MapActivity2.this, ScannerActivity.class));
-
+                finish();
             }
         });
+
+        askPermissions();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -129,6 +138,34 @@ public class MapActivity2 extends AppCompatActivity
         });
 
     }
+
+    void askPermissions(){
+        Dexter.withActivity(this).withPermissions(
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.INTERNET,
+                Manifest.permission.ACCESS_COARSE_LOCATION)
+                .withListener(new MultiplePermissionsListener() {
+                    @Override
+                    public void onPermissionsChecked(MultiplePermissionsReport report) {
+                        if(report.areAllPermissionsGranted()){
+                            //Intent intent = new Intent(MapActivity2.this, MapActivity2.class);
+                            //startActivity(intent);
+                            //finish();
+
+                        }
+                        else{
+                            Toast.makeText(MapActivity2.this, "We need these permissions...", Toast.LENGTH_SHORT).show();
+                            askPermissions();
+                        }
+                    }
+
+                    @Override
+                    public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
+                        token.continuePermissionRequest();
+                    }
+                }).check();
+    }
+
 
     @Override
     public void onBackPressed() {
@@ -195,32 +232,63 @@ public class MapActivity2 extends AppCompatActivity
 
             return;
         }
+
         getDeviceLocation();
+        final List<Marker> markerList = new ArrayList<>();
 
-        LatLng home = new LatLng(23.775195, 90.353864);
+        ApiInterface apiService =
+                ApiClient.getClient().create(ApiInterface.class);
 
+        Call<Response> call = apiService.getBikeData(); //Sending Bike code to API
+        call.enqueue(new Callback<Response>() {
+            @Override
+            public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
+                List<LocationInfo> LocationObj = response.body().getResults();
+                //textView.setText(textView.getText() + " ->" + LocationObj.get(0).getOverview());
+                //Toast.makeText(context, "Posted to bike", Toast.LENGTH_SHORT).show();
+                if(LocationObj.size() !=0){
+                    List<Double> loc = LocationObj.get(0).getLocProperties();
 
-        final Marker mymarker = mMap.addMarker(new MarkerOptions().position(home)
-                .title("Bike 1"));
+                    LatLng Bike = new LatLng(loc.get(0), loc.get(1));
 
-        LatLng work = new LatLng(23.726174, 90.388636);
+                    Marker mymarker = mMap.addMarker(new MarkerOptions().position(Bike).title("Bike 1"));
+                    markerList.add(mymarker);
+                }
 
-        mMap.addMarker(new MarkerOptions().position(work)
-                .title("Bike v"));
+            }
 
-        final float result[] = new float[10];
+            @Override
+            public void onFailure(Call<Response> call, Throwable t) {
+                Toast.makeText(MapActivity2.this, "Could Not get Nearby Bikes", Toast.LENGTH_SHORT).show();
 
-        Location.distanceBetween(work.latitude , work.longitude , home.latitude , home.longitude , result);
+            }
+
+        });
+
+//        LatLng home = new LatLng(23.775195, 90.353864);
+//
+//
+//        final Marker mymarker = mMap.addMarker(new MarkerOptions().position(home)
+//                .title("Bike 1"));
+//
+//        LatLng work = new LatLng(23.726174, 90.388636);
+//
+//        mMap.addMarker(new MarkerOptions().position(work)
+//                .title("Bike v"));
+
+//        final float result[] = new float[10];
+//
+//        Location.distanceBetween(work.latitude , work.longitude , home.latitude , home.longitude , result);
 
         mMap.setMyLocationEnabled(true);
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker marker) {
-                if(marker.equals(mymarker)){
-                    Toast.makeText(MapActivity2.this, "Marker clicked "+result[0], Toast.LENGTH_SHORT).show();
+                //if(marker.equals(mymarker)){
+                    Toast.makeText(MapActivity2.this, "Bike is available ", Toast.LENGTH_SHORT).show();
                     return true;
-                }
-                return false;
+                //}
+                //return false;
 
             }
 
@@ -272,11 +340,6 @@ public class MapActivity2 extends AppCompatActivity
             // Handle the camera action
             final SharedPreferences sharedPreferences = getSharedPreferences("signUpInfo", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString("userName","");
-            editor.putString("userMobile", "");
-            editor.putString("userAge", "");
-            editor.putString("userBloodGroup", "");
-            editor.putString("userAddress", "");
             editor.putString("loggedIn", "false");
             editor.apply();
             Toast.makeText(this, "Logging Out", Toast.LENGTH_SHORT).show();

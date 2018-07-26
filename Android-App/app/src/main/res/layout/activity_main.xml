@@ -22,7 +22,7 @@
         android:layout_marginTop="185dp"
         android:layout_marginStart="60dp"
         android:background="@drawable/login_edittext_background"
-        android:drawableStart="@drawable/ic_action_email"
+        android:drawableStart="@drawable/ic_person_black_24dp"
         android:paddingStart="15dp"
         android:paddingEnd="15dp"
         android:drawablePadding="10dp"
@@ -31,7 +31,7 @@
         android:inputType="text"
         android:hint="@string/user_name"
         android:textColorHint="#70FFFFFF"
-        android:textColor="@color/colorPrimaryText" />
+        android:textColor="#000000" />
 
     <EditText
         android:id="@+id/editText_login_mobile"
@@ -45,13 +45,13 @@
         android:drawablePadding="10dp"
         android:drawableStart="@drawable/ic_action_password"
         android:ems="10"
-        android:hint="@string/mobile_no"
-        android:inputType="phone"
+        android:hint="Password"
+        android:inputType="textPassword"
         android:paddingEnd="15dp"
         android:paddingStart="15dp"
         android:fontFamily="sans-serif"
         android:textColor="@color/colorPrimaryText"
-        android:textColorHint="#70FFFFFF" />
+        android:textColorHint="#000000" />
 
 
     <Button

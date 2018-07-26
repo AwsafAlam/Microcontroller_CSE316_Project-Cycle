@@ -1,18 +1,42 @@
 package com.example.utshaw.cycle.Rest;
 
 import com.example.utshaw.cycle.Model.Response;
+
+import java.util.Map;
+
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
+import retrofit2.http.QueryMap;
 
 
 public interface ApiInterface {
     @GET("startRide")
-    Call<Response> getNearbyBikes(@Query("id") String apiKey);
+    Call<Response> startRide(@Query("id") String apiKey);
 
     @GET("endRide")
     Call<Response> endRide(@Query("id") String apiKey);
+
+    @GET("signUpUser")
+    Call<Response> signUP(
+            @QueryMap Map<String, String> options
+    );
+
+    @GET("bikeLocation")
+    Call<Response> UpdateBikeLoc(
+            @QueryMap Map<String, String> options
+    );
+
+
+    @GET("getBikeData")
+    Call<Response> getBikeData();
+
+    @GET("getPayment")
+    Call<Response> getpayment(
+            @QueryMap Map<String, String> options
+
+    );
 
     // This will generate the URL
     //  @GET("movie/toprated")

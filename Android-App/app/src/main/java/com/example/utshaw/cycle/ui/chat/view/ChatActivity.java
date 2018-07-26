@@ -1,6 +1,7 @@
 package com.example.utshaw.cycle.ui.chat.view;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -24,6 +25,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.utshaw.cycle.Activity.EndActivity;
 import com.example.utshaw.cycle.Activity.MainActivity;
 import com.example.utshaw.cycle.Activity.MapActivity2;
 import com.example.utshaw.cycle.Model.LocationInfo;
@@ -54,7 +57,9 @@ import com.google.android.gms.tasks.Task;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.TimeZone;
 
 import javax.inject.Inject;
@@ -97,32 +102,6 @@ public class ChatActivity extends AppCompatActivity implements ChatView,OnMapRea
     Stopwatch timer = new Stopwatch();
     final int REFRESH_RATE = 100;
 
-    Handler mHandler = new Handler()
-    {
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            switch (msg.what) {
-                case MSG_START_TIMER:
-                    timer.start(); //start timer
-                    mHandler.sendEmptyMessage(MSG_UPDATE_TIMER);
-                    break;
-
-                case MSG_UPDATE_TIMER:
-                    tvTextView.setText(formatDate(timer.getElapsedTime()));
-                    mHandler.sendEmptyMessageDelayed(MSG_UPDATE_TIMER,REFRESH_RATE); //text view is updated every second,
-                    break;                                  //though the timer is still running
-                case MSG_STOP_TIMER:
-                    mHandler.removeMessages(MSG_UPDATE_TIMER); // no more updates.
-                    timer.stop();//stop timer
-                    tvTextView.setText(formatDate(timer.getElapsedTime()));
-                    break;
-
-                default:
-                    break;
-            }
-        }
-    };
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -159,16 +138,18 @@ public class ChatActivity extends AppCompatActivity implements ChatView,OnMapRea
                        Log.d(TAG, "Returned: " + LocationObj.size());
                        //textView.setText(textView.getText() + " ->" + LocationObj.get(0).getOverview());
                        //presenter.onStop();
-                       onHelloWorld0();
                        mHandler.sendEmptyMessage(MSG_STOP_TIMER);
+                       //onHelloWorld0();
 
                        //Disable bluetooth
                        BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
                        if (mBluetoothAdapter.isEnabled()) {
                            mBluetoothAdapter.disable();
                        }
-                       startActivity(new Intent(ChatActivity.this, MapActivity2.class));
+
+                       startActivity(new Intent(ChatActivity.this, EndActivity.class));
                         finish();
+
                    }
 
                    @Override
@@ -286,12 +267,20 @@ public class ChatActivity extends AppCompatActivity implements ChatView,OnMapRea
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom));
     }
 
-    private void sendtoGSM(String barcode) {
+    private void sendLocation(String barcode) {
+
+        //getDeviceLocation();
 
         ApiInterface apiService =
                 ApiClient.getClient().create(ApiInterface.class);
 
-        Call<Response> call = apiService.getNearbyBikes(barcode); //Sending Bike code to API
+        Map<String , String > data = new HashMap<>();
+        data.put("id","1");
+        data.put("lat","23.774967");
+        data.put("lng","90.354095");
+
+
+        Call<Response> call = apiService.UpdateBikeLoc(data); //Sending Bike code to API
         call.enqueue(new Callback<Response>() {
             @Override
             public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
@@ -311,6 +300,34 @@ public class ChatActivity extends AppCompatActivity implements ChatView,OnMapRea
         });
 
     }
+
+    @SuppressLint("HandlerLeak")
+    Handler mHandler = new Handler()
+    {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case MSG_START_TIMER:
+                    timer.start(); //start timer
+                    mHandler.sendEmptyMessage(MSG_UPDATE_TIMER);
+                    break;
+
+                case MSG_UPDATE_TIMER:
+                    tvTextView.setText(formatDate(timer.getElapsedTime()));
+                    mHandler.sendEmptyMessageDelayed(MSG_UPDATE_TIMER,REFRESH_RATE); //text view is updated every second,
+                    break;                                  //though the timer is still running
+                case MSG_STOP_TIMER:
+                    mHandler.removeMessages(MSG_UPDATE_TIMER); // no more updates.
+                    timer.stop();//stop timer
+                    tvTextView.setText(formatDate(timer.getElapsedTime()));
+                    break;
+
+                default:
+                    break;
+            }
+        }
+    };
 
     public void onHelloWorld1(){
         presenter.onHelloWorld1();

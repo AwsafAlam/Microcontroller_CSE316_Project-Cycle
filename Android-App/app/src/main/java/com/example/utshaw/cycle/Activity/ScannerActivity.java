@@ -10,7 +10,6 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
-import android.util.Log;
 import android.util.SparseArray;
 import android.view.View;
 import android.widget.EditText;
@@ -116,7 +115,7 @@ public class ScannerActivity extends AppCompatActivity implements BarcodeReader.
                         ApiInterface apiService =
                                 ApiClient.getClient().create(ApiInterface.class);
 
-                        Call<Response> call = apiService.getNearbyBikes(value); //Sending Bike code to API
+                        Call<Response> call = apiService.startRide(value); //Sending Bike code to API
                         call.enqueue(new Callback<Response>() {
                             @Override
                             public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
@@ -137,7 +136,8 @@ public class ScannerActivity extends AppCompatActivity implements BarcodeReader.
                             @Override
                             public void onFailure(Call<Response> call, Throwable t) {
                                 //Log.e(TAG, t.toString());
-
+                                Toast.makeText(ScannerActivity.this, "Check Network Connection", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(ScannerActivity.this , MapActivity2.class));
                             }
 
 
@@ -171,7 +171,7 @@ public class ScannerActivity extends AppCompatActivity implements BarcodeReader.
         ApiInterface apiService =
                 ApiClient.getClient().create(ApiInterface.class);
 
-        Call<Response> call = apiService.getNearbyBikes(barcode.displayValue); //Sending Bike code to API
+        Call<Response> call = apiService.startRide(barcode.displayValue); //Sending Bike code to API
         call.enqueue(new Callback<Response>() {
             @Override
             public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
@@ -186,13 +186,15 @@ public class ScannerActivity extends AppCompatActivity implements BarcodeReader.
                 else{
                     Intent intent = new Intent(ScannerActivity.this, MapActivity2.class);
                     startActivity(intent);
+                    finish();
                 }
             }
 
             @Override
             public void onFailure(Call<Response> call, Throwable t) {
                 //Log.e(TAG, t.toString());
-
+                Toast.makeText(ScannerActivity.this, "Check Network Connection", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(ScannerActivity.this , MapActivity2.class));
             }
 
 

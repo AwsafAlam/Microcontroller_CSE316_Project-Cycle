@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(View view) {
 
                         String rightusername = sharedPreferences.getString("userName", "");
-                        String rightmobile = sharedPreferences.getString("userMobile", "");
+                        String rightmobile = sharedPreferences.getString("userPass", "");
                         String given_username = login_username.getText().toString();
                         String given_mobile = login_mobile.getText().toString();
 

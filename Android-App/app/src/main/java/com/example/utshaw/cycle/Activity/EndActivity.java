@@ -29,38 +29,10 @@ public class EndActivity extends AppCompatActivity {
         setContentView(R.layout.activity_end);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        askPermissions();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
     }
 
-    void askPermissions(){
-        Dexter.withActivity(this).withPermissions(
-                Manifest.permission.BLUETOOTH,
-                Manifest.permission.BLUETOOTH_ADMIN,
-                Manifest.permission.ACCESS_COARSE_LOCATION)
-                .withListener(new MultiplePermissionsListener() {
-                    @Override
-                    public void onPermissionsChecked(MultiplePermissionsReport report) {
-                        if(report.areAllPermissionsGranted()){
-                            //Intent intent = new Intent(EndActivity.this, ScanActivity.class);
-                            //startActivity(intent);
-                            //finish();
-                            Toast.makeText(EndActivity.this, "Premission enabled", Toast.LENGTH_SHORT).show();
-                            mPermission = true;
-                        }
-                        else{
-                            Toast.makeText(EndActivity.this, "We need these permissions...", Toast.LENGTH_SHORT).show();
-                            mPermission = false;
-                            askPermissions();
-                        }
-                    }
-
-                    @Override
-                    public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
-                        token.continuePermissionRequest();
-                    }
-                }).check();
-    }
 
 
     public void showToast(String message) {

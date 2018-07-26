@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -15,7 +16,18 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.utshaw.cycle.Model.LocationInfo;
+import com.example.utshaw.cycle.Model.Response;
 import com.example.utshaw.cycle.R;
+import com.example.utshaw.cycle.Rest.ApiClient;
+import com.example.utshaw.cycle.Rest.ApiInterface;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import retrofit2.Call;
+import retrofit2.Callback;
 
 public class Signup_form_two extends AppCompatActivity {
 
@@ -118,7 +130,7 @@ public class Signup_form_two extends AppCompatActivity {
         new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String given_age = signUp_Mobile.getText().toString();
+                String given_Mobile = signUp_Mobile.getText().toString();
                 String given_Email = signUp_Email.getText().toString();
                 String given_address = signUp_address.getText().toString();
                 if(given_Email.equals("") ){
@@ -128,16 +140,60 @@ public class Signup_form_two extends AppCompatActivity {
                 else{
                     final SharedPreferences sharedPreferences = getSharedPreferences("signUpInfo", Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putString("userMobile", given_age);
+                    editor.putString("userMobile", given_Mobile);
                     editor.putString("userEmail", given_Email);
                     editor.putString("userAddress", given_address);
                     editor.putString("loggedIn", "true");
                     editor.apply();
 
-                    Intent loginPage = new Intent(getApplicationContext(),MapActivity2.class);
 
-                    startActivity(loginPage);
-                    finish();
+                    Map<String, String> data = new HashMap<>();
+                    data.put("username", sharedPreferences.getString("userName", ""));
+                    data.put("password", sharedPreferences.getString("userPass", ""));
+
+                    data.put("email", given_Email);
+                    data.put("phone", given_Mobile);
+                    data.put("address", given_address);
+
+
+                    ApiInterface apiService =
+                            ApiClient.getClient().create(ApiInterface.class);
+
+                    Call<Response> call = apiService.signUP(data); //Sending Bike code to API
+                    call.enqueue(new Callback<Response>() {
+                        @Override
+                        public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
+                            List<LocationInfo> LocationObj = response.body().getResults();
+                            //textView.setText(textView.getText() + " ->" + LocationObj.get(0).getOverview());
+                            //Toast.makeText(context, "Posted to bike", Toast.LENGTH_SHORT).show();
+                            final SharedPreferences sharedPreferences = getSharedPreferences("appInfo", Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+
+                            editor.putString("promo", LocationObj.get(0).getOverview());
+                            editor.putString("user_id", String.valueOf(2));
+                            editor.putString("balance", String.valueOf(0));
+                            editor.putString("promoapplied", "false");
+                            editor.apply();
+
+                            Intent loginPage = new Intent(getApplicationContext(),MapActivity2.class);
+                            startActivity(loginPage);
+                            finish();
+
+                        }
+
+                        @Override
+                        public void onFailure(Call<Response> call, Throwable t) {
+                            Toast.makeText(Signup_form_two.this, "Failed To SignUp, Check Your network Connection", Toast.LENGTH_SHORT).show();
+                            Intent loginPage = new Intent(getApplicationContext(),Signup_form_one.class);
+                            startActivity(loginPage);
+                            finish();
+
+                        }
+
+                    });
+
+
+
 
                 }
 
