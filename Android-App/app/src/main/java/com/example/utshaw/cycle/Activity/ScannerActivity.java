@@ -126,10 +126,12 @@ public class ScannerActivity extends AppCompatActivity implements BarcodeReader.
                                     Intent intent = new Intent(ScannerActivity.this, SplashScreen.class);
                                     intent.putExtra("code", code);
                                     startActivity(intent);
+                                    finish();
                                 }
                                 else{
                                     Intent intent = new Intent(ScannerActivity.this, MapActivity2.class);
                                     startActivity(intent);
+                                    finish();
                                 }
                             }
 
@@ -182,6 +184,7 @@ public class ScannerActivity extends AppCompatActivity implements BarcodeReader.
                     Intent intent = new Intent(ScannerActivity.this, SplashScreen.class);
                     intent.putExtra("code", code);
                     startActivity(intent);
+                    finish();
                 }
                 else{
                     Intent intent = new Intent(ScannerActivity.this, MapActivity2.class);

@@ -2,10 +2,15 @@ package com.example.utshaw.cycle.ui.chat.view;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -14,9 +19,11 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -49,8 +56,10 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
@@ -79,21 +88,32 @@ public class ChatActivity extends AppCompatActivity implements ChatView,OnMapRea
     @BindView(R.id.activity_chat_messages) TextView messages;
 
 
-        private GoogleMap mMap;
-        private DrawerLayout mDrawerLayout;
-        private ActionBarDrawerToggle mToggle;
-        private Toolbar mToolbar;
-        private BottomSheetBehavior sheetBehavior;
-        private Button btn;
-        private TextView tvTextView;
+    private GoogleMap mMap;
+    private DrawerLayout mDrawerLayout;
+    private ActionBarDrawerToggle mToggle;
+    private Toolbar mToolbar;
+    private BottomSheetBehavior sheetBehavior;
+    private Button btn;
+    private TextView tvTextView;
 
-        private TextView textView;
-        private FusedLocationProviderClient mFusedLocationProviderClient;
+    private TextView textView;
+    private FusedLocationProviderClient mFusedLocationProviderClient;
 
-        private static final String TAG = MainActivity.class.getSimpleName();
-        private static final float DEFAUlT_ZOOM = 15f;
-        @Inject
-        ChatPresenter presenter;
+    private static final String TAG = MainActivity.class.getSimpleName();
+    private static final float DEFAUlT_ZOOM = 15f;
+
+    LocationManager locationManager;
+
+    LocationListener locationListener;
+
+    private static final long minTime = 10000; // milliseconds
+    private static final float minDistance = 10; // meters
+
+
+
+
+    @Inject
+    ChatPresenter presenter;
 
     final int MSG_START_TIMER = 0;
     final int MSG_STOP_TIMER = 1;
@@ -121,7 +141,6 @@ public class ChatActivity extends AppCompatActivity implements ChatView,OnMapRea
         String barcode = "1";
 
         btn = findViewById(R.id.unlock);
-//        tvTextView = findViewById(R.id.timer);
         tvTextView = findViewById(R.id.displaytime);
 
         btn.setOnClickListener(new View.OnClickListener() {
@@ -129,6 +148,14 @@ public class ChatActivity extends AppCompatActivity implements ChatView,OnMapRea
            public void onClick(View v) {
                ApiInterface apiService =
                        ApiClient.getClient().create(ApiInterface.class);
+
+               final ProgressDialog mprogressDialog;
+               mprogressDialog = new ProgressDialog(ChatActivity.this);
+               mprogressDialog.setCancelable(false);
+               mprogressDialog.setMessage("Calculating Price");
+               mprogressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+               //mprogressDialog.setProgress(0);
+               mprogressDialog.show();
 
                Call<Response> call = apiService.endRide("1"); //Sending Bike code to API
                call.enqueue(new Callback<Response>() {
@@ -139,27 +166,31 @@ public class ChatActivity extends AppCompatActivity implements ChatView,OnMapRea
                        //textView.setText(textView.getText() + " ->" + LocationObj.get(0).getOverview());
                        //presenter.onStop();
                        mHandler.sendEmptyMessage(MSG_STOP_TIMER);
-                       //onHelloWorld0();
+                       onHelloWorld0();
 
                        //Disable bluetooth
                        BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
                        if (mBluetoothAdapter.isEnabled()) {
                            mBluetoothAdapter.disable();
                        }
-
                        startActivity(new Intent(ChatActivity.this, EndActivity.class));
-                        finish();
+                       if (mprogressDialog.isShowing())
+                           mprogressDialog.dismiss();
+
+                       finish();
 
                    }
 
                    @Override
                    public void onFailure(Call<Response> call, Throwable t) {
                        Log.e(TAG, t.toString());
-
+                       if (mprogressDialog.isShowing())
+                           mprogressDialog.dismiss();
+                       Toast.makeText(ChatActivity.this, "Cannot End Ride. check Network Connectivity", Toast.LENGTH_SHORT).show();
                    }
 
 
-                  });
+               });
                }
            });
 
@@ -199,33 +230,33 @@ public class ChatActivity extends AppCompatActivity implements ChatView,OnMapRea
         mapFragment.getMapAsync(ChatActivity.this);
 
 
-        PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment)
-                getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
-
-
-        autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
-            @Override
-            public void onPlaceSelected(Place place) {
-                // TODO: Get info about the selected place.
-                Toast.makeText(ChatActivity.this, place.getName(), Toast.LENGTH_SHORT).show();
-
-
-                CameraPosition cameraPosition = new CameraPosition.Builder()
-                        .target(place.getLatLng())      // Sets the center of the map to Mountain View
-                        .zoom(17)                   // Sets the zoom
-                        .bearing(90)                // Sets the orientation of the camera to east
-                        .tilt(30)                   // Sets the tilt of the camera to 30 degrees
-                        .build();                   // Creates a CameraPosition from the builder
-                mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-
-            }
-
-            @Override
-            public void onError(Status status) {
-                // TODO: Handle the error.
-                Log.i("Utshaw", "An error occurred: " + status);
-            }
-        });
+//        PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment)
+//                getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
+//
+//
+//        autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
+//            @Override
+//            public void onPlaceSelected(Place place) {
+//                // TODO: Get info about the selected place.
+//                Toast.makeText(ChatActivity.this, place.getName(), Toast.LENGTH_SHORT).show();
+//
+//
+//                CameraPosition cameraPosition = new CameraPosition.Builder()
+//                        .target(place.getLatLng())      // Sets the center of the map to Mountain View
+//                        .zoom(17)                   // Sets the zoom
+//                        .bearing(90)                // Sets the orientation of the camera to east
+//                        .tilt(30)                   // Sets the tilt of the camera to 30 degrees
+//                        .build();                   // Creates a CameraPosition from the builder
+//                mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+//
+//            }
+//
+//            @Override
+//            public void onError(Status status) {
+//                // TODO: Handle the error.
+//                Log.i("Utshaw", "An error occurred: " + status);
+//            }
+//        });
 
 //        mDrawerLayout = findViewById(R.id.drawerlayout);
 //        mToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.Open_nav, R.string.Close_nav);
@@ -344,8 +375,107 @@ public class ChatActivity extends AppCompatActivity implements ChatView,OnMapRea
 
             return;
         }
+
         getDeviceLocation();
         mMap.setMyLocationEnabled(true);
+
+//        mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+
+        locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+
+        locationListener = new LocationListener() {
+            @Override
+            public void onLocationChanged(Location location) {
+                Toast.makeText(ChatActivity.this, "LOC->" + location.toString(), Toast.LENGTH_LONG).show();
+
+                LatLng eceBuilding = new LatLng(location.getLatitude(), location.getLongitude()); // 23.726796, 90.388754
+                mMap.clear();
+                mMap.addMarker(new MarkerOptions().position(eceBuilding).title("ECE Building").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET)));
+//                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(eceBuilding, 15));
+            }
+
+            @Override
+            public void onStatusChanged(String s, int i, Bundle bundle) {
+
+            }
+
+            @Override
+            public void onProviderEnabled(String s) {
+
+            }
+
+            @Override
+            public void onProviderDisabled(String s) {
+
+            }
+        };
+
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+            // ask for permission
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+        } else {
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, minTime, minDistance, locationListener);
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, minTime, minDistance, locationListener);
+
+
+            Location lastKnowLocation = getLastKnownLocation();
+
+            LatLng eceBuilding = new LatLng(lastKnowLocation.getLatitude(), lastKnowLocation.getLongitude()); // 23.726796, 90.388754
+            mMap.clear();
+            mMap.addMarker(new MarkerOptions().position(eceBuilding).title("ECE Building").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET)));
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(eceBuilding, 15));
+        }
+
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                // TODO: Consider calling
+                //    ActivityCompat#requestPermissions
+                // here to request the missing permissions, and then overriding
+                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                //                                          int[] grantResults)
+                // to handle the case where the user grants the permission. See the documentation
+                // for ActivityCompat#requestPermissions for more details.
+                return;
+            }
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, minTime, minDistance, locationListener);
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, minTime, minDistance, locationListener);
+        }
+    }
+
+
+    private Location getLastKnownLocation() {
+        locationManager = (LocationManager) getApplicationContext().getSystemService(LOCATION_SERVICE);
+        List<String> providers = locationManager.getProviders(true);
+        Location bestLocation = null;
+        for (String provider : providers) {
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                // TODO: Consider calling
+                //    ActivityCompat#requestPermissions
+                // here to request the missing permissions, and then overriding
+                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                //                                          int[] grantResults)
+                // to handle the case where the user grants the permission. See the documentation
+                // for ActivityCompat#requestPermissions for more details.
+                return null;
+            }
+            Location l = locationManager.getLastKnownLocation(provider);
+            if (l == null) {
+                continue;
+            }
+            if (bestLocation == null || l.getAccuracy() < bestLocation.getAccuracy()) {
+                // Found best last known location: %s", l);
+                bestLocation = l;
+            }
+        }
+        return bestLocation;
     }
 
     @Override
@@ -354,7 +484,8 @@ public class ChatActivity extends AppCompatActivity implements ChatView,OnMapRea
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            Toast.makeText(this, "Please end ride before exiting", Toast.LENGTH_SHORT).show();
+            //super.onBackPressed();
         }
     }
 
@@ -377,6 +508,12 @@ public class ChatActivity extends AppCompatActivity implements ChatView,OnMapRea
         return true;
     }
 
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        locationManager.removeUpdates(locationListener);
+    }
 
     @Override
     public void setStatus(String status) {
@@ -415,6 +552,7 @@ public class ChatActivity extends AppCompatActivity implements ChatView,OnMapRea
     protected void onStop() {
         super.onStop();
         presenter.onStop();
+        //locationManager.removeUpdates((LocationListener) this);
     }
 
     String formatDate(long timeSTamp){
