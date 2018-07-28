@@ -1,36 +1,37 @@
 package com.example.utshaw.cycle.Activity;
 
 
-import android.Manifest;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.utshaw.cycle.R;
-import com.karumi.dexter.Dexter;
-import com.karumi.dexter.MultiplePermissionsReport;
-import com.karumi.dexter.PermissionToken;
-import com.karumi.dexter.listener.PermissionRequest;
-import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
-
-import java.util.List;
-
-import me.aflak.bluetooth.Bluetooth;
 
 public class EndActivity extends AppCompatActivity {
 
 
-    boolean mPermission;
+    private Button payment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_end);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+        payment = findViewById(R.id.button_signin);
+
+        payment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(EndActivity.this , MapActivity2.class));
+                finish();
+
+            //TODO : Add API call to server
+
+            }
+        });
     }
 
 

@@ -1,6 +1,7 @@
 package com.example.utshaw.cycle.Activity;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -34,6 +35,7 @@ import com.example.utshaw.cycle.R;
 import com.example.utshaw.cycle.Rest.ApiClient;
 import com.example.utshaw.cycle.Rest.ApiInterface;
 import com.example.utshaw.cycle.ui.SplashScreen;
+import com.example.utshaw.cycle.ui.chat.view.ChatActivity;
 import com.example.utshaw.cycle.ui.scan.view.ScanActivity;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -236,6 +238,14 @@ public class MapActivity2 extends AppCompatActivity
         getDeviceLocation();
         final List<Marker> markerList = new ArrayList<>();
 
+        final ProgressDialog mprogressDialog;
+        mprogressDialog = new ProgressDialog(MapActivity2.this);
+        mprogressDialog.setCancelable(false);
+        mprogressDialog.setMessage("Finding Nearby Bikes");
+        mprogressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        //mprogressDialog.setProgress(0);
+        mprogressDialog.show();
+
         ApiInterface apiService =
                 ApiClient.getClient().create(ApiInterface.class);
 
@@ -253,6 +263,8 @@ public class MapActivity2 extends AppCompatActivity
 
                     Marker mymarker = mMap.addMarker(new MarkerOptions().position(Bike).title("Bike 1"));
                     markerList.add(mymarker);
+                    if (mprogressDialog.isShowing())
+                        mprogressDialog.dismiss();
                 }
 
             }
@@ -260,7 +272,8 @@ public class MapActivity2 extends AppCompatActivity
             @Override
             public void onFailure(Call<Response> call, Throwable t) {
                 Toast.makeText(MapActivity2.this, "Could Not get Nearby Bikes", Toast.LENGTH_SHORT).show();
-
+                if (mprogressDialog.isShowing())
+                    mprogressDialog.dismiss();
             }
 
         });
@@ -310,6 +323,8 @@ public class MapActivity2 extends AppCompatActivity
         }
         else if (id == R.id.places) {
             Toast.makeText(this, "My Places", Toast.LENGTH_SHORT).show();
+            //startActivity(new Intent(MapActivity2.this, EndActivity.class));
+
         }
         else if (id == R.id.timeline) {
             Toast.makeText(this, "Timeline", Toast.LENGTH_SHORT).show();
