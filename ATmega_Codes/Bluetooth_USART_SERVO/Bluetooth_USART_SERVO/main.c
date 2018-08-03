@@ -9,24 +9,6 @@
 #include "Servo.h"
 #include "UART.h"
 
-ADC_start(){
-	ADCSRA |= 1<<ADSC;
-}
-
-ADC_int(){
-	//Configure ADC
-	//Enable interrupts function in ADC
-	//8-bit or 10-bit
-	// 1 000 000 / 50 000 = 20  1000 000 / 20 000 = 5
-	ADCSRA |= 1<<ADPS2;
-	ADMUX |= 1<< ADLAR;
-	ADMUX |= 1<<REFS0; //Setting Reference voltage
-	ADCSRA |= 1<<ADIE;
-	ADCSRA |= 1<<ADEN;
-
-
-}
-
 int main(void)
 {
 
@@ -44,12 +26,6 @@ int main(void)
 		
 	}
 	
-}
-
-ISR(ADC_vect){
-	
-	float a = ((ADCH-7)/255.0)*5.0;
-	ADC_start();	
 }
 
 

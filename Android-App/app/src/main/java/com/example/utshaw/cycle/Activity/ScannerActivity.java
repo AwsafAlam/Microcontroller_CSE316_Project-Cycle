@@ -1,7 +1,9 @@
 package com.example.utshaw.cycle.Activity;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.hardware.Camera;
 import android.os.Bundle;
@@ -23,7 +25,9 @@ import com.example.utshaw.cycle.Rest.ApiInterface;
 import com.example.utshaw.cycle.ui.SplashScreen;
 import com.google.android.gms.vision.barcode.Barcode;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import info.androidhive.barcode.BarcodeReader;
 import retrofit2.Call;
@@ -112,10 +116,20 @@ public class ScannerActivity extends AppCompatActivity implements BarcodeReader.
 //                        startActivity(intent);
 
                         final String code = value;
+                        final SharedPreferences sharedPreferences = getSharedPreferences("signUpInfo", Context.MODE_PRIVATE);
+
+                        String username = sharedPreferences.getString("userName", "");
+                        String pass = sharedPreferences.getString("userPass", "");
+
+                        Map<String , String > data = new HashMap<>();
+                        data.put("id",value);
+                        data.put("username",username);
+                        data.put("pass",pass);
+
                         ApiInterface apiService =
                                 ApiClient.getClient().create(ApiInterface.class);
 
-                        Call<Response> call = apiService.startRide(value); //Sending Bike code to API
+                        Call<Response> call = apiService.startRide("1"); //Sending Bike code to API
                         call.enqueue(new Callback<Response>() {
                             @Override
                             public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
@@ -173,7 +187,16 @@ public class ScannerActivity extends AppCompatActivity implements BarcodeReader.
         ApiInterface apiService =
                 ApiClient.getClient().create(ApiInterface.class);
 
-        Call<Response> call = apiService.startRide(barcode.displayValue); //Sending Bike code to API
+        final SharedPreferences sharedPreferences = getSharedPreferences("signUpInfo", Context.MODE_PRIVATE);
+        String username = sharedPreferences.getString("userName", "");
+        String pass = sharedPreferences.getString("userPass", "");
+
+        Map<String , String > data = new HashMap<>();
+        data.put("id",barcode.displayValue);
+        data.put("username",username);
+        data.put("pass",pass);
+
+        Call<Response> call = apiService.startRide("1"); //Sending Bike code to API
         call.enqueue(new Callback<Response>() {
             @Override
             public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {

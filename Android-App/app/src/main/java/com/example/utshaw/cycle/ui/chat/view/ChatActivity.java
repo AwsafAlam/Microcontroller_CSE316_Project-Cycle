@@ -166,7 +166,7 @@ public class ChatActivity extends AppCompatActivity implements ChatView,OnMapRea
                        //textView.setText(textView.getText() + " ->" + LocationObj.get(0).getOverview());
                        //presenter.onStop();
                        mHandler.sendEmptyMessage(MSG_STOP_TIMER);
-                       //onHelloWorld0();
+                       onHelloWorld0();
 
                        //Disable bluetooth
                        BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
