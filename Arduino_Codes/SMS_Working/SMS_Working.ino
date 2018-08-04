@@ -11,12 +11,19 @@ TinyGPSPlus gps;
 SoftwareSerial GPRS(7,8); //Rx , Tx
 SoftwareSerial GPS(9,10); //Rx , Tx
 
+int lockButton =2;
+int unlockButton =3;
+
+
 unsigned char buffer[64];
  char charLat[10];
+ char state[10];
+ 
 int count = 0;
 
 float lat=23.774867;
 float lng=90.354095;
+int speed=0;
 
 void GPS_parse(){
 
@@ -29,6 +36,7 @@ void GPS_parse(){
         if (gps.location.isUpdated()){
           lng = gps.location.lng();
           lat = gps.location.lat();
+          //speed = gps.speed.mps();
           
           /*
           Serial.println("------------------------------------------------------");
@@ -105,21 +113,43 @@ void Send_SMS(){
       GPRS.write("AT+CMGF=1\r\n"); // Set the GSM module in text mode
       delay(500);
 
-       GPRS.write("AT+CMGS=\"+8801630246627\"\r\n");
+       GPRS.write("AT+CMGS=\"+8801521325390\"\r\n");
        delay(200);
-    
-       GPRS.write("lat=");
-      dtostrf(lat, 4, 3, charLat);
+
+      GPRS.write("AW114UT105;");
+      
+      dtostrf(lat, 6, 5, charLat);
       GPRS.write(charLat);
+      GPRS.write(";"); 
             
       // Longitude in degrees (double)
-      GPRS.write(";lng="); 
-      dtostrf(lng, 4, 3, charLat);
+      dtostrf(lng, 6, 5, charLat);
       GPRS.write(charLat);
+      GPRS.write(";"); 
+      // read the input pin:
+//      GPRS.write("0");
+      
+      int lockbuttonState = digitalRead(lockButton);
+      int unlockbuttonState = digitalRead(unlockButton);
+
+      if(lockbuttonState == 0 && unlockbuttonState==1){
+        //unlocked
+        GPRS.write("1"); 
+        
+      }
+      else if(lockbuttonState == 1 && unlockbuttonState==0){
+        //locked
+        GPRS.write("0"); 
+        
+      }
+      else{
+        //locked
+        GPRS.write("0");  
+      }
       
       GPRS.write(0x1a);
        GPRS.write("\r\n");
-       delay(3000);  
+       delay(30000);  
        
 }
   
@@ -127,7 +157,11 @@ void setup() {
   // put your setup code here, to run once:
   GPRS.begin(9600);
   GPS.begin(9600);
-  Serial.begin(9600);
+
+  pinMode(lockButton, INPUT);
+  pinMode(unlockButton, INPUT);
+  
+  //Serial.begin(9600);
   delay(30000);
 }
 
